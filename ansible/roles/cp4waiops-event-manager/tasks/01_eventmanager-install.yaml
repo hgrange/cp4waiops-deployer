@@ -1,0 +1,183 @@
+
+# *************************************************************************************************************************************************
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Install Netcool Operations Insight
+# --------------------------------------------------------------------------------------------------------------------------------------
+# *************************************************************************************************************************************************
+
+# *************************************************************************************************************************************************
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Get Config File
+# --------------------------------------------------------------------------------------------------------------------------------------
+# *************************************************************************************************************************************************
+
+- name: TIMESTAMP -              🟢 START - INSTALL EVENT MANAGER
+  debug: 
+    msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
+
+
+- name: PREREQUISITES -      📥  Installation Parameters"
+  debug:
+    msg:
+    - "** CP4WAIOPS Event Manager Installation Parameters ***********************************************************************"
+    - " Event Manager Namespace:           {{current_cp4waiops_cluster.project}}"
+    - ""
+    - "** Installation Options ***********************************************************************"
+    - " Storage Class File Override:      {{config_file.storage_class_file}}"
+    - " Storage Class Block Override:     {{config_file.storage_class_block}}"
+    - ""
+    - "**************************************************************************************************************************"
+
+
+
+# *************************************************************************************************************************************************
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Checks
+# --------------------------------------------------------------------------------------------------------------------------------------
+# *************************************************************************************************************************************************
+
+- name: PREREQUISITES -      🔐 Check Entitlement provided
+  fail: msg="Please provide IBM Entitlement Pull Secret Key/Token (Get it from here https://myibm.ibm.com/products-services/containerlibrary)"
+  when: "CP_ENTITLEMENT_KEY is not defined"
+
+
+
+# *************************************************************************************************************************************************
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Login
+# --------------------------------------------------------------------------------------------------------------------------------------
+# *************************************************************************************************************************************************
+- name: PLATFORM -           🌏 Get Cluster FQDN
+  shell: |
+    CLUSTER_ROUTE=$(oc get routes console -n openshift-console | tail -n 1 2>&1 ) 
+    CLUSTER_FQDN=$( echo $CLUSTER_ROUTE | awk '{print $2}')
+    echo ${CLUSTER_FQDN##*console.}
+  register: CLUSTER_NAME
+
+- name: ROOKCEPH -           💾 Set Global Cluster Name={{ CLUSTER_NAME.stdout_lines[0] }} 
+  set_fact: CLUSTER_NAME_GLOBAL={{ CLUSTER_NAME.stdout_lines[0] }} 
+
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Install Netcool Operations Insight
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Create Namespace 
+- name: EVENTMANAGER -       🚀 Create EventManager namespace {{current_cp4waiops_cluster.project}}
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    name: "{{current_cp4waiops_cluster.project}}"
+    state: present
+
+
+
+- name: EVENTMANAGER -       🔐 Create Pull Secret for {{current_cp4waiops_cluster.project}} Namespace (you can ignore errors if it already exists)
+  shell: |
+    oc create secret docker-registry 'ibm-entitlement-key' --docker-server={{ config_file.entitled_registry }} --docker-username={{ config_file.entitled_registry_user }} --docker-password={{ CP_ENTITLEMENT_KEY }} --namespace={{ current_cp4waiops_cluster.project }}
+    oc create secret docker-registry 'ibm-entitlement-key' --docker-server={{ config_file.entitled_registry }} --docker-username={{ config_file.entitled_registry_user }} --docker-password={{ CP_ENTITLEMENT_KEY }} --namespace={{ current_cp4waiops_cluster.project }}
+  ignore_errors: yes
+
+
+
+
+# Create EventManager Catalog
+- name: EVENTMANAGER -       🚀 Install Catalog
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/eventmanager/1_cat-ibm-eventmanager.j2
+
+
+
+# Create EventManager Operator Group
+- name: EVENTMANAGER -       🚀 Install Operator Group
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/eventmanager/2_group-ibm-eventmanager.j2
+
+
+# Create EventManager Subscription
+- name: EVENTMANAGER -       🚀 Install Subscription
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/eventmanager/3_sub-ibm-eventmanager.j2
+
+
+- name: CHECK -              🕦 Wait for CSV to become ready
+  shell: |
+    CSV_READY=$(oc get csv -n {{current_cp4waiops_cluster.project}} | grep "Event Manager")
+    echo $CSV_READY
+  register: resource_ready
+  until: ("Succeeded" in resource_ready.stdout)
+  retries: 500
+  delay: 15
+
+
+# Create EventManager Instance
+- name: EVENTMANAGER -       🚀 Install EventManager
+  kubernetes.core.k8s:
+    state: present
+    template: ./templates/eventmanager/4_eventmanager-install-template.j2
+
+
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Wait for EventManager Namespace to be ready
+# --------------------------------------------------------------------------------------------------------------------------------------
+
+- name: CHECK -                  🕦 Wait for more than >{{evtmgr_ns_min_pods_final}} pods in namespace {{current_cp4waiops_cluster.project}}
+  shell: |
+    NUM_PODS=$(oc get po -n {{current_cp4waiops_cluster.project}} |grep Running| wc -l)
+    echo $NUM_PODS
+  register: kubectl_num_pods
+  until: kubectl_num_pods.stdout|int > {{evtmgr_ns_min_pods_final}}
+  retries: 500
+  delay: 15
+
+
+- name: CHECK -                  🕦 Wait for WEBGUI to become ready
+  shell: |
+    WEBGUI_PODS=$(oc get po -n {{current_cp4waiops_cluster.project}} | grep evtmanager-webgui-0)
+    echo $WEBGUI_PODS
+  register: kubectl_webgui_pods
+  until: ("2/2" in kubectl_webgui_pods.stdout)
+  retries: 500
+  delay: 15
+
+
+
+
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# WAIOPS
+# --------------------------------------------------------------------------------------------------------------------------------------
+- name: LOGIN -  🚀 WAIOPS Event Manager (NOI)
+  shell: |
+    echo "***************************************************************************************************************************************************"
+    echo "***************************************************************************************************************************************************"
+    echo "🚀 Event Manager (Netcool Operations Insight) Connection Details"
+    echo "***************************************************************************************************************************************************"
+    echo "***************************************************************************************************************************************************"
+
+    echo "---------------------------------------------------------------------------------------------"
+    echo "    SMADMIN USER:"
+    echo "        User:     smadmin"   
+    echo "        Password: $(oc get secret -n {{current_cp4waiops_cluster.project}} evtmanager-was-secret -o jsonpath='{.data.WAS_PASSWORD}'| base64 --decode && echo)"
+
+
+    echo "---------------------------------------------------------------------------------------------"
+    echo "---------------------------------------------------------------------------------------------"
+
+    echo "    EventManager (NOI):"
+    echo "        URL:     https://netcool-evtmanager.{{CLUSTER_NAME.stdout_lines[0]}}/"
+  register: output_string
+  ignore_errors: yes
+- name: LOGIN -          🔐 WAIOPS Event Manager (NOI)
+  debug: 
+    var: output_string.stdout_lines
+  #when: PRINT_LOGINS == true
+
+
+

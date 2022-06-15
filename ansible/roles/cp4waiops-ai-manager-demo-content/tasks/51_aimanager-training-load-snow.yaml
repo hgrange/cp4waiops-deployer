@@ -1,0 +1,29 @@
+
+
+- name: TIMESTAMP -              🟢 START - LOAD SNOW TRAINING DATA
+  debug: 
+    msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
+
+- name: TRAINING LOAD SNOW -     📥 WRITE TO LOGFILE
+  shell: |
+    export MESSAGE="Load SNOW Training Data into ElasticSearch"
+    export currentDate=$(date +%Y-%m-%d_%H:%M)
+    echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log
+    echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
+  ignore_errors: yes
+
+
+
+- name: TRAINING LOAD SNOW -     🚀 CREATE CLUSTERROLE
+  kubernetes.core.k8s:
+    state: present
+    namespace: default
+    src: ./templates/training/default-clusterrole.yaml
+    
+
+- name: TRAINING LOAD SNOW -     🚀 LOAD ELASTICSEARCH SNOW DATA 
+  kubernetes.core.k8s:
+    state: present
+    namespace: default
+    src: ./templates/training/load-job-snow.yaml
+  
