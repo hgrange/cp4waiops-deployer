@@ -88,6 +88,11 @@
     AUTO_UI_INSTANCE=$(oc get AutomationUIConfig -n $NAMESPACE --no-headers -o custom-columns=":metadata.name")
     IAF_STORAGE=$(oc get AutomationUIConfig -n $NAMESPACE -o jsonpath='{ .items[*].spec.zenService.storageClass }')
     ZEN_STORAGE=$(oc get AutomationUIConfig -n $NAMESPACE -o jsonpath='{ .items[*].spec.zenService.zenCoreMetaDbStorageClass }')
+
+    echo "AUTO_UI_INSTANCE:   "$AUTO_UI_INSTANCE
+    echo "IAF_STORAGE:        "$IAF_STORAGE
+    echo "ZEN_STORAGE:        "$ZEN_STORAGE
+
     oc get -n $NAMESPACE AutomationUIConfig $AUTO_UI_INSTANCE --ignore-not-found -o yaml > /tmp/AutomationUIConfig-backup-$(date +%Y%m%d-%H%M).yaml
     
     if [[ ! $IAF_STORAGE == "" ]];
@@ -123,6 +128,8 @@
   when: INGRESS_PATCHED==false
   register: certificate_patch
   ignore_errors: yes
+  args:
+    executable: /bin/bash
 
 
 - name: CERTIFICATES -           🟢 Patch AutomationUIConfig Certificates
