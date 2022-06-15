@@ -61,7 +61,7 @@ cp4waiops:
   # --------------------------------------------------------------------------------------------------------------------------------------
   - name: cp4waiops-infrastructure-management
     kind: InfrastructureManagement
-    install: true
+    install: false
     # Version of the catalog subscription
     subscription_channel: v3.3
     #subscription_channel: 3.4-dev
