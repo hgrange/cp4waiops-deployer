@@ -95,6 +95,8 @@
 
   ignore_errors: yes
   register: output_string
+  args:
+    executable: /bin/bash
   
 - name: OUTPUT -          🟢 RESULT
   debug: 
