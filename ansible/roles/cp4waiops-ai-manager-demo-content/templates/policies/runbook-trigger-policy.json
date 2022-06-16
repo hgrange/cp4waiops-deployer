@@ -31,7 +31,7 @@
                         "entity": {
                             "$variable": "alert"
                         },
-                        "runbookId": "db631e2e-1d79-4454-ad71-0cc729eb6a8e",
+                        "runbookId": "MY_RUNBOOK_ID",
                         "isAutomated": false,
                         "mappings": [{
                             "mappingType": "useDefault",
