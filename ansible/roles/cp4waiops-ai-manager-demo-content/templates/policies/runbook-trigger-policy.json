@@ -1,0 +1,46 @@
+{
+    "id": "runbook-assignment",
+    "metadata": {
+        "labels": {
+            "ibm.com/aiops/uitemplate": "alert:assignrunbook",
+            "ibm.com/is-default": "false"
+        },
+        "name": "DEMO RobotShop Mitigation",
+        "description": "Created by Nicks scripts",
+        "createdBy": {
+            "id": "system",
+            "type": "system"
+        }
+    },
+    "state": "enabled",
+    "executionPriority": 50,
+    "spec": {
+        "trigger": {
+            "entityId": "alert",
+            "triggerId": "aiops.ibm.com/trigger/alert-pre-create"
+        },
+        "actions": [{
+            "actionId": "aiops.ibm.com/action/internal/conditional",
+            "arguments": {
+                "name": "",
+                "condition": "({{contains alert.resource.name \"mysql\"}})",
+                "then": [{
+                    "actionId": "aiops.ibm.com/action/internal/runbooks/add",
+                    "output": "alert.insights.[]",
+                    "arguments": {
+                        "entity": {
+                            "$variable": "alert"
+                        },
+                        "runbookId": "db631e2e-1d79-4454-ad71-0cc729eb6a8e",
+                        "isAutomated": false,
+                        "mappings": [{
+                            "mappingType": "useDefault",
+                            "parameterValue": "",
+                            "runbookParameterName": "clusterCredentials"
+                        }]
+                    }
+                }]
+            }
+        }]
+    }
+}

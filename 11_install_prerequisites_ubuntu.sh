@@ -40,6 +40,9 @@ echo ""
     echo "   🧰 Install Tools"
     echo ""  
 
+        echo "      📥 Install Curl"
+        sudo apt-get install -y curl
+
         echo "      📥 Install Ansible"
         sudo apt-get install -y ansible
 

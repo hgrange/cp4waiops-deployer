@@ -29,7 +29,6 @@
 - hosts: localhost
   #become: true
   #vars_files: {{ config_file }}
-  vars_files: ./configs/cp4waiops-roks-aimanager-demo-content.yaml
 
   tasks:
   - name: MAIN INSTALLATION LOOP-           🚀 Install Modules
@@ -48,7 +47,7 @@
 
 
   - name: Set Config File
-    set_fact: config_file_path="./configs/cp4waiops-roks-aimanager-demo-content.yaml"
+    set_fact: config_file_path="./configs/cp4waiops-roks-aimanager-demo-content-34.yaml"
 
 
   - name: Show Global Config

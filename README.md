@@ -297,8 +297,6 @@ Those are the manual configurations you'll need to demo the system and that are 
 > 
 > 1. Login to AI Manager
 > 1. Add LDAP Logins to CP4WAIOPS
-> 1. Enable Story creation Policy
-> 1. Create Runbook Policy 
 > 1. Re-Run Kubernetes Observer
 > 1. Now you can create the Slack Integration
 
@@ -397,80 +395,7 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 
 
-
-## 3.3 Enable Story creation Policy
-
-
-
-* In the `AI Manager` "Hamburger" Menu select `Operate`/`Automations`
-* Under `Policies`
-* Select `Stories` from the `Tag` dropdown menu
-	![K8s CNI](./doc/pics/doc30.png)
-	
-* Enable `Default story creation policy for high severity alerts`
-* Also enable `Default story creation policy for all alerts` if you want to get all alerts grouped into a story
-	![K8s CNI](./doc/pics/doc31.png)
-	
-
-
-
->❗ Wait for the playbook to complete before continuing
-
-<div style="page-break-after: always;"></div>
-
-
-
-
-## 3.4 Create Runbook Policy 
-
-
-* In the `AI Manager` "Hamburger" Menu select `Operate`/`Automations`
-* Under `Policies`, click `Create Policy`
-	![K8s CNI](./doc/pics/doc36.png)
- 
-
-* Select `Assign a runbook to alerts`
-	![K8s CNI](./doc/pics/doc37.png)
- 
-<div style="page-break-after: always;"></div>
-
-* Name it `Mitigate RobotShop`
-	![K8s CNI](./doc/pics/doc38.png)
- 
-
-* Under `Condition set1`
-* Select `resource.name` (you can type `name` and select the name field for resources)
-
-	![K8s CNI](./doc/pics/doc39.png)
- 	
-* Set Operator to `contains`
-
-	![K8s CNI](./doc/pics/doc40.png)
- 	
-<div style="page-break-after: always;"></div>
-
-* And for `value` you type `mysql` (select `String: mysql`)
-
-	![K8s CNI](./doc/pics/doc41.png)
- 	
-* Under Runbooks
-* Select the `Mitigate RobotShop Problem` Runbook
-
-	![K8s CNI](./doc/pics/doc43.png)
-
-<div style="page-break-after: always;"></div>
-
-* Under `Select Mapping Type`, select `Use default parameter value` (this has been prefilled by the installer)
-
-	![K8s CNI](./doc/pics/doc44.png)
- 	
-
-* Click `Create Policy`
-
-
-
-
-## 3.5 Re-Run Kubernetes Integration
+## 3.3 Re-Run Kubernetes Integration
 
 In the AI Manager (CP4WAIOPS) 
 

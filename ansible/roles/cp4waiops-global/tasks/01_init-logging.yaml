@@ -39,5 +39,3 @@
     echo "" > ../install_{{current_cp4waiops_feature.kind}}.log
   ignore_errors: yes
 
-
-
