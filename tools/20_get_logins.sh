@@ -306,51 +306,6 @@ then
 fi
 
 
-ARGOCD_READY=$(oc get ns openshift-logging  --ignore-not-found|| true) 
-if [[ $ARGOCD_READY =~ "Active" ]]; 
-then
-      export ARGOCD_URL=$(oc get route -n  openshift-gitops  openshift-gitops-server -o jsonpath={.spec.host})
-      export ARGOCD_USER=admin
-      export ARGOCD_PWD=$(oc get secret -n openshift-gitops openshift-gitops-cluster -o "jsonpath={.data['admin\.password']}"| base64 --decode)
-
-      echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-      echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-      echo "    🚀 Connect to OpenShift GitOps to check your deployments"
-      echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-      echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-      echo "    "
-    echo "                🌏 URL:           https://$ARGOCD_URL"
-      echo "  "
-      echo "              🧔 User:          $ARGOCD_USER"
-      echo "              🔐 Password:      $ARGOCD_PWD"
-        echo "  "
-        echo "    "
-        echo "    "
-        echo "    "
-        echo "    "
-fi
-
-
-
-MIQ_READY=$(oc get ns manageiq  --ignore-not-found|| true) 
-if [[ $MIQ_READY =~ "Active" ]]; 
-then
-    echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-    echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-    echo "    🚀 ManageIQ "
-    echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-    echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
-    echo "    "
-    echo "            📥 ManageIQ :"
-    echo ""
-    echo "                🌏 URL:           https://$(oc get route -n manageiq $(oc get route -n manageiq|grep httpd|awk '{print$1}') -o jsonpath={.spec.host})"
-    echo "                🧑 User:          admin"
-    echo "                🔐 Password:      smartvm"
-    echo "    "
-    echo "    "
-    echo "    "
-    echo "    "
-fi
 
 
 

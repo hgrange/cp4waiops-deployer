@@ -95,7 +95,7 @@
     echo $PAYLOAD>/tmp/runbook.json
 
     
-    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks" \
+    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks?publish=true" \
         -H "Authorization: bearer $ZEN_TOKEN" \
         -H 'Content-Type: application/json; charset=utf-8' \
         -d @/tmp/runbook.json)
@@ -151,7 +151,7 @@
     echo $PAYLOAD>/tmp/runbook.json
 
     
-    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks" \
+    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks?publish=true" \
         -H "Authorization: bearer $ZEN_TOKEN" \
         -H 'Content-Type: application/json; charset=utf-8' \
         -d @/tmp/runbook.json)
@@ -221,7 +221,7 @@
     echo $PAYLOAD>/tmp/runbook.json
 
     
-    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks" \
+    export result=$(curl -X "POST" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks?publish=true" \
         -H "Authorization: bearer $ZEN_TOKEN" \
         -H 'Content-Type: application/json; charset=utf-8' \
         -d @/tmp/runbook.json)
