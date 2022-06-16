@@ -298,7 +298,6 @@ Those are the manual configurations you'll need to demo the system and that are 
 > 1. Login to AI Manager
 > 1. Add LDAP Logins to CP4WAIOPS
 > 1. Enable Story creation Policy
-> 1. Publish Runbook
 > 1. Create Runbook Policy 
 > 1. Re-Run Kubernetes Observer
 > 1. Now you can create the Slack Integration
@@ -422,26 +421,7 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 
 
-## 3.4 Publish Runbooks 
-
-
-* In the `AI Manager` "Hamburger" Menu select `Operate`/`Automations`
-* Select `Runbooks` tab
-* For the` Mitigate RobotShop Problem` click on the three dots at the end of the line
-* Click `Edit`
-
-	![K8s CNI](./doc/pics/doc60.png)
-	
-* Click on the blue `Publish` button
-
-	![K8s CNI](./doc/pics/doc61.png)
-
-* Repeat for the other Runbooks
-
-<div style="page-break-after: always;"></div>
-
-
-## 3.5 Create Runbook Policy 
+## 3.4 Create Runbook Policy 
 
 
 * In the `AI Manager` "Hamburger" Menu select `Operate`/`Automations`
@@ -490,7 +470,7 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 
 
-## 3.6 Re-Run Kubernetes Integration
+## 3.5 Re-Run Kubernetes Integration
 
 In the AI Manager (CP4WAIOPS) 
 
