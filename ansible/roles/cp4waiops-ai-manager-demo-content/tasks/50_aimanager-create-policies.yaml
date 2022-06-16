@@ -70,7 +70,7 @@
   shell: |
 
 
-
+    # Get Runbook ID
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
 
     ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')
@@ -103,7 +103,7 @@
 
 
 
-
+    # Create Runbook Trigger Policy
     export POLICY_FILE="{{role_path}}/templates/policies/runbook-trigger-policy.json"
 
     echo $POLICY_FILE
@@ -122,10 +122,7 @@
     export POLICY_ROUTE=$(oc get routes -n $WAIOPS_NAMESPACE policy-api -o jsonpath="{['spec']['host']}")
     echo $POLICY_ROUTE
 
-
-
     sed -i -e "s/MY_RUNBOOK_ID/$MY_RUNBOOK_ID/g" /tmp/runbook_policy.json
-
 
     export result=$(curl -XPOST -k -s "https://$POLICY_ROUTE/policyregistry.ibm-netcool-prod.aiops.io/v1alpha/system/cfd95b7e-3bc7-4006-a4a8-a73a79c71255/policies"  \
       -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
