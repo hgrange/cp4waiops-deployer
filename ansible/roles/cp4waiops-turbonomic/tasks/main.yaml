@@ -48,20 +48,20 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Placeholder for customization
-- name: 00_init-custom-hook
+- name: Init Custom Hook
   include_tasks: 00_init-custom-hook.yaml
 
 # Initialize Logging
-- name: 01_init-logging
+- name: Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
 
-# Start block
-- name: 90-log-start
-  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
-
-
-- name: 05_init-get-storage-class
+- name: Get Storage Class
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/05_init-get-storage-class.yaml"
+
+  
+# Start block
+- name: Start Logging
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
 
 
 
@@ -70,11 +70,11 @@
 # INSTALL TURBONOMIC
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Install TURBONOMIC
-- name: 10_addons-turbonomic
+- name: Install Turbonomic
   include_tasks: 10_addons-turbonomic.yaml
 
 
-- name: 91-log-end
+- name: End Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 

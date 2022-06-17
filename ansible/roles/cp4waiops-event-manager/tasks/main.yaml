@@ -49,44 +49,44 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Placeholder for customization
-- name: 00_init-custom-hook
+- name: Init Custom Hook
   include_tasks: 00_init-custom-hook.yaml
 
 # Initialize Logging
-- name: 01_init-logging
+- name: Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
 
-- name: 05_init-get-storage-class
+- name: Get Storage Class
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/05_init-get-storage-class.yaml"
 
   
 # Start block
-- name: 90-log-start
+- name: Start Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # INSTALL EVENT MANAGER
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
-- name: 01_eventmanager-install.yaml
+- name: Install Event Manager
   include_tasks: 01_eventmanager-install.yaml
 
 
 
 # Access and documentaiton
-- name: 90_core-get-all-logins
+- name: Get all logins
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90_core-get-all-logins.yaml"
 
-- name: 99_open-eventmanager
+- name: Open Event Manager
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-eventmanager.yaml"
 
-- name: 99_open-doc
+- name: Open Documentation
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-doc.yaml"
 
 
 
 
-- name: 91-log-end
+- name: End Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 

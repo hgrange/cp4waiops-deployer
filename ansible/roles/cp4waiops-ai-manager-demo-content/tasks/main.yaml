@@ -94,6 +94,9 @@
   include_tasks: 99_aimanager-wait-cp4waiops.yaml
 
 
+- name: Start Logging
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
+
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
@@ -292,7 +295,7 @@
 
 
 
-- name: En Logging
+- name: End Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 
