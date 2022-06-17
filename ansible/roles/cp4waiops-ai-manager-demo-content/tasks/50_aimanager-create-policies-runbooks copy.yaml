@@ -1,21 +1,35 @@
 
 
-- name: TIMESTAMP -              🟢 START - INSTALL AI MANAGER RUNBOOKS
+# *************************************************************************************************************************************************
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Create Gateway
+# --------------------------------------------------------------------------------------------------------------------------------------
+# *************************************************************************************************************************************************
+    
+## RUNBOOKS Duplicate
+
+- name: TIMESTAMP -              🟢 START - CREATE POLICY RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Runbook -      📥 WRITE TO LOGFILE
+- name: AIManager Policies -      📥 WRITE TO LOGFILE
   shell: |
-    export MESSAGE="Load AI Manager Runbooks"
+    export MESSAGE="Create Policy for Runbook Trigger"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log
     echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
   ignore_errors: yes
 
 
-- name: AIManager Runbook -      🌏 Get ZEN TOKEN
+
+
+
+
+- name: AIManager Policies -      🚀 Create Runbook Trigger Policy
   shell: |
+
+
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
 
 
@@ -37,15 +51,15 @@
       -d @/tmp/runbook_policy.json)
     echo $result
 
-
-
   ignore_errors: yes
   register: POLICY_RESULT
   args:
     executable: /bin/bash
 
+
 - name: DEBUG -                 🟢 Output
   debug: 
     var: POLICY_RESULT.stdout_lines
+
 
 
