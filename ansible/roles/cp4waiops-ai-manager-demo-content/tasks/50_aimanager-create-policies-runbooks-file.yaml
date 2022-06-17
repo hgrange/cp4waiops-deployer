@@ -59,15 +59,13 @@
           -H "Authorization: bearer $ZEN_TOKEN" \
           -H 'Content-Type: application/json; charset=utf-8' )
 
-    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
+    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
     echo $RUNBOOK_ID
 
 
     # Create Runbook Trigger Policy
     export POLICY_FILE="{{role_path}}/templates/policies/runbook-trigger-policy.json"
-
     echo $POLICY_FILE
-    
     cp $POLICY_FILE /tmp/runbook_policy.json
 
     sed -i -e "s/MY_RUNBOOK_ID/$MY_RUNBOOK_ID/g" /tmp/runbook_policy.json
