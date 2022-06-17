@@ -38,20 +38,6 @@
     LOGIN_USER=admin
     LOGIN_PASSWORD="$(oc get secret admin-user-details -n $WAIOPS_NAMESPACE -o jsonpath='{ .data.initial_admin_password }' | base64 --decode)"
 
-    ZEN_LOGIN_RESPONSE=$(
-    curl -k \
-    -H 'Content-Type: application/json' \
-    -XPOST \
-    "${ZEN_LOGIN_URL}" \
-    -d '{
-          "username": "'"${LOGIN_USER}"'",
-          "password": "'"${LOGIN_PASSWORD}"'"
-    }' 2> /dev/null
-    )
-
-    ZEN_TOKEN=$(echo "${ZEN_LOGIN_RESPONSE}" | jq -r .token)
-    echo $ZEN_TOKEN
-
 
 
   ignore_errors: yes
