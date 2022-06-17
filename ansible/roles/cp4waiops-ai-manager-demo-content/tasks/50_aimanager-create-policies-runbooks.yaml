@@ -8,14 +8,14 @@
     
 ## RUNBOOKS Duplicate
 
-- name: TIMESTAMP -              🟢 START - INSTALL AI MANAGER RUNBOOKS
+- name: TIMESTAMP -              🟢 START - CREATE POLICY RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 - name: AIManager Policies -      📥 WRITE TO LOGFILE
   shell: |
-    export MESSAGE="Load AI Manager Runbooks"
+    export MESSAGE="Create Policy for Runbook Trigger"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log
     echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
@@ -23,46 +23,6 @@
 
 
 
-
-
-- name: AIManager Policies -      🚀 Create Story Creation Policy
-  shell: |
-    export POLICY_FILE="{{role_path}}/templates/policies/story-creation-policy.json"
-
-    echo $POLICY_FILE
-    
-    cp $POLICY_FILE /tmp/story_policy.json
-    export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
-
-
-    export POLICY_USERNAME=$(oc get secret -n $WAIOPS_NAMESPACE aiops-ir-lifecycle-policy-registry-svc -o jsonpath='{.data.username}' | base64 --decode)
-    export POLICY_PASSWORD=$(oc get secret -n $WAIOPS_NAMESPACE aiops-ir-lifecycle-policy-registry-svc -o jsonpath='{.data.password}' | base64 --decode)
-    export POLICY_LOGIN="$POLICY_USERNAME:$POLICY_PASSWORD"
-    echo $POLICY_LOGIN
-
-    oc create route reencrypt policy-api -n $WAIOPS_NAMESPACE --service aiops-ir-lifecycle-policy-registry-svc --port ssl-port
-
-    export POLICY_ROUTE=$(oc get routes -n $WAIOPS_NAMESPACE policy-api -o jsonpath="{['spec']['host']}")
-    echo $POLICY_ROUTE
-
-
-
-    export result=$(curl -XPOST -k -s "https://$POLICY_ROUTE/policyregistry.ibm-netcool-prod.aiops.io/v1alpha/system/cfd95b7e-3bc7-4006-a4a8-a73a79c71255/policies"  \
-      -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
-      -H 'content-type: application/json' \
-      -u $POLICY_LOGIN \
-      -d @/tmp/story_policy.json)
-    echo $result
-
-  ignore_errors: yes
-  register: POLICY_RESULT
-  args:
-    executable: /bin/bash
-
-
-- name: DEBUG -                 🟢 Output
-  debug: 
-    var: POLICY_RESULT.stdout_lines
 
 
 
