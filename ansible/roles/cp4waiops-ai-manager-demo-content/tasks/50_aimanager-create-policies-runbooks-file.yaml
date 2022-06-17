@@ -36,24 +36,25 @@
     echo $ZEN_TOKEN
 
     export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath={.spec.host})
-    echo "ROUTE:$ROUTE"
+    echo "ROUTE: "$ROUTE
     export result=$(curl -X "GET" -k "https://$ROUTE/aiops/api/story-manager/rba/v1/runbooks" \
           -H "Authorization: bearer $ZEN_TOKEN" \
           -H 'Content-Type: application/json; charset=utf-8' )
 
-    echo "RESULT:$result"
+    echo "RESULT:"$result
 
-    export MY_RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
-    echo "RUNBOOK_ID: $MY_RUNBOOK_ID"
+    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
+    echo "RUNBOOK_ID: $RUNBOOK_ID"
 
 
     # Create Runbook Trigger Policy
     export POLICY_FILE="{{role_path}}/templates/policies/runbook-trigger-policy.json"
-    echo $POLICY_FILE
-    
     cp $POLICY_FILE /tmp/runbook_policy.json
+    cat /tmp/runbook_policy.json
+    echo "RUNBOOK_ID: $RUNBOOK_ID"
 
-    sed -i -e "s/MY_RUNBOOK_ID/$MY_RUNBOOK_ID/g" /tmp/runbook_policy.json
+    sed -i -e "s/MY_RUNBOOK_ID/$RUNBOOK_ID/g" /tmp/runbook_policy.json
+    cat /tmp/runbook_policy.json
 
 
   ignore_errors: yes
