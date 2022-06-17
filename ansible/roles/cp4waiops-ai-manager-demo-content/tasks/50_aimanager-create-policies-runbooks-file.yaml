@@ -1,38 +1,21 @@
 
 
-# *************************************************************************************************************************************************
-# --------------------------------------------------------------------------------------------------------------------------------------
-# Create Gateway
-# --------------------------------------------------------------------------------------------------------------------------------------
-# *************************************************************************************************************************************************
-    
-## RUNBOOKS Duplicate
-
-- name: TIMESTAMP -              🟢 START - CREATE POLICY RUNBOOKS
+- name: TIMESTAMP -              🟢 START - INSTALL AI MANAGER RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Policies -      📥 WRITE TO LOGFILE
+- name: AIManager Runbook -      📥 WRITE TO LOGFILE
   shell: |
-    export MESSAGE="Create Policy for Runbook Trigger"
+    export MESSAGE="Load AI Manager Runbooks"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log
     echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
   ignore_errors: yes
 
 
-
-
-
-
-- name: AIManager Policies -      🚀 Create Runbook Trigger Policy
+- name: AIManager Runbook -      🌏 Get ZEN TOKEN
   shell: |
-
-
-    # Get Runbook ID
-    export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
-    echo $WAIOPS_NAMESPACE
     ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
     ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
     LOGIN_USER=admin
@@ -51,16 +34,8 @@
 
     ZEN_TOKEN=$(echo "${ZEN_LOGIN_RESPONSE}" | jq -r .token)
     echo $ZEN_TOKEN
-
   ignore_errors: yes
-  register: POLICY_RESULT
+  register: ACT_ZEN_TOKEN
   args:
     executable: /bin/bash
-
-
-- name: DEBUG -                 🟢 Output
-  debug: 
-    var: POLICY_RESULT.stdout_lines
-
-
 
