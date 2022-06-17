@@ -93,6 +93,8 @@
 - name: 50_aimanager-create-policies
   include_tasks: 50_aimanager-create-policies-stories.yaml
 - name: 50_aimanager-create-policies
+  include_tasks: 50_aimanager-create-policies-runbooks-file.yaml
+- name: 50_aimanager-create-policies
   include_tasks: 50_aimanager-create-policies-runbooks.yaml
 
 
