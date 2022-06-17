@@ -85,7 +85,7 @@
                 \"minLength\": 0,
                 \"format\": \"multiline\",
                 \"name\": \"clusterCredentials\",
-                      \"default\": \"{ \\\\\\\"my_k8s_apiurl\\\\\\\": \\\\\\\"$DEMO_URL\\\\\\\", \\\\\\\"my_k8s_apikey\\\\\\\": \\\\\\\"$DEMO_TOKEN\\\\\\\" }\",
+                      \"default\": \"{ \\\"my_k8s_apiurl\\\": \\\"$DEMO_URL\\\", \\\"my_k8s_apikey\\\": \\\"$DEMO_TOKEN\\\" }\",
                 \"description\": \"Cluster Credentials encoded as JSON..\",
                 \"type\": \"string\"
               }
@@ -141,7 +141,7 @@
                 \"minLength\": 0,
                 \"format\": \"multiline\",
                 \"name\": \"clusterCredentials\",
-                      \"default\": \"{ \\\\\\\"my_k8s_apiurl\\\\\\\": \\\\\\\"$DEMO_URL\\\\\\\", \\\\\\\"my_k8s_apikey\\\\\\\": \\\\\\\"$DEMO_TOKEN\\\\\\\" }\",
+                      \"default\": \"{ \\\"my_k8s_apiurl\\\": \\\"$DEMO_URL\\\", \\\"my_k8s_apikey\\\": \\\"$DEMO_TOKEN\\\" }\",
                 \"description\": \"Cluster Credentials encoded as JSON..\",
                 \"type\": \"string\"
               }
@@ -211,7 +211,7 @@
                 \"minLength\": 0,
                 \"format\": \"multiline\",
                 \"name\": \"clusterCredentials\",
-                      \"default\": \"{ \\\\\\\"my_k8s_apiurl\\\\\\\": \\\\\\\"$DEMO_URL\\\\\\\", \\\\\\\"my_k8s_apikey\\\\\\\": \\\\\\\"$DEMO_TOKEN\\\\\\\" }\",
+                      \"default\": \"{ \\\"my_k8s_apiurl\\\": \\\"$DEMO_URL\\\", \\\"my_k8s_apikey\\\": \\\"$DEMO_TOKEN\\\" }\",
                 \"description\": \"Cluster Credentials encoded as JSON..\",
                 \"type\": \"string\"
               }
