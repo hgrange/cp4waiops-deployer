@@ -99,7 +99,7 @@
           -H "Authorization: bearer $ZEN_TOKEN" \
           -H 'Content-Type: application/json; charset=utf-8' )
 
-    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\\\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId')
+    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId')
 
 
 
