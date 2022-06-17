@@ -43,7 +43,7 @@
 
     echo "RESULT:"$result
 
-    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
+    export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
     echo "RUNBOOK_ID: $RUNBOOK_ID"
 
 
