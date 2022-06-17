@@ -28,10 +28,15 @@
 - name: AIManager Policies -      🚀 Create Story Creation Policy
   shell: |
     export POLICY_FILE="{{role_path}}/templates/policies/story-creation-policy.json"
-
     echo $POLICY_FILE
-    
     cp $POLICY_FILE /tmp/story_policy.json
+
+       
+    export POLICY_FILE="{{role_path}}/templates/policies/runbook-trigger-policy.json"
+    echo $POLICY_FILE
+    cp $POLICY_FILE /tmp/runbook_policy.json
+
+
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
 
 
