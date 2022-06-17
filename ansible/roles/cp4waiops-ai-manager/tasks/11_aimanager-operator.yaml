@@ -79,6 +79,20 @@
 #   ignore_errors: yes
 
 
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Delete lingering Pods before check for reinstall
+# --------------------------------------------------------------------------------------------------------------------------------------
+- name: AIMANAGER OPERATOR -     🧻 Delete lingering Pods before check for reinstall
+  shell: |
+    oc delete pod $(oc get po -n {{ current_cp4waiops_cluster.project }}|grep Evicted|awk '{print$1}') -n {{ current_cp4waiops_cluster.project }}
+  register: kubectl_get_pods
+  ignore_errors: yes
+
+
+
+
+
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for Marketplace being ready
 # --------------------------------------------------------------------------------------------------------------------------------------
