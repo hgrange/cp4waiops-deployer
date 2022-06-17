@@ -14,7 +14,7 @@
   ignore_errors: yes
 
 
-- name: AIManager Policies -      🌏 Create Runbooks Trigger Policy
+- name: AIManager Policies -      🚀 Create Runbooks Trigger Policy
   shell: |
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
     ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')

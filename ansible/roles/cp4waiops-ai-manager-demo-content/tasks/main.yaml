@@ -64,7 +64,7 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Initialize Logging
-- name: 01_init-logging
+- name: Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
     
 
@@ -85,38 +85,214 @@
 
 
 
+    
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CHECK FOR INSTALLATION READY
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Check that CP4WAIOPS has been completely installed
+- name: Wait for AI MAnager to be Ready
+  include_tasks: 99_aimanager-wait-cp4waiops.yaml
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# INSTALL ADDONS
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Install OpenLDAP
+- name: Install LDAP
+  include_tasks: 21_addons-ldap.yaml
+# Create Service Account and USER
+- name:  Create Service Account
+  include_tasks: 22_addons-user.yaml
+# Create Demo Apps (Robot-Shop)
+- name: Create Demo Apps 
+  include_tasks: 23_addons-demoapps.yaml
+
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE ROUTES
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+- name: Create Routes
+  include_tasks: 30_aimanager-create-routes.yaml
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# LOAD MODEL TRAINING DATA ahead of time
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Load data
+- name: Load Data SNOW
+  include_tasks: 51_aimanager-training-load-snow.yaml
+- name: Load Data LOGS
+  include_tasks: 52_aimanager-training-load-logs.yaml
+- name: Load Data METRICS
+  include_tasks: 53_aimanager-training-load-metric.yaml
+
+
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE TOPOLOGY (part 1)
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+- name: Create Topology Observers
+  include_tasks: 41_aimanager-create-observers.yaml
+- name: Load Topology Merge Rules
+  include_tasks: 42_aimanager-load-topology-merge.yaml
+- name: Create Overlay Topology
+  include_tasks: 43_aimanager-create-topology.yaml
+- name: Disable Topology Match Rules
+  include_tasks: 44_aimanager-disable-match-token-rule.yaml
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# INSTALL AWX while training data is loading   
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+- name: Install AWX
+  include_tasks: 24_addons-awx.yaml     
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE TOPOLOGY (part 2)
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+- name: Create Topology Application
+  include_tasks: 45_aimanager-create-aiops-application.yaml
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# POSTINSTALL TASKS
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Register LDAP Users
+- name: Register LDAP Server
+  include_tasks: 25-post-ldap-register.yaml
+
+# Create valid certificate for Ingress (for Slack)
+- name: Create valid certificate for Ingress
+  include_tasks: 31_aimanager-patch-ingress.yaml
+
+
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE RUNBOOKS
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Create Runbooks    
+- name: Wait for AWX to be ready
+  include_tasks: 46_aimanager-wait-awx.yaml
+- name: Create AWX Connection
+  include_tasks: 47_aimanager-create-awx-connection.yaml
+- name: Load Demo Playbooks
+  include_tasks: 48_aimanager-load-awx-playbooks-for-demo.yaml
+# Load Demo Runbooks into AI Manager
+- name: Load Demo Runbooks
+  include_tasks: 49_aimanager-load-runbooks-for-demo.yaml
+
+
+
+# Restart Anomaly Pods to make anomaly detection workk
+    #- role: 89_aimanager-reset-anomaly-detection
+
+
+
+
+
+ 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE MODEL TRAINING
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Create Training definitions
+- name: Check if Models exist
+  include_tasks: 54_aimanager-training-check-exists.yaml
+- name: Create Training Temporal Grouping
+  include_tasks: 55_aimanager-training-create-tg-configuration.yaml
+  when: TRAINING_EXISTS==false
+- name: Create Training Metrics
+  include_tasks: 56_aimanager-training-create-metric-configuration.yaml
+  when: TRAINING_EXISTS==false
+- name: Create Training SNOW 
+  include_tasks: 57_aimanager-training-create-snow-configuration.yaml
+  when: TRAINING_EXISTS==false
+- name: Create Training Logs
+  include_tasks: 58_aimanager-training-create-logs-configuration.yaml
+  when: TRAINING_EXISTS==false
+
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Create Policies
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Create Story Creation and Runbook Policies
-- name: 50_aimanager-create-policies-stories.yaml
+- name: Create Story Creation Policy
   include_tasks: 50_aimanager-create-policies-stories.yaml
-- name: 50_aimanager-create-policies-runbooks.yaml
+- name: Create Runbook Trigger Policy
   include_tasks: 50_aimanager-create-policies-runbooks.yaml
 
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# RUN MODEL TRAINING
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Train models
+- name: Wait for Trainingdata to finish loading
+  include_tasks: 60_aimanager-training-load-wait.yaml
+  when: TRAINING_EXISTS==false
+- name: Run SNOW Training
+  include_tasks: 61_aimanager-training-run-snow.yaml
+  when: TRAINING_EXISTS==false
+- name: Run LAD Training
+  include_tasks: 62_aimanager-training-run-logs.yaml
+  when: TRAINING_EXISTS==false
+- name: Run METRICS Training
+  include_tasks: 63_aimanager-training-run-metric.yaml
+  when: TRAINING_EXISTS==false
+      
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE CONNECTIONS FOR INCEPTION
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Create Kafka Connections
+- name:  Create Kafka ELK connection
+  include_tasks: 65_aimanager-create-kafka-connections.yaml
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# CREATE DEMO UI APP
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+- name: Install Demo UI
+  include_tasks: 26_aimanager-demo-ui.yaml
 
 
 
 # Access and documentaiton
-- name: 90_core-get-all-logins
+- name: Get all logins
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90_core-get-all-logins.yaml"
 
 
 
-- name: 99_open-aimanager
+- name: Open AI Manager
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-aimanager.yaml"
 
-- name: 99_open-demoui
+- name: Open Demo UI
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-demoui.yaml"
 
 
-- name: 99_open-doc
+- name: Open Documentation
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-doc.yaml"
 
 
 
-- name: 91-log-end
+- name: En Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 
