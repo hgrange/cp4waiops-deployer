@@ -90,11 +90,11 @@
 # Create Policies
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Create Story Creation and Runbook Policies
-- name: 50_aimanager-create-policies
+- name: 50_aimanager-create-policies-stories.yaml
   include_tasks: 50_aimanager-create-policies-stories.yaml
-- name: 50_aimanager-create-policies
+- name: 50_aimanager-create-policies-runbooks-file.yaml
   include_tasks: 50_aimanager-create-policies-runbooks-file.yaml
-- name: 50_aimanager-create-policies
+- name: 50_aimanager-create-policies-runbooks.yaml
   include_tasks: 50_aimanager-create-policies-runbooks.yaml
 
 

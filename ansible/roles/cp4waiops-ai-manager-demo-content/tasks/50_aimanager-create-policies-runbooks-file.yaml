@@ -68,7 +68,6 @@
     echo $POLICY_FILE
     cp $POLICY_FILE /tmp/runbook_policy.json
 
-    sed -i -e "s/MY_RUNBOOK_ID/$MY_RUNBOOK_ID/g" /tmp/runbook_policy.json
 
 
   ignore_errors: yes
