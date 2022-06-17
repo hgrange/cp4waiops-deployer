@@ -32,12 +32,9 @@
 
     # Get Runbook ID
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
-
+    echo $WAIOPS_NAMESPACE
     ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')
-    ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
-    LOGIN_USER=admin
-    LOGIN_PASSWORD="$(oc get secret admin-user-details -n $WAIOPS_NAMESPACE -o jsonpath='{ .data.initial_admin_password }' | base64 --decode)"
-
+    echo $ZEN_API_HOST
 
 
   ignore_errors: yes
