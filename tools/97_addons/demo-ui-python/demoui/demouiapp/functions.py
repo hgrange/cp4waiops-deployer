@@ -23,6 +23,12 @@ METRICS_TO_SIMULATE_MEM=str(os.environ.get('METRICS_TO_SIMULATE_MEM')).split(';'
 METRICS_TO_SIMULATE_FAN_TEMP=str(os.environ.get('METRICS_TO_SIMULATE_FAN_TEMP')).split(';')
 METRICS_TO_SIMULATE_FAN=str(os.environ.get('METRICS_TO_SIMULATE_FAN')).split(';')
 
+SLACK_URL=str(os.environ.get('SLACK_URL'))
+SLACK_USER=str(os.environ.get('SLACK_USER'))
+SLACK_PWD=str(os.environ.get('SLACK_PWD'))
+
+
+
 print ('*************************************************************************************************')
 print ('*************************************************************************************************')
 print ('')
@@ -45,6 +51,9 @@ print ('           METRICS_TO_SIMULATE_MEM:        '+str(len(METRICS_TO_SIMULATE
 print ('           METRICS_TO_SIMULATE_FAN_TEMP:   '+str(len(METRICS_TO_SIMULATE_FAN_TEMP)))
 print ('           METRICS_TO_SIMULATE_FAN:        '+str(len(METRICS_TO_SIMULATE_FAN)))
 print ('')
+print ('           SLACK_URL:                      '+str(SLACK_URL))
+print ('           SLACK_USER:                     '+str(SLACK_USER))
+print ('           SLACK_PWD:                      '+str(SLACK_PWD))
 print ('')
 print ('    **************************************************************************************************')
 print ('')
@@ -235,6 +244,13 @@ def injectMetrics(METRIC_ROUTE,METRIC_TOKEN,METRICS_TO_SIMULATE,METRIC_TIME_SKEW
     
     print ('           METRIC_TIME_SKEW:               '+str(METRIC_TIME_SKEW))
     print ('           METRIC_TIME_STEP:               '+str(METRIC_TIME_STEP))
+    print('     ❓ Getting Details Metric Endpoint')
+    stream = os.popen("oc get route | grep ibm-nginx-svc | awk '{print $2}'")
+    METRIC_ROUTE = stream.read().strip()
+    stream = os.popen("oc get secret admin-user-details -o jsonpath='{.data.initial_admin_password}' | base64 -d")
+    tmppass = stream.read().strip()
+    stream = os.popen('curl -k -s -X POST https://'+METRIC_ROUTE+'/icp4d-api/v1/authorize -H "Content-Type: application/json" -d "{\\\"username\\\": \\\"admin\\\",\\\"password\\\": \\\"'+tmppass+'\\\"}" | jq .token | sed "s/\\\"//g"')
+    METRIC_TOKEN = stream.read().strip()
 
 
     timestamp = datetime.datetime.now()

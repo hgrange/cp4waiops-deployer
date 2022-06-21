@@ -6,6 +6,9 @@ import sys
 import time 
 sys.path.append(os.path.abspath("demouiapp"))
 from functions import *
+SLACK_URL=str(os.environ.get('SLACK_URL'))
+SLACK_USER=str(os.environ.get('SLACK_USER'))
+SLACK_PWD=str(os.environ.get('SLACK_PWD'))
 
 print ('*************************************************************************************************')
 print ('*************************************************************************************************')
@@ -56,8 +59,6 @@ LOG_TIME_FORMAT="%Y-%m-%dT%H:%M:%S.000000"
 LOG_TIME_STEPS=1000
 LOG_TIME_SKEW=60
 LOG_TIME_ZONE="-1"
-
-
 
 
 
@@ -181,6 +182,10 @@ robotshop_url = stream.read().strip()
 # GET ENVIRONMENT VALUES
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 TOKEN=os.environ.get('TOKEN')
+ADMIN_MODE=os.environ.get('ADMIN_MODE')
+DEMO_USER=os.environ.get('DEMO_USER')
+DEMO_PWD=os.environ.get('DEMO_PWD')
+
 
 
 
@@ -206,8 +211,16 @@ print ('           Metric Token:       '+METRIC_TOKEN[:25]+'...')
 print ('')
 print ('           Token:              '+TOKEN)
 print ('')
+print ('           Admin:              '+ADMIN_MODE)
+print ('')
+print ('           Demo User:          '+DEMO_USER)
+print ('           Demo Password:      '+DEMO_PWD)
+print ('')
 print ('    **************************************************************************************************')
 
+SLACK_URL=str(os.environ.get('SLACK_URL'))
+SLACK_USER=str(os.environ.get('SLACK_USER'))
+SLACK_PWD=str(os.environ.get('SLACK_PWD'))
 
 
 print ('*************************************************************************************************')
@@ -225,6 +238,10 @@ def injectAllREST(request):
 
     if loggedin=='true':
         template = loader.get_template('demouiapp/home.html')
+        
+        print('🌏 Create RobotShop MySQL outage')
+        os.system('oc patch service mysql -n robot-shop --patch "{\\"spec\\": {\\"selector\\": {\\"service\\": \\"mysql-outage\\"}}}"')
+        
         injectEventsMem(DATALAYER_ROUTE,DATALAYER_USER,DATALAYER_PWD)
         injectMetricsMem(METRIC_ROUTE,METRIC_TOKEN)
         injectLogs(KAFKA_BROKER,KAFKA_USER,KAFKA_PWD,KAFKA_TOPIC_LOGS,KAFKA_CERT,LOG_TIME_FORMAT,DEMO_LOGS)
@@ -267,6 +284,10 @@ def injectAllFanREST(request):
     verifyLogin(request)
     if loggedin=='true':
         template = loader.get_template('demouiapp/home.html')
+
+        print('🌏 Create RobotShop MySQL outage')
+        os.system('oc patch service mysql -n robot-shop --patch "{\\"spec\\": {\\"selector\\": {\\"service\\": \\"mysql-outage\\"}}}"')
+
         injectMetricsFanTemp(METRIC_ROUTE,METRIC_TOKEN)
         time.sleep(10)
         injectEventsFan(DATALAYER_ROUTE,DATALAYER_USER,DATALAYER_PWD)
@@ -303,6 +324,8 @@ def injectAllFanREST(request):
         'eventmanager_pwd': eventmanager_pwd
     }
     return HttpResponse(template.render(context, request))
+
+
 
 
 
@@ -564,6 +587,11 @@ def login(request):
         'aimanager_url': aimanager_url,
         'aimanager_user': aimanager_user,
         'aimanager_pwd': aimanager_pwd,
+        'SLACK_URL': SLACK_URL,
+        'SLACK_USER': SLACK_USER,
+        'SLACK_PWD': SLACK_PWD,
+        'DEMO_USER': DEMO_USER,
+        'DEMO_PWD': DEMO_PWD
     }
 
     return HttpResponse(template.render(context, request))
@@ -627,6 +655,13 @@ def index(request):
         'aimanager_url': aimanager_url,
         'aimanager_user': aimanager_user,
         'aimanager_pwd': aimanager_pwd,
+        'SLACK_URL': SLACK_URL,
+        'SLACK_USER': SLACK_USER,
+        'SLACK_PWD': SLACK_PWD,
+        'ADMIN_MODE': ADMIN_MODE,
+        'DEMO_USER': DEMO_USER,
+        'DEMO_PWD': DEMO_PWD
+        
     }
     return HttpResponse(template.render(context, request))
 
@@ -702,7 +737,14 @@ def apps(request):
         'spark_url': spark_url,
         'eventmanager_url': eventmanager_url,
         'eventmanager_user': eventmanager_user,
-        'eventmanager_pwd': eventmanager_pwd
+        'eventmanager_pwd': eventmanager_pwd,
+        'SLACK_URL': SLACK_URL,
+        'SLACK_USER': SLACK_USER,
+        'SLACK_PWD': SLACK_PWD,
+        'ADMIN_MODE': ADMIN_MODE,
+        'DEMO_USER': DEMO_USER,
+        'DEMO_PWD': DEMO_PWD
+        
     }
     return HttpResponse(template.render(context, request))
 
