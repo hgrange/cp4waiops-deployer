@@ -19,9 +19,6 @@
   ignore_errors: yes
 
 
-# --------------------------------------------------------------------------------------------------------------------------------------
-# Delete lingering Pods before check for reinstall
-# --------------------------------------------------------------------------------------------------------------------------------------
 - name: AIMANAGER INSIGHTS -     🔐 Patch Pull Secret
   shell: |
     oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
@@ -45,6 +42,12 @@
     state: present
     template: './templates/waiops/5_waiops-enable-insights.j2'
 
+
+- name: AIMANAGER INSIGHTS -     🔐 Patch Pull Secret
+  shell: |
+    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+  register: kubectl_get_pods
+  ignore_errors: yes
 
 
 - name: AIMANAGER INSIGHTS -     🕦 Wait for AI MAnager Insights to become ready
