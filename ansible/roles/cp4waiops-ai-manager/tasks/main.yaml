@@ -56,10 +56,97 @@
 
 
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# INITIALIZATION
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Placeholder for customization
+- name: Init Custom Hook
+  include_tasks: 00_init-custom-hook.yaml
+
+# Initialize Logging
+- name: Init Logging
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
+    
+- name: Checks
+  include_tasks: 02_init_checks.yaml
+# Start block
+- name: Start Logging
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
+
+# Run Prerequisites
+- name: Initialization
+  include_tasks: 03_init-initialization.yaml
+  
+
+- name: Get Storage Class
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/05_init-get-storage-class.yaml"
+      
+- name: AI Manager Prerequisites 
+  include_tasks: 06_aimanager-prerequisites.yaml
+      
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# INSTALL AI MANAGER
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Install CP4WAIOPS Operator
+- name: AI Manager Custom Hook
+  include_tasks: 10_aimanager-custom-hook.yaml
+- name: Install AI Manager Operator
+  include_tasks: 11_aimanager-operator.yaml
+      
+      
+# Install CP4WAIOPS Instance
+- name: Install AI Manager Instance
+  include_tasks: 12_aimanager-install.yaml
+      
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# WAIT FOR INSTALLATION READY
+# ---------------------------------------------------------------------------------------------------------------------------------------------------"
+# Wait for Common Services being completely installed
+- name: Wait for CommonServices
+  include_tasks: 99_aimanager-wait-common-services.yaml
+- name: Wait for Zen Initialisation
+  include_tasks: 99_aimanager-wait-for-zen.yaml
+      
+
+# Patching Topology Deployment
+- name: Patch Topology
+  include_tasks: 20_aimanager-patch-topology.yaml
+
+
+# Wait for CP4WAIOPS being completely installed
+- name: Wait for AI Manager
+  include_tasks: 99_aimanager-wait-cp4waiops.yaml
+
 
 # Enable CP4WAIOPS Insights
 - name: Enable CP4WAIOPS Insights
   include_tasks: 13_aimanager-insights.yaml
+
+
+# Access and documentaiton
+- name: Get all logins
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90_core-get-all-logins.yaml"
+
+
+
+- name: Open AI Manager
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-aimanager.yaml"
+
+
+- name: Open Documentation
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-doc.yaml"
+
+
+
+- name: End Logging
+  include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 
 

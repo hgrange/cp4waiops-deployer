@@ -93,3 +93,6 @@ kubectl patch -n openshift-marketplace serviceaccount default -p '{"imagePullSec
 kubectl patch -n openshift-marketplace serviceaccount ibm-operator-catalog -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
 oc delete pod $(oc get po -n openshift-marketplace|grep ImagePull|awk '{print$1}') -n openshift-marketplace
 
+
+kubectl patch -n cp4waiops serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+
