@@ -128,7 +128,7 @@ entitled_registry: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.co
 entitled_registry_user: nikh@ch.ibm.com
 #catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220601.2001-4674c29a5
 #catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220608.0002-837400c20
-catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220617.0003-781cdc47b 
+catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220617.0003-781cdc47b
 
 
 
