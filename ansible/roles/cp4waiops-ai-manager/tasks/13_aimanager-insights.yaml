@@ -43,6 +43,12 @@
     template: './templates/waiops/5_waiops-enable-insights.j2'
 
 
+- name: AIMANAGER INSIGHTS -     🕦 Wait 120 seconds
+  shell: |
+   sleep 120
+  ignore_errors: yes
+
+
 - name: AIMANAGER INSIGHTS -     🔐 Patch Pull Secret
   shell: |
     oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
