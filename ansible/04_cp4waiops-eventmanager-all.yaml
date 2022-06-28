@@ -21,7 +21,8 @@
 # Installs:
 #
 #  - IBM Operator
-#  - AI Manager
+#  - Event Manager
+#  - Demo Content
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
  
@@ -29,7 +30,7 @@
 - hosts: localhost
   #become: true
   #vars_files: {{ config_file }}
-  vars_files: ./configs/cp4waiops-roks-eventmanager.yaml
+  #vars_files: ./configs/cp4waiops-roks-eventmanager-all-34.yaml
 
   tasks:
   - name: MAIN INSTALLATION LOOP-           🚀 Install Modules
@@ -40,7 +41,7 @@
       - "***************************************************************************************************************************************************"
       - "***************************************************************************************************************************************************"
       - "                                                                                                                                                   "
-      - "       🚀 CloudPak for Watson AIOps v3.4.0 - INSTALLATION                                                                                          "
+      - "       🚀 CloudPak for Watson AIOps v3.4.0 - INSTALLATION - Event Manager and Demo Content                                                         "
       - "                                                                                                                                                   "
       - "***************************************************************************************************************************************************"
       - "***************************************************************************************************************************************************"
@@ -48,7 +49,7 @@
 
 
   - name: Set Config File
-    set_fact: config_file_path="./configs/cp4waiops-roks-eventmanager.yaml"
+    set_fact: config_file_path="./configs/cp4waiops-roks-eventmanager-all-34.yaml"
 
 
   - name: Show Global Config

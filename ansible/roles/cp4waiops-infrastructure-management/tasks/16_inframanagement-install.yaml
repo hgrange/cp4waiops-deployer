@@ -83,7 +83,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for CSV being ready
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: INFRA MGT -              🕦 Wait for CSVs to become ready
+- name: INFRA MGT -              🕦 Wait for number of CSVs to be running
   shell: oc get csv -n {{ current_cp4waiops_cluster.project }}| grep "IBM"|grep "Succeeded"| wc -l|tr -d ' '
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout > "6"
@@ -117,12 +117,12 @@
 # Wait for Common Services
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: INFRA MGT -              🕦 Wait for more than >{{ CS_NS_MIN_PODS }} pods in namespace ibm-common-services (this might take some time)
+- name: INFRA MGT -              🕦 Wait for more than >{{ cs_ns_min_pods }} pods in namespace ibm-common-services (this might take some time)
   shell: |
     NUM_PODS=$(oc get po -n ibm-common-services | wc -l)
     echo $NUM_PODS
   register: kubectl_num_pods
-  until: kubectl_num_pods.stdout|int > CS_NS_MIN_PODS
+  until: kubectl_num_pods.stdout|int > cs_ns_min_pods
   retries: 500
   delay: 15
 

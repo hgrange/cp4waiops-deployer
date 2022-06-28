@@ -20,24 +20,8 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Installs:
 #
-#  - OpenLDAP & Register with AI Manager
-#  - RobotShop Demo App
-#  - Demo Service Account 
-#  - AWX (Open Source Ansible Tower) with preloaded Playbooks
-#  - Disables ASM Service match rule 
-#  - Train Models
-#    - Create Training Definitions (TG, LAD, CR, SI. Turn off RSA) 
-#    - Create Training Data (LAD, SNOW) 
-#    - Train Models (TG, LAD, CR, SI) 
-#  - Topology
-#    - Create K8s Observer
-#    - Create ASM merge rules
-#    - Load ASM merge Topology
-#    - Create AI Manager Application
-#  - Creates valid certificate for Ingress (Slack) 
-#  - External Routes (Flink, Topology, ...)
-#  - Disables ASM Service match rule 
-#  - Create Policy Creation for Stories and Runbooks 
+#  - IBM Operator
+#  - Event Manager
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
  
@@ -45,6 +29,7 @@
 - hosts: localhost
   #become: true
   #vars_files: {{ config_file }}
+  #vars_files: ./configs/cp4waiops-roks-eventmanager.yaml
 
   tasks:
   - name: MAIN INSTALLATION LOOP-           🚀 Install Modules
@@ -55,7 +40,7 @@
       - "***************************************************************************************************************************************************"
       - "***************************************************************************************************************************************************"
       - "                                                                                                                                                   "
-      - "       🚀 CloudPak for Watson AIOps v3.4.0 - INSTALLATION - AI Manager Demo Content Only                                                           "
+      - "       🚀 CloudPak for Watson AIOps v3.4.0 - INSTALLATION - Event Manager                                                                          "
       - "                                                                                                                                                   "
       - "***************************************************************************************************************************************************"
       - "***************************************************************************************************************************************************"
@@ -63,7 +48,7 @@
 
 
   - name: Set Config File
-    set_fact: config_file_path="./configs/cp4waiops-roks-aimanager-demo-content-34.yaml"
+    set_fact: config_file_path="./configs/cp4waiops-roks-eventmanager.yaml"
 
 
   - name: Show Global Config

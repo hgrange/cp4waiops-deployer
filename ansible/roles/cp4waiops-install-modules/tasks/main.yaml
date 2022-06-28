@@ -25,6 +25,11 @@
     name: cp4waiops-event-manager
   when: current_cp4waiops_feature.kind=="EventManager" and current_cp4waiops_feature.install==true
 
+- name: CHECK for - Event Manager Demo Content
+  include_role:
+    name: cp4waiops-event-manager-demo-content
+  when: current_cp4waiops_feature.kind=="EventManagerDemoContent" and current_cp4waiops_feature.install==true
+
 
 - name: CHECK for - Infrastructure Management
   include_role:

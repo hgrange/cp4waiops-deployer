@@ -22,6 +22,8 @@ spec:
     #    memory: 6Gi
     persistence:
       size: 30Gi
+  webhook:
+    enabled: true
   servicenow:
     enabled: true
   websphere:
@@ -39,7 +41,7 @@ spec:
     repository: registry.connect.redhat.com/turbonomic
     storageClassName: {{ WAIOPS_STORAGE_CLASS_LARGE_BLOCK }}
     storageSelector: false
-    tag: 8.5.3
+    tag: 8.5.5
   tomcat:
     enabled: true
   netapp:

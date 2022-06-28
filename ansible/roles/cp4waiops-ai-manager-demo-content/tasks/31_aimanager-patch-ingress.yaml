@@ -140,7 +140,7 @@
 
 - name: CERTIFICATES -           🩹 Patch Ingress Certificates (you can ignore errors in this step)
   shell: |
-    ingress_pod=$(oc get secrets -n openshift-ingress | grep tls | grep -v router-metrics-certs-default | awk '{print $1}')
+    ingress_pod=$(oc get secrets -n openshift-ingress | grep tls |grep -v router-token-| grep -v router-metrics-certs-default | awk '{print $1}')
     oc get secret -n openshift-ingress ${ingress_pod} -o jsonpath='{.data.tls\.crt}'  | base64 -d > /tmp/cert.crt
     oc get secret -n openshift-ingress ${ingress_pod} -o jsonpath='{.data.tls\.key}' | base64 -d > /tmp/cert.key
     oc get secret -n {{current_cp4waiops_cluster.project}} iaf-system-automationui-aui-zen-ca -o jsonpath='{.data.ca\.crt}' | base64 -d > /tmp/ca.crt

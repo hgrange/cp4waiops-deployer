@@ -303,7 +303,7 @@ def injectMetrics(METRIC_ROUTE,METRIC_TOKEN,METRICS_TO_SIMULATE,METRIC_TIME_SKEW
         print (MY_TIMESTAMP_READABLE)
         #print (MY_TIMESTAMP)
 
-        response = requests.post(url, data=output_json, headers=headers)#, verify=False)
+        response = requests.post(url, data=output_json, headers=headers, verify=False)
         print ('    RESULT:'+str(response.content))
     print ('✅ Inject Metrics')
     print ('------------------------------------------------------------------------------------------------')

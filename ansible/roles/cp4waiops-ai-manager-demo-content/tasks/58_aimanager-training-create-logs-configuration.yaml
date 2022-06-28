@@ -70,7 +70,7 @@
     echo "***************************************************************************************************************************************************"
     echo "   🛠️  Turn off RSA - Log Anomaly Statistical Baseline"
     export FILE_NAME=deactivate-analysis-RSA.graphql
-    export FILE_PATH={{role_path}}/templates/training/training-definitions/
+    export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh
 
 
