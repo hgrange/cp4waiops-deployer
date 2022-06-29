@@ -10,7 +10,7 @@
 # Get Cluster FQDN
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🔐 Getting Access Details"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -20,25 +20,25 @@
 
 
 
-- name: LOGIN -                  🚀 WAIOPS - Get Logins (please ignore any errors)
+- name: 🚀 LOGIN - WAIOPS - Get Logins (please ignore any errors)
   shell: |
     ../tools/20_get_logins.sh > ../LOGINS.txt
   ignore_errors: yes
 
 
-- name: LOGIN -                  🚀 WAIOPS - Print Logins
+- name: 🚀 LOGIN - WAIOPS - Print Logins
   shell: |
     cat ../LOGINS.txt
   ignore_errors: yes
   register: logins
 
 
-- name: DEBUG -              🟢 Logins
+- name: 🟢 OUTPUT
   debug: 
     var: logins.stdout_lines
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log

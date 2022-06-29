@@ -9,12 +9,12 @@
 # Install Turbonomic
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - PREREQUISITES - INSTALL TURBONOMIC
+- name: 🛰️ START - INSTALL TURBONOMIC
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Installing TURBONOMIC"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

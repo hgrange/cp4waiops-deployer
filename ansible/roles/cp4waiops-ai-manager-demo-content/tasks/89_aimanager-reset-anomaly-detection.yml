@@ -1,10 +1,10 @@
-- name: 🛰️ START - PREREQUISITES - RESET ANOMALY DETECTION
+- name: 🛰️ START - RESET ANOMALY DETECTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Reset Anomaly Detection Pods"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

@@ -1,11 +1,11 @@
 
 
-- name: 🛰️ START - PREREQUISITES - CREATE RUNBOOKS TRIGGER POLICY
+- name: 🛰️ START - CREATE RUNBOOKS TRIGGER POLICY
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Create Runbooks Trigger Policy"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

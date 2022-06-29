@@ -7,12 +7,12 @@
 # *************************************************************************************************************************************************
     
 
-- name: 🛰️ START - PREREQUISITES - PATCH INGRESS
+- name: 🛰️ START - PATCH INGRESS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Create valid Ingress Certificates"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

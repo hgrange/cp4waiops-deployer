@@ -9,12 +9,12 @@
 # Install ELK Stack on OCP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - PREREQUISITES - INSTALL ELK
+- name: 🛰️ START - INSTALL ELK
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Installing ELK"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

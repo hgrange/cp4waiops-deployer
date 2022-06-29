@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - PREREQUISITES - PATCH TOPOLOGY
+- name: 🛰️ START - PATCH TOPOLOGY
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Patching Topology Deployment"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

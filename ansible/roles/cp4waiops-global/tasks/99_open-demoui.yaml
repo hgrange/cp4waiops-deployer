@@ -6,7 +6,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🌏 Open DemoUI"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -44,7 +44,7 @@
   debug: 
     var: LOGINS.stdout_lines
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🕦 Wait for AI Manager to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

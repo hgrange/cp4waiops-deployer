@@ -7,7 +7,7 @@
 # *************************************************************************************************************************************************
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🕦 Wait for Common Services to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -41,7 +41,7 @@
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" ✅ Common Services is ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

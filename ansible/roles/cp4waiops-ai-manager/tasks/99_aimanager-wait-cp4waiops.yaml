@@ -7,7 +7,7 @@
     
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🕦 Wait for AI Manager to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -48,7 +48,7 @@
   delay: 15
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" ✅ AI Manager is ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

@@ -10,12 +10,12 @@
 # Register LDAP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - PREREQUISITES - LDAP REGISTER
+- name: 🛰️ START - LDAP REGISTER
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Register LDAP Users"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

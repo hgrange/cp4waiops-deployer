@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - PREREQUISITES - CREATE AWX CONNECTION
+- name: 🛰️ START - CREATE AWX CONNECTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Create AWX Connection"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

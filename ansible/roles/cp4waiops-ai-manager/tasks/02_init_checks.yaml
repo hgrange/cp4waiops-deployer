@@ -28,25 +28,11 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - PREREQUISITES - INIT CHECKS
+- name: 🛰️ START - INIT CHECKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name:   🟢 INIT CHECKS - OCP_LOGIN
-  debug: 
-    var: OCP_LOGIN
-
-
-
-- name:   🟢 INIT CHECKS - OCP_URL
-  debug: 
-    var: OCP_URL
-
-
-- name:   🟢 INIT CHECKS - OCP_TOKEN
-  debug: 
-    var: OCP_TOKEN
 
 
 

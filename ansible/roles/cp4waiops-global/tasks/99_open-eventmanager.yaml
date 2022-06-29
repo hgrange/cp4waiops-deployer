@@ -5,7 +5,7 @@
 # Open Doc
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🌏 Open EventManager"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -46,7 +46,7 @@
     var: LOGINS.stdout_lines
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🕦 Wait for Event Manager to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

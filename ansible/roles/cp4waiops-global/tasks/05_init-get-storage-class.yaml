@@ -12,7 +12,7 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 
-- name: 🛰️ START - PREREQUISITES - STORAGE CLASS
+- name: 🛰️ START - STORAGE CLASS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -176,7 +176,7 @@
     - " CP4WAIOPS Storage Class File:          {{WAIOPS_STORAGE_CLASS_FILE}}"
     - " CP4WAIOPS Storage Class Large Block:   {{WAIOPS_STORAGE_CLASS_LARGE_BLOCK}}"
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log

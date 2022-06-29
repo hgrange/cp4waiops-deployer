@@ -48,14 +48,14 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Placeholder for customization
-- name: Init Custom Hook
+- name: 📥 Init Custom Hook
   include_tasks: 00_init-custom-hook.yaml
 
 # Initialize Logging
 - name: 📥 Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
 
-- name: Get Storage Class
+- name: 📥 Get Storage Class
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/05_init-get-storage-class.yaml"
 
   
@@ -69,11 +69,11 @@
 # INSTALL ELK
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Install ELK
-- name: Install ELK
+- name: 📥 Install ELK
   include_tasks: 10_addons-elk.yaml
 
 
-- name: End Logging
+- name: 📥 End Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 

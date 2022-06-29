@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - PREREQUISITES - AI MANAGER INSIGHTS
+- name: 🛰️ START - AI MANAGER INSIGHTS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Enabling AI MAnager Insights"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

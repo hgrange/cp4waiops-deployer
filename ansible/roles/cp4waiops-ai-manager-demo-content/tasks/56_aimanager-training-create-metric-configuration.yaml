@@ -1,10 +1,10 @@
-- name: 🛰️ START - PREREQUISITES - CREATE METRICS ANALYSIS DEFINITIONS
+- name: 🛰️ START - CREATE METRICS ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Create Metric Anomaly Training Definition"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

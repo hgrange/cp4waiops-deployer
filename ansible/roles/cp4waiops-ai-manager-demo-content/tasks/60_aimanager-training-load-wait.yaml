@@ -1,11 +1,11 @@
 
 
-- name: 🛰️ START - PREREQUISITES - WAIT FOR TRAINING DATA TO LOAD
+- name: 🛰️ START - WAIT FOR TRAINING DATA TO LOAD
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Wait for Training Data to finish loading"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

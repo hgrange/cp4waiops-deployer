@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
     
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" 🕦 Wait for AWX to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -43,7 +43,7 @@
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE=" ✅ AWX is ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -51,7 +51,7 @@
   ignore_errors: yes
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Installing AWX"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -65,7 +65,7 @@
 
 
 
-- name: AWX -                    📥 Adapt service account
+- name: 🚀 AWX - Adapt service account
   shell: |
     oc create clusterrolebinding awx-default --clusterrole=cluster-admin --serviceaccount=awx:default
   ignore_errors: yes

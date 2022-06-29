@@ -9,12 +9,12 @@
 # Create OCP Demouser Account
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - PREREQUISITES - CREATE USER
+- name: 🛰️ START - CREATE USER
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Creating OCP User"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

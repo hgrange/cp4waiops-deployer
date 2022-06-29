@@ -1,14 +1,14 @@
 
 
 
-- name: 🛰️ START - PREREQUISITES - CREATE LOG ANALYSIS DEFINITIONS
+- name: 🛰️ START - CREATE LOG ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Create LAD Training Definition"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

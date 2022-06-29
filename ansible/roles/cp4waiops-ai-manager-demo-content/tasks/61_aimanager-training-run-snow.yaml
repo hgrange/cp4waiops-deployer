@@ -1,11 +1,11 @@
-- name: 🛰️ START - PREREQUISITES - RUN SNOW TRAINING
+- name: 🛰️ START - RUN SNOW TRAINING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
 
-- name: 📥 WRITE TO LOGFILE
+- name: Log
   shell: |
     export MESSAGE="Run SNOW Training"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

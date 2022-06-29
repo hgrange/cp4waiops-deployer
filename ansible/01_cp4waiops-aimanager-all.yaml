@@ -33,7 +33,7 @@
   #vars_files: ./configs/cp4waiops-roks-all.yaml
 
   tasks:
-  - name: MAIN INSTALLATION LOOP-           🚀 Install Modules
+  - name: 🚀 MAIN INSTALLATION LOOP - Install Modules
     debug: 
       msg: 
       - "***************************************************************************************************************************************************"
@@ -47,15 +47,15 @@
       - "***************************************************************************************************************************************************"
       - "***************************************************************************************************************************************************"
 
-  - name: Set Config File
+  - name: 🛠️ Set Config File
     set_fact: config_file_path="./configs/cp4waiops-roks-aimanager-all.yaml"
 
 
-  - name: Show Global Config
+  - name: 🛠️ Show Global Config
     debug:
       var: config_file_path
 
-  - name: Ansible check file exists.
+  - name: 🛠️ Ansible check config file exists
     stat:
       path: "{{config_file_path}}"
     register: p
@@ -65,12 +65,12 @@
   - fail: msg="The specified config file {{config_file_path}} does not exist"
     when: p.stat.exists == False
       
-  - name: Import Config File
+  - name: 🛠️ Import Config File
     include_vars:
       file: "{{config_file_path}}"
       name: config_file
 
-  - name: Show Global Config
+  - name: 🛠️ Show Global Config
     debug:
       var: config_file
 
@@ -79,7 +79,7 @@
 
 
   # Loop over all Clusters
-  - name: Deploy Cloud Pak for Watson AIOps Assets - Loop over Clusters
+  - name: ♻️ Deploy Cloud Pak for Watson AIOps Assets - Loop over Clusters
     include_role:
       name: cp4waiops-install
     loop: "{{ config_file.cp4waiops | default([]) }}"
