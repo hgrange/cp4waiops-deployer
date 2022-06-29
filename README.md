@@ -45,7 +45,7 @@ These are the high level steps that you need to execute to install the demo envi
 	1. Install directly from the OCP Web UI
 		1. In the the OCP Web UI click on the + sign in the right upper corner
 		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
-		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
 		3. Click `Save`
 		
 	1. Install from your PC
@@ -115,33 +115,27 @@ So please if you have any feedback contact me
 
 
 
----------------------------------------------------------------
-# 2 AI Manager Installation
----------------------------------------------------------------
 
-
-
-
-## 2.1 Get the code 
+## 1.1 Get the code 
 
 Clone the GitHub Repository
 
 From IBM internal:
 
 ```
-git clone https://<YOUR GIT TOKEN>@github.ibm.com/NIKH/aiops-install-ansible-fvt-33.git 
+git clone https://<YOUR GIT TOKEN>@github.ibm.com/NIKH/cp4waiops-deployer.git 
 ```
 
-Or my external repo (this is updated less often than the IBM internal one):
+Or my external repo:
 
 ```
-git clone https://github.com/niklaushirt/cp4waiops-public.git
+git clone https://github.com/niklaushirt/cp4waiops-deployer.git
 ```
 
 
-## 2.2 Prerequisites 
+## 1.2 Prerequisites 
 
-### 2.2.1 OpenShift requirements 
+### 1.2.1 OpenShift requirements 
 
 I installed the demo in a ROKS environment.
 
@@ -156,9 +150,9 @@ You **might** get away with less if you don't install some components (Event Man
 
 <div style="page-break-after: always;"></div>
 
-### 2.2.2 Tooling 
+### 1.2.2 Tooling 
 
-You need the following tools installed in order to follow through this guide:
+You need the following tools installed in order to follow through this guide (if you decide to install from your PC):
 
 - ansible
 - oc (4.7 or greater)
@@ -169,7 +163,9 @@ You need the following tools installed in order to follow through this guide:
 
 
 
-#### 2.2.1 On Mac - Automated (preferred) 
+#### 1.2.1 On Mac - Automated (preferred) 
+
+*Only needed if you decide to install from your PC*
 
 Just run:
 
@@ -177,7 +173,9 @@ Just run:
 ./10_install_prerequisites_mac.sh
 ```
 
-#### 2.2.2 On Ubuntu - Automated (preferred) 
+#### 1.2.2 On Ubuntu - Automated (preferred) 
+
+*Only needed if you decide to install from your PC*
 
 Just run:
 
@@ -189,11 +187,9 @@ Just run:
 
 <div style="page-break-after: always;"></div>
 
-## 2.3 Pull Secrets 
+## 1.3 Pull Secrets 
 
-
-
-### 2.3.1 Get the CP4WAIOPS installation token 
+### 1.3.1 Get the CP4WAIOPS installation token 
 
 You can get the installation (pull) token from [https://myibm.ibm.com/products-services/containerlibrary](https://myibm.ibm.com/products-services/containerlibrary).
 
@@ -203,25 +199,25 @@ This allows the CP4WAIOPS images to be pulled from the IBM Container Registry.
 
 
 
-## 2.4 Install AI Manager 
 
-
-### 2.4.1 Start AI Manager Installation 
+---------------------------------------------------------------
+# 2 AI Manager Installation
+---------------------------------------------------------------
 
 You have different options:
 
 1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
 	1. In the the OCP Web UI click on the + sign in the right upper corner
 	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
-	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
 	3. Click `Save`
 	
-1. **Install from your PC** *with the token from 2.3.1*
+1. **Install from your PC** *with the token from 1.3.1*
 ```bash
 ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
 ```
 	
-1. **Install with the Easy Installer** *with the token from 2.3.1*
+1. **Install with the Easy Installer** *with the token from 1.3.1*
 	1. Run
 	```bash
 	./01_easy-install.sh -t <REGISTRY_TOKEN>
@@ -304,7 +300,7 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 
 
-## 3.3 Re-Run Kubernetes Integration
+## 3.2 Re-Run Kubernetes Integration
 
 In the AI Manager (CP4WAIOPS) 
 
@@ -320,25 +316,21 @@ In the AI Manager (CP4WAIOPS)
 ---------------------------------------------------------------
 
 
-## 4.1 Install Event Manager 
-
-
-### 4.1.1 Start Event Manager Installation 
 
 You have different options:
 
 1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
 	1. In the the OCP Web UI click on the + sign in the right upper corner
 	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
-	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
 	3. Click `Save`
 	
-1. **Install from your PC** *with the token from 2.3.1*
+1. **Install from your PC** *with the token from 1.3.1*
 ```bash
 ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
 ```
 	
-1. **Install with the Easy Installer** *with the token from 2.3.1*
+1. **Install with the Easy Installer** *with the token from 1.3.1*
 	1. Run
 	```bash
 	./01_easy-install.sh -t <REGISTRY_TOKEN>
