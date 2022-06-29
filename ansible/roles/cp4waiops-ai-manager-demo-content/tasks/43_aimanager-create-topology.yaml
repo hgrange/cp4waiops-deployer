@@ -35,6 +35,7 @@
   shell: |
     set -x
     
+    echo "Create Custom Topology - Copy Topology to File Observer"
 
     # Create Route
     oc create route reencrypt topology-file-api -n {{current_cp4waiops_cluster.project}} --service=aiops-topology-file-observer --port=https-file-observer-api
@@ -45,8 +46,7 @@
     LOAD_FILE_NAME="robot-shop-file.txt"
     FILE_OBSERVER_CAP="{{role_path}}/templates/topology/$LOAD_FILE_NAME"
     TARGET_FILE_PATH="/opt/ibm/netcool/asm/data/file-observer/${LOAD_FILE_NAME}"
-    echo ""
-    echo "Copying capture file [${FILE_OBSERVER_CAP}] to file observer pod"
+    echo "  Copying capture file [${FILE_OBSERVER_CAP}] to file observer pod"
     oc cp ${FILE_OBSERVER_CAP} ${FILE_OBSERVER_POD}:${TARGET_FILE_PATH}
 
 
@@ -72,6 +72,9 @@
   shell: |
     set -x
     
+    echo "Create Custom Topology - Create File Observer Job"
+
+
     LOAD_FILE_NAME="robot-shop-file.txt"
     TARGET_FILE_PATH="/opt/ibm/netcool/asm/data/file-observer/${LOAD_FILE_NAME}"
 
@@ -86,9 +89,8 @@
     export TOPO_ROUTE="https://"$(oc get route -n {{current_cp4waiops_cluster.project}} topology-file-api -o jsonpath={.spec.host})
     export JOB_ID=robot-shop-topology
 
-    echo "Create File Observer Job"
-    echo "URL: $TOPO_ROUTE"
-    echo "LOGIN: $LOGIN"
+    echo "  URL: $TOPO_ROUTE"
+    echo "  LOGIN: $LOGIN"
 
 
     # Get FILE_OBSERVER JOB

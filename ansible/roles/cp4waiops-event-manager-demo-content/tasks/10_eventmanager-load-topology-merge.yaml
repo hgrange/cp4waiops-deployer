@@ -40,12 +40,12 @@
     export MERGE_ROUTE="https://"$(oc get route -n $EVTMGR_NAMESPACE evtmanager-topology-merge -o jsonpath={.spec.host})
 
 
-    echo "URL: $MERGE_ROUTE/1.0/merge/"
-    echo "LOGIN: $LOGIN"
+    echo "    URL: $MERGE_ROUTE/1.0/merge/"
+    echo "    LOGIN: $LOGIN"
 
 
 
-    echo "Create Match RULE..."
+    echo "  Create Match RULE..."
     curl -X "POST" "$MERGE_ROUTE/1.0/merge/rules" --insecure \
         -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
         -H 'content-type: application/json' \
@@ -60,7 +60,7 @@
         "providers": ["*"]
     }'
 
-    echo "Create Merge RULE..."
+    echo "  Create Merge RULE..."
     curl -X "POST" "$MERGE_ROUTE/1.0/merge/rules" --insecure \
         -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
         -H 'content-type: application/json' \
@@ -77,7 +77,7 @@
 
 
 
-    echo "Disable RULE k8ServiceName..."
+    echo "  Disable RULE k8ServiceName..."
 
     export RULE_ID=$(curl "$MERGE_ROUTE/1.0/merge/rules?ruleType=matchTokensRule&_filter=name=k8ServiceName&_include_count=false&_field=*" -s --insecure \
         -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \

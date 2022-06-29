@@ -34,7 +34,8 @@
 - name: TOPOLOGY -               🚀 COPY OVERLAY TOPOLOGY TO POD
   shell: |
     set -x
-    
+
+    echo "Create Custom Topology - Copy Topology to File Observer"
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
 
     # Get FILE_OBSERVER_POD
@@ -43,8 +44,7 @@
     LOAD_FILE_NAME="robot-shop-file.txt"
     FILE_OBSERVER_CAP="{{role_path}}/templates/topology/$LOAD_FILE_NAME"
     TARGET_FILE_PATH="/opt/ibm/netcool/asm/data/file-observer/${LOAD_FILE_NAME}"
-    echo ""
-    echo "Copying capture file [${FILE_OBSERVER_CAP}] to file observer pod [${FILE_OBSERVER_POD}]"
+    echo "  Copying capture file [${FILE_OBSERVER_CAP}] to file observer pod [${FILE_OBSERVER_POD}]"
     oc cp -n $EVTMGR_NAMESPACE ${FILE_OBSERVER_CAP} ${FILE_OBSERVER_POD}:${TARGET_FILE_PATH}
 
 
@@ -70,6 +70,8 @@
   shell: |
     set -x
     
+    echo "Create Custom Topology - Create File Observer Job"
+
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
 
     LOAD_FILE_NAME="robot-shop-file.txt"
@@ -84,8 +86,8 @@
     export JOB_ID=robot-shop-topology
 
     echo "Create File Observer Job"
-    echo "URL: $TOPO_ROUTE"
-    echo "LOGIN: $LOGIN"
+    echo "  URL: $TOPO_ROUTE"
+    echo "  LOGIN: $LOGIN"
 
 
     # Get FILE_OBSERVER JOB
