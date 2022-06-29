@@ -65,7 +65,7 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Initialize Logging
-- name: Init Logging
+- name: 📥 Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
     
 
@@ -95,7 +95,7 @@
   include_tasks: 99_aimanager-wait-cp4waiops.yaml
 
 
-- name: Start Logging
+- name: 📥 Start Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
 
 

@@ -52,7 +52,7 @@
   include_tasks: 00_init-custom-hook.yaml
 
 # Initialize Logging
-- name: Init Logging
+- name: 📥 Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
 
 - name: Get Storage Class
@@ -60,7 +60,7 @@
 
   
 # Start block
-- name: Start Logging
+- name: 📥 Start Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
 
 

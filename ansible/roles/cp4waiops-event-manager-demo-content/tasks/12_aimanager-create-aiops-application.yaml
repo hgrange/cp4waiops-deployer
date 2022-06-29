@@ -26,7 +26,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # WAIOPS
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: TOPOLOGY -               🚀 CREATE TOPOLOGY TEMPLATES
+- name:   🚀 TOPOLOGY - CREATE TOPOLOGY TEMPLATES
   shell: |
     set -x
         
@@ -119,7 +119,7 @@
 
 
 
-- name: TOPOLOGY -               🚀 CREATE TOPOLOGY APPS
+- name:   🚀 TOPOLOGY - CREATE TOPOLOGY APPS
   shell: |
     set -x
         
@@ -174,7 +174,7 @@
   debug: 
     var: output_string.stdout_lines
 
-- name: TOPOLOGY -               🚀 CREATE APPLICATION MEMBERS
+- name:   🚀 TOPOLOGY - CREATE APPLICATION MEMBERS
   shell: |
     set -x
 

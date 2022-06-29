@@ -33,18 +33,18 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: INIT CHECKS -            🟢 OCP_LOGIN
+- name:   🟢 INIT CHECKS - OCP_LOGIN
   debug: 
     var: OCP_LOGIN
 
 
 
-- name: INIT CHECKS -            🟢 OCP_URL
+- name:   🟢 INIT CHECKS - OCP_URL
   debug: 
     var: OCP_URL
 
 
-- name: INIT CHECKS -            🟢 OCP_TOKEN
+- name:   🟢 INIT CHECKS - OCP_TOKEN
   debug: 
     var: OCP_TOKEN
 
@@ -57,7 +57,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: INIT CHECKS -            🔐 Check Entitlement provided
+- name:   🔐 INIT CHECKS - Check Entitlement provided
   fail: msg="Please provide IBM Entitlement Pull Secret Key/Token (Get it from here https://myibm.ibm.com/products-services/containerlibrary)"
   when: "CP_ENTITLEMENT_KEY is not defined"
 

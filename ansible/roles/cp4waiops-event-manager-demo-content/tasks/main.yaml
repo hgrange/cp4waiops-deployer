@@ -52,11 +52,11 @@
 # INITIALIZATION
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Initialize Logging
-- name: Init Logging
+- name: 📥 Init Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/01_init-logging.yaml"
     
-    
-- name: Start Logging
+
+- name: 📥 Start Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90-log-start.yaml"
 
 
@@ -65,7 +65,7 @@
 # CHECK FOR INSTALLATION READY
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # Check that CP4WAIOPS has been completely installed
-- name: Wait for AI MAnager to be Ready
+- name: 📥 Wait for AI Manager to be Ready
   include_tasks: 99_eventmanager-wait-cp4waiops.yaml
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
@@ -73,17 +73,17 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # - name: Create Topology Observers
 #   include_tasks: 41_aimanager-create-observers.yaml
-- name: Load Topology Merge Rules
+- name: 📥 Load Topology Merge Rules
   include_tasks: 10_eventmanager-load-topology-merge.yaml
-- name: Create Overlay Topology
+- name: 📥 Create Overlay Topology
   include_tasks: 11_eventmanager-create-topology.yaml
-- name: Create Application
+- name: 📥 Create Application
   include_tasks: 12_aimanager-create-aiops-application.yaml
 
 
 
 
-- name: End Logging
+- name: 📥 End Logging
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/91-log-end.yaml"
 
 
