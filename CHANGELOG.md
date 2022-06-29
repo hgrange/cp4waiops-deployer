@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [34.0.2] - 2022-06-29
+## [34.1.1] - 2022-06-29
 
 Realease for 3.4.0 GA. 
 Some specifics apply: please see the README file.
