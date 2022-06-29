@@ -160,7 +160,7 @@ do
                   echo "     "
                   echo "     "
                   echo "     ------------------------------------------------------------------------------------------------------------------------------"
-                  echo "       🛠️  Uploading Index: ${actFile%".json"}"
+                  echo "       🛠️   Uploading Index: ${actFile%".json"}"
                   echo "     ------------------------------------------------------------------------------------------------------------------------------"
 
                   elasticdump --input="$WORKING_DIR_ES/${actFile}" --output=https://$username:$password@localhost:9200/${actFile%".json"} --type=data --limit=1000;
@@ -173,7 +173,7 @@ do
 
             echo "     "
             echo "     ------------------------------------------------------------------------------------------------------------------------------"
-            echo "       🛠️  Uploading Index: ${actFile%".json"}"
+            echo "       🛠️   Uploading Index: ${actFile%".json"}"
             echo "     ------------------------------------------------------------------------------------------------------------------------------"
 
             elasticdump --input="$WORKING_DIR_ES/${actFile}" --output=https://$username:$password@localhost:9200/${actFile%".json"} --type=data --limit=1000;

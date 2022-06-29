@@ -1,5 +1,5 @@
 
-- name: 🛰️ START - CREATE SNOW ANALYSIS DEFINITIONS
+- name: 🛰️  START - CREATE SNOW ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -24,13 +24,13 @@
     pwd
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Analysis Definiton: Change Risk"
+    echo "   🛠️   Create Analysis Definiton: Change Risk"
     export FILE_NAME=create-analysis-CR.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Analysis Definiton: Similar Incidents"
+    echo "   🛠️   Create Analysis Definiton: Similar Incidents"
     export FILE_NAME=create-analysis-SI.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh

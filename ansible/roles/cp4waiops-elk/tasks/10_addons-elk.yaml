@@ -9,7 +9,7 @@
 # Install ELK Stack on OCP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - INSTALL ELK
+- name: 🛰️  START - INSTALL ELK
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

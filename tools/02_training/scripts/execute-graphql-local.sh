@@ -21,7 +21,7 @@ fi
 
 
 if [[ ! $ROUTE =~ "ai-platform-api" ]]; then
-      echo "       🛠️  Create Route"
+      echo "       🛠️   Create Route"
       oc create route passthrough ai-platform-api -n $WAIOPS_NAMESPACE  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
       export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE ai-platform-api  -o jsonpath={.spec.host})
       echo "        Route: $ROUTE"
@@ -29,7 +29,7 @@ if [[ ! $ROUTE =~ "ai-platform-api" ]]; then
 fi
 
 if [[ $ZEN_TOKEN == "" ]]; then
-      echo "       🛠️  Getting ZEN Token"
+      echo "       🛠️   Getting ZEN Token"
      
       ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')
       ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"

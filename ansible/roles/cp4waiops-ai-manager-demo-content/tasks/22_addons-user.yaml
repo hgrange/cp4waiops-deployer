@@ -9,7 +9,7 @@
 # Create OCP Demouser Account
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - CREATE USER
+- name: 🛰️  START - CREATE USER
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

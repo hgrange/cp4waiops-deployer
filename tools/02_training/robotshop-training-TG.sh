@@ -30,7 +30,7 @@ fi
 if [[ $ROUTE =~ "ai-platform-api" ]]; then
     echo "       ✅ Platform API Route: OK"
 else
-    echo "       🛠️  Creating Route"
+    echo "       🛠️   Creating Route"
     oc create route passthrough ai-platform-api -n $WAIOPS_NAMESPACE  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
     export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE ai-platform-api  -o jsonpath={.spec.host})
     echo "        Route: $ROUTE"
@@ -40,13 +40,13 @@ echo ""
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Create Analysis Definiton: Temporal Grouping"
+echo "   🛠️   Create Analysis Definiton: Temporal Grouping"
 export FILE_NAME=create-analysis-TG.graphql
 ./tools/02_training/scripts/execute-graphql.sh
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Run Analysis: Temporal Grouping"
+echo "   🛠️   Run Analysis: Temporal Grouping"
 export FILE_NAME=run-analysis-TG.graphql
 ./tools/02_training/scripts/execute-graphql.sh
 

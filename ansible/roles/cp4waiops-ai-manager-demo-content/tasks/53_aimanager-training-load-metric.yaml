@@ -1,6 +1,6 @@
 
 
-- name: 🛰️ START - LOAD METRIC TRAINING DATA
+- name: 🛰️  START - LOAD METRIC TRAINING DATA
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

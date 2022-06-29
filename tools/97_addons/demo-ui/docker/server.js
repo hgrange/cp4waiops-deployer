@@ -58,7 +58,7 @@ console.log("                                                /_/            ");
 console.log("*************************************************************************************************");
 console.log("*************************************************************************************************");
 console.log("");
-console.log("    🛰️ DemoUI for CP4WAIOPS AI Manager");
+console.log("    🛰️  DemoUI for CP4WAIOPS AI Manager");
 console.log("");
 console.log("       Provided by:");
 console.log("        🇨🇭 Niklaus Hirt (nikh@ch.ibm.com)");

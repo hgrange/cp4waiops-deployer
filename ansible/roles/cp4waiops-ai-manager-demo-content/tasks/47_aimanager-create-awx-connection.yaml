@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - CREATE AWX CONNECTION
+- name: 🛰️  START - CREATE AWX CONNECTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -33,7 +33,7 @@
     echo "        AIO_PLATFORM_ROUTE: $AIO_PLATFORM_ROUTE"
     echo ""
 
-    echo "       🛠️  Getting ZEN Token"
+    echo "       🛠️   Getting ZEN Token"
 
     ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
     ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"

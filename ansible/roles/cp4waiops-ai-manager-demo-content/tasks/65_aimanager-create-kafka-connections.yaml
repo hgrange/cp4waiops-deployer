@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: 🛰️ START - CREATE KAFKA CONNECTIONS FOR INCEPTION
+- name: 🛰️  START - CREATE KAFKA CONNECTIONS FOR INCEPTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -34,7 +34,7 @@
     echo "        AIO_PLATFORM_ROUTE: $AIO_PLATFORM_ROUTE"
     echo ""
 
-    echo "       🛠️  Getting ZEN Token"
+    echo "       🛠️   Getting ZEN Token"
 
 
     ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')

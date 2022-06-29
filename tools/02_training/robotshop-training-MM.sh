@@ -27,13 +27,13 @@ fi
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Create Analysis Definiton: Temporal Grouping"
+echo "   🛠️   Create Analysis Definiton: Temporal Grouping"
 export FILE_NAME=create-analysis-METRIC.graphql
 ./tools/02_training/scripts/execute-graphql.sh
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Run Analysis: Temporal Grouping"
+echo "   🛠️   Run Analysis: Temporal Grouping"
 export FILE_NAME=run-analysis-METRIC.graphql
 ./tools/02_training/scripts/execute-graphql.sh
 

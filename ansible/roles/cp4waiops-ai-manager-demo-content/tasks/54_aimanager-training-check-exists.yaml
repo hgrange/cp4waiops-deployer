@@ -1,7 +1,7 @@
 
 
 
-- name: 🛰️ START - CHECK LAD EXISTS
+- name: 🛰️  START - CHECK LAD EXISTS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -23,7 +23,7 @@
     
 
     if [[ ! $ROUTE =~ "ai-platform-api" ]]; then
-          #echo "       🛠️  Create Route"
+          #echo "       🛠️   Create Route"
           oc create route passthrough ai-platform-api -n {{current_cp4waiops_cluster.project}}  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
           export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} ai-platform-api  -o jsonpath={.spec.host})
           #echo "        Route: $ROUTE"
@@ -31,7 +31,7 @@
     fi
  
     if [[ $ZEN_TOKEN == "" ]]; then
-          #echo "       🛠️  Getting ZEN Token"
+          #echo "       🛠️   Getting ZEN Token"
         
           ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
           ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
@@ -65,7 +65,7 @@
 
 
     #echo "***************************************************************************************************************************************************"
-    #echo "   🛠️  Check if Training Definitions already exist"
+    #echo "   🛠️   Check if Training Definitions already exist"
     #echo "     "	
     #echo "      📥 Launch Query for file: checkLAD.graphql"	
     #echo "     "

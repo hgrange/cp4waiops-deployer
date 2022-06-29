@@ -24,7 +24,7 @@ echo "       ✅  OK: AWX ready"
 echo ""
 echo ""
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
-echo "   🛠️  Initialisation"
+echo "   🛠️   Initialisation"
 
 export AWX_ROUTE=$(oc get route -n awx awx -o jsonpath={.spec.host})
 export ADMIN_USER=admin

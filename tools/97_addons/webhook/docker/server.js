@@ -47,7 +47,7 @@ console.log("                                                /_/            ");
 console.log("*************************************************************************************************");
 console.log("*************************************************************************************************");
 console.log("");
-console.log("    🛰️ Generic Webhook2Events Gateway - Push WebHook Events to CP4WAIOPS AI Manager");
+console.log("    🛰️  Generic Webhook2Events Gateway - Push WebHook Events to CP4WAIOPS AI Manager");
 console.log("");
 console.log("       Provided by:");
 console.log("        🇨🇭 Niklaus Hirt (nikh@ch.ibm.com)");

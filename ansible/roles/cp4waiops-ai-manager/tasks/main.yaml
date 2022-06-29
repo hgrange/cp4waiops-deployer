@@ -46,15 +46,19 @@
 
 
 
-- name: Installing {{current_cp4waiops_feature.kind}} with the following configuration
+- name: 🟢 Installing {{current_cp4waiops_feature.kind}} with the following configuration
   debug:
     var: current_cp4waiops_feature
 
 
-- name: And the following global configuration
+- name:  🟢 Installation Parameters"
   debug:
-    var: cp4waiops
-
+    msg:
+    - "** Installation Options ***********************************************************************"
+    - " Storage Class File Override:      {{config_file.storage_class_file}}"
+    - " Storage Class Block Override:     {{config_file.storage_class_block}}"
+    - " Storage Class InfraManagement:    {{config_file.storage_class_file}}"
+    - ""
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"

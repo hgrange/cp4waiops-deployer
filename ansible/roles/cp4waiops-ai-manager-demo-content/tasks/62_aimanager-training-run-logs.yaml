@@ -1,4 +1,4 @@
-- name: 🛰️ START - RUN LOG TRAINING
+- name: 🛰️  START - RUN LOG TRAINING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -17,7 +17,7 @@
     set -x
     
     echo "  ***************************************************************************************************************************************************"
-    echo "   🛠️  Run Analysis: Log Anomaly Detection"
+    echo "   🛠️   Run Analysis: Log Anomaly Detection"
     export FILE_NAME=run-analysis-LAD.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh

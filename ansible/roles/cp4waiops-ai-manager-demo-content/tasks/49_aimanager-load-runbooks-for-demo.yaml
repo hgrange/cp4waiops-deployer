@@ -8,7 +8,7 @@
     
 ## RUNBOOKS Duplicate
 
-- name: 🛰️ START - INSTALL AI MANAGER RUNBOOKS
+- name: 🛰️  START - INSTALL AI MANAGER RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

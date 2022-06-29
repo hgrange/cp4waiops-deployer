@@ -29,14 +29,14 @@ echo ""
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Get Namespace"
+echo "   🛠️   Get Namespace"
 export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
 oc project $WAIOPS_NAMESPACE >/tmp/templog.txt 2>&1
 echo "       Namespace: $WAIOPS_NAMESPACE"
 echo ""
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Get Route"
+echo "   🛠️   Get Route"
 oc create route passthrough ai-platform-api -n $WAIOPS_NAMESPACE  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
 export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE ai-platform-api  -o jsonpath={.spec.host})
 echo "       Route: $ROUTE"

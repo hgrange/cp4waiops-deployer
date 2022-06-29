@@ -30,7 +30,7 @@ fi
 if [[ $ROUTE =~ "ai-platform-api" ]]; then
     echo "       ✅ OK - Route:         OK"
 else
-    echo "       🛠️  Creating Route"
+    echo "       🛠️   Creating Route"
     oc create route passthrough ai-platform-api -n $WAIOPS_NAMESPACE  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
     export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE ai-platform-api  -o jsonpath={.spec.host})
     echo "        Route: $ROUTE"
@@ -40,7 +40,7 @@ echo ""
 
 
 if [[ $ZEN_TOKEN == "" ]]; then
-      echo "       🛠️  Getting ZEN Token"
+      echo "       🛠️   Getting ZEN Token"
      
       ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')
       ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
@@ -75,14 +75,14 @@ if [[ $ZEN_TOKEN == "" ]]; then
 fi
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Turn off RSA - Log Anomaly Statistical Baseline"
+echo "   🛠️   Turn off RSA - Log Anomaly Statistical Baseline"
 export FILE_NAME=deactivate-analysis-RSA.graphql
 ./tools/02_training/scripts/execute-graphql-local.sh
 
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Create Data Set: Log Anomaly Detection"
+echo "   🛠️   Create Data Set: Log Anomaly Detection"
 echo "     "	
 echo "      📥 Launch Query for file: create-dataset-LAD.graphql"	
 echo "     "
@@ -98,7 +98,7 @@ echo "     "
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Create Analysis Definiton: Log Anomaly Detection"
+echo "   🛠️   Create Analysis Definiton: Log Anomaly Detection"
 echo "     "	
 echo "      📥 Launch Query for file: create-analysis-LAD.graphql"	
 echo "     "
@@ -114,7 +114,7 @@ echo "     "
 
 
 echo "  ***************************************************************************************************************************************************"
-echo "   🛠️  Run Analysis: Log Anomaly Detection"
+echo "   🛠️   Run Analysis: Log Anomaly Detection"
 export FILE_NAME=run-analysis-LAD.graphql
 ./tools/02_training/scripts/execute-graphql-local.sh
 

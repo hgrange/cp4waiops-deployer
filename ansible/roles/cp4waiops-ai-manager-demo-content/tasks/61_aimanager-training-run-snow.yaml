@@ -1,4 +1,4 @@
-- name: 🛰️ START - RUN SNOW TRAINING
+- name: 🛰️  START - RUN SNOW TRAINING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -20,14 +20,14 @@
     set -x
     
     echo "  ***************************************************************************************************************************************************"
-    echo "   🛠️  Run Analysis: Change Risk"
+    echo "   🛠️   Run Analysis: Change Risk"
     export FILE_NAME=run-analysis-CR.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh
 
 
     echo "  ***************************************************************************************************************************************************"
-    echo "   🛠️  Run Analysis: Similar Incidents"
+    echo "   🛠️   Run Analysis: Similar Incidents"
     export FILE_NAME=run-analysis-SI.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh

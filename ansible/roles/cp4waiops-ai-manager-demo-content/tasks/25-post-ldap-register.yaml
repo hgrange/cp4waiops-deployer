@@ -10,7 +10,7 @@
 # Register LDAP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: 🛰️ START - LDAP REGISTER
+- name: 🛰️  START - LDAP REGISTER
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -127,12 +127,12 @@
     set -x
     
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
-    echo "       🛠️  Get Route"
+    echo "       🛠️   Get Route"
     export ROUTE=$(oc get route -n $WAIOPS_NAMESPACE cpd  -o jsonpath={.spec.host})          
     echo "        Route: $ROUTE"
     echo ""
  
-    echo "       🛠️  Getting ZEN Token"
+    echo "       🛠️   Getting ZEN Token"
   
     ZEN_API_HOST=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath='{.spec.host}')
     ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
@@ -167,7 +167,7 @@
 
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Demo Group"
+    echo "   🛠️   Create Demo Group"
     echo "     "	
     export result=$(curl -X "POST" -k "https://$ROUTE/usermgmt/v2/groups" \
       -H "Authorization: bearer $ZEN_TOKEN" \
@@ -186,7 +186,7 @@
     echo "     "	
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Demo User"
+    echo "   🛠️   Create Demo User"
     echo "     "	
     export result=$(curl -X "POST" -k "https://$ROUTE/usermgmt/v1/user" \
       -H "Authorization: bearer $ZEN_TOKEN" \

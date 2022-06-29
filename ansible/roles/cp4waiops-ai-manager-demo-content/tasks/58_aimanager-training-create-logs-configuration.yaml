@@ -1,7 +1,7 @@
 
 
 
-- name: 🛰️ START - CREATE LOG ANALYSIS DEFINITIONS
+- name: 🛰️  START - CREATE LOG ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -25,7 +25,7 @@
     
 
     if [[ ! $ROUTE =~ "ai-platform-api" ]]; then
-          echo "       🛠️  Create Route"
+          echo "       🛠️   Create Route"
           oc create route passthrough ai-platform-api -n {{current_cp4waiops_cluster.project}}  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
           export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} ai-platform-api  -o jsonpath={.spec.host})
           echo "        Route: $ROUTE"
@@ -33,7 +33,7 @@
     fi
  
     if [[ $ZEN_TOKEN == "" ]]; then
-          echo "       🛠️  Getting ZEN Token"
+          echo "       🛠️   Getting ZEN Token"
         
           ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
           ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
@@ -68,7 +68,7 @@
     fi
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Turn off RSA - Log Anomaly Statistical Baseline"
+    echo "   🛠️   Turn off RSA - Log Anomaly Statistical Baseline"
     export FILE_NAME=deactivate-analysis-RSA.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh
@@ -76,7 +76,7 @@
 
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Data Set: Log Anomaly Detection"
+    echo "   🛠️   Create Data Set: Log Anomaly Detection"
     echo "     "	
     echo "      📥 Launch Query for file: create-dataset-LAD.graphql"	
     echo "     "
@@ -101,7 +101,7 @@
 
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Analysis Definiton: Log Anomaly Detection"
+    echo "   🛠️   Create Analysis Definiton: Log Anomaly Detection"
     echo "     "	
     echo "      📥 Launch Query for file: create-analysis-LAD.graphql"	
     echo "     "

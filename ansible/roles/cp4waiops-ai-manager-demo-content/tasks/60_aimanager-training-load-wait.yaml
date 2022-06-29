@@ -1,6 +1,6 @@
 
 
-- name: 🛰️ START - WAIT FOR TRAINING DATA TO LOAD
+- name: 🛰️  START - WAIT FOR TRAINING DATA TO LOAD
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

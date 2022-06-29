@@ -1,6 +1,6 @@
 
 
-- name: 🛰️ START - CREATE TG ANALYSIS DEFINITIONS
+- name: 🛰️  START - CREATE TG ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
@@ -23,14 +23,14 @@
     pwd
 
     echo "***************************************************************************************************************************************************"
-    echo "   🛠️  Create Analysis Definiton: Temporal Grouping"
+    echo "   🛠️   Create Analysis Definiton: Temporal Grouping"
     export FILE_NAME=create-analysis-TG.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh
 
 
     #echo "***************************************************************************************************************************************************"
-    #echo "   🛠️  Run Analysis: Temporal Grouping"
+    #echo "   🛠️   Run Analysis: Temporal Grouping"
     #export FILE_NAME=run-analysis-TG.graphql
     #{{role_path}}/templates/training/scripts/execute-graphql.sh
 
