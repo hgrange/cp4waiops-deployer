@@ -21,7 +21,7 @@ export WAIOPS_VERSION=34
 
 export SHOW_MORE="false"
 export WAIOPS_PODS_MIN=115
-export DOC_URL="https://github.ibm.com/NIKH/aiops-install-ansible-33#2-ai-manager-installation"
+export DOC_URL="https://github.com/niklaushirt/cp4waiops-deployer#2-ai-manager-installation"
 
 
 # ---------------------------------------------------------------------------------------------------------------"

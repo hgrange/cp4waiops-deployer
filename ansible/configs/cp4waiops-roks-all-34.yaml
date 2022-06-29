@@ -124,19 +124,9 @@ storage_class_block: automatic
 # --------------------------------------------------------------------------------------------------------------------------------------
 # CP4WAIOPS Pull Registires
 # --------------------------------------------------------------------------------------------------------------------------------------
-
-# entitled_registry: cp.stg.icr.io
-# entitled_registry_user: cp
-# catalog_image: icr.io/cpopen/ibm-operator-catalog:latest
-
-# from #katamari-bvt-notifications
-entitled_registry: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com
-entitled_registry_user: nikh@ch.ibm.com
-#catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220601.2001-4674c29a5
-#catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220608.0002-837400c20
-catalog_image: hyc-katamari-cicd-team-docker-local.artifactory.swg-devops.com/katamari/relatedimages/ibm-watson-aiops-catalog:v3.4.0-20220617.0003-781cdc47b
-
-
+entitled_registry: cp.icr.io
+entitled_registry_user: cp
+catalog_image: icr.io/cpopen/ibm-operator-catalog:latest
 
 
 #Version of your OCP Cluster (override by setting manually - 4.6, 4.7,...)
