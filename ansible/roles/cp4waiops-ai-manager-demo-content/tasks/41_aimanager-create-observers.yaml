@@ -150,7 +150,7 @@
     executable: /bin/bash
 
 
-- name: OUTPUT -                 🟢 RESULT
+- name: 🟢 OUTPUT -                 RESULT
   debug: 
     var: output_string.stdout_lines
   
