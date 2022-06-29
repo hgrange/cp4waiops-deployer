@@ -10,7 +10,7 @@
 # Register LDAP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: TIMESTAMP -              🟢 START - LDAP REGISTER
+- name: TIMESTAMP -              🛰️ START - LDAP REGISTER
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

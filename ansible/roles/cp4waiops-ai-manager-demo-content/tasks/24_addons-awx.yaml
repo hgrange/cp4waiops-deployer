@@ -11,7 +11,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Create AWX
 
-- name: TIMESTAMP -              🟢 START - INSTALL AWX
+- name: TIMESTAMP -              🛰️ START - INSTALL AWX
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

@@ -1,4 +1,4 @@
-- name: TIMESTAMP -              🟢 START - CREATE METRICS ANALYSIS DEFINITIONS
+- name: TIMESTAMP -              🛰️ START - CREATE METRICS ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

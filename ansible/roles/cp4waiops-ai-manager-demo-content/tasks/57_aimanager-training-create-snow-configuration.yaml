@@ -1,5 +1,5 @@
 
-- name: TIMESTAMP -              🟢 START - CREATE SNOW ANALYSIS DEFINITIONS
+- name: TIMESTAMP -              🛰️ START - CREATE SNOW ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

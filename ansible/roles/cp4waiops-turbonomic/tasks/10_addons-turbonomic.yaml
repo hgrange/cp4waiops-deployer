@@ -9,7 +9,7 @@
 # Install Turbonomic
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: TIMESTAMP -              🟢 START - INSTALL TURBONOMIC
+- name: TIMESTAMP -              🛰️ START - INSTALL TURBONOMIC
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

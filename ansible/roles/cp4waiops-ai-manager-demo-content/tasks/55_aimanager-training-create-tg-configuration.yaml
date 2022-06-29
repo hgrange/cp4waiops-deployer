@@ -1,6 +1,6 @@
 
 
-- name: TIMESTAMP -              🟢 START - CREATE TG ANALYSIS DEFINITIONS
+- name: TIMESTAMP -              🛰️ START - CREATE TG ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

@@ -7,7 +7,7 @@
 # *************************************************************************************************************************************************
     
 
-- name: TIMESTAMP -              🟢 START - DISABLE SERVICE MATCH TOKEN RULE
+- name: TIMESTAMP -              🛰️ START - DISABLE SERVICE MATCH TOKEN RULE
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

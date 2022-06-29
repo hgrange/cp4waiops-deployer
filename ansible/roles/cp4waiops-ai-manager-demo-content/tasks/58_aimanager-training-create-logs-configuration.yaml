@@ -1,7 +1,7 @@
 
 
 
-- name: TIMESTAMP -              🟢 START - CREATE LOG ANALYSIS DEFINITIONS
+- name: TIMESTAMP -              🛰️ START - CREATE LOG ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

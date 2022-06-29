@@ -1,4 +1,4 @@
-- name: TIMESTAMP -              🟢 START - RUN LOG TRAINING
+- name: TIMESTAMP -              🛰️ START - RUN LOG TRAINING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

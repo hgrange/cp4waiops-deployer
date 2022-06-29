@@ -1,6 +1,6 @@
 
 
-- name: TIMESTAMP -              🟢 START - CREATE RUNBOOKS TRIGGER POLICY
+- name: TIMESTAMP -              🛰️ START - CREATE RUNBOOKS TRIGGER POLICY
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

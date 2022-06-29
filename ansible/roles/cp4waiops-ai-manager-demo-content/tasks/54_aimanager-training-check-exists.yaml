@@ -1,7 +1,7 @@
 
 
 
-- name: TIMESTAMP -              🟢 START - CHECK LAD EXISTS
+- name: TIMESTAMP -              🛰️ START - CHECK LAD EXISTS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

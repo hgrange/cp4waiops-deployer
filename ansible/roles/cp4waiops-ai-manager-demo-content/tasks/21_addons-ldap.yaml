@@ -9,7 +9,7 @@
 # Install OpenLDAP
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: TIMESTAMP -              🟢 START - INSTALL OPENLDAP
+- name: TIMESTAMP -              🛰️ START - INSTALL OPENLDAP
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

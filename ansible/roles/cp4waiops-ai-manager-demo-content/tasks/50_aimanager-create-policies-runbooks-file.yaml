@@ -1,6 +1,6 @@
 
 
-- name: TIMESTAMP -              🟢 START - INSTALL AI MANAGER RUNBOOKS
+- name: TIMESTAMP -              🛰️ START - INSTALL AI MANAGER RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

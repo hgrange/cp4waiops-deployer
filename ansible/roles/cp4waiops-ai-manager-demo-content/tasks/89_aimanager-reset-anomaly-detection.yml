@@ -1,4 +1,4 @@
-- name: TIMESTAMP -              🟢 START - RESET ANOMALY DETECTION
+- name: TIMESTAMP -              🛰️ START - RESET ANOMALY DETECTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
