@@ -19,7 +19,7 @@
   ignore_errors: yes
 
 
-- name:  AIMANAGER INSTALL -     🚀 Install Custom Resource - INSTALL AI MANAGER
+- name:  🚀 AIMANAGER INSTALL - Install Custom Resource - INSTALL AI MANAGER
   kubernetes.core.k8s:
     state: present
     template: './templates/waiops/4_waiops-install-template.j2'

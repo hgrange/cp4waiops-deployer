@@ -23,24 +23,24 @@
   ignore_errors: yes
 
 
-- name: ELK -                    🚀 Create Elasticsearch
+- name: 🚀 ELK - Create Elasticsearch
   kubernetes.core.k8s:
     state: present
     namespace: turbonomic
     template: ./templates/elk/1_elasticsearch.j2
   
 
-- name: ELK -                    🚀 Create ELK Operator
+- name: 🚀 ELK - Create ELK Operator
   kubernetes.core.k8s:
     state: present
     namespace: turbonomic
     template: ./templates/elk/2_logging.j2
   
-- name: ELK -                    🕦 Pause for 120 seconds for Operator to settle
+- name: 🕦 ELK - Pause for 120 seconds for Operator to settle
   pause:
     seconds: 120
 
-- name: ELK -                    🚀 Create ELK Instance
+- name: 🚀 ELK - Create ELK Instance
   kubernetes.core.k8s:
     state: present
     namespace: turbonomic
@@ -51,7 +51,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for openshift-logging Namespace to be ready
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: ELK -                    🕦 Wait for >10 pods in namespace openshift-logging
+- name: 🕦 ELK - Wait for >10 pods in namespace openshift-logging
   shell: oc get po -n openshift-logging | wc -l
   register: kubectl_num_pods
   until: kubectl_num_pods.stdout|int > 10
@@ -59,7 +59,7 @@
   delay: 15
 
 
-- name: ELK -                    🕦 Wait for openshift-logging to become ready
+- name: 🕦 ELK - Wait for openshift-logging to become ready
   shell: oc get po -n openshift-logging | grep -v Running |grep -v Completed|grep -v Error | grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"
@@ -67,7 +67,7 @@
   delay: 15
 
 
-# - name: ELK -                    🚀 Patch ELK Instance
+# - name: 🚀 ELK - Patch ELK Instance
 #   shell: |
 #     oc patch ClusterLogging instance -n openshift-logging --patch "$(cat ./templates/elk/4_logging-patch.yaml)"  --type=merge
 #     #In order to create Filter to only ingest robot-shop logs
@@ -77,7 +77,7 @@
 #   ignore_errors: yes
 
     
-- name: ELK -                    🚀 Create Elasticsearch Route
+- name: 🚀 ELK - Create Elasticsearch Route
   shell: |
     rm admin-ca
     oc delete route  elasticsearch -n openshift-logging
@@ -87,7 +87,7 @@
         
 
 
-- name: ELK -                    🚀 Output Elasticsearch Connection Details
+- name: 🚀 ELK - Output Elasticsearch Connection Details
   shell: |
     token=$(oc sa get-token cluster-logging-operator -n openshift-logging)
     routeES=`oc get route elasticsearch -o jsonpath={.spec.host} -n openshift-logging`
@@ -114,7 +114,7 @@
     echo "}"
     echo "  "
   register: output
-- name: ELK -                    🚀 Output Elasticsearch Connection Details
+- name: 🚀 ELK - Output Elasticsearch Connection Details
   debug: 
     var: output.stdout_lines
 

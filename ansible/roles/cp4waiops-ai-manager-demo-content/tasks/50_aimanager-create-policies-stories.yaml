@@ -25,7 +25,7 @@
 
 
 
-- name: AIManager Policies -      🚀 Create Story Creation Policy
+- name: 🛠️ POLICIES - Create Story Creation Policy
   shell: |
     export POLICY_FILE="{{role_path}}/templates/policies/story-creation-policy.json"
     echo $POLICY_FILE

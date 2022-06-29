@@ -19,7 +19,7 @@
   ignore_errors: yes
 
 
-- name: ROUTES -                 🚀 Create AWX Connection (you can ignore errors in this step)
+- name: 🚀 ROUTES - Create AWX Connection (you can ignore errors in this step)
   shell: |
     oc create route passthrough -n {{current_cp4waiops_cluster.project}} --service aimanager-aio-controller
 
@@ -98,7 +98,7 @@
   args:
     executable: /bin/bash
   
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

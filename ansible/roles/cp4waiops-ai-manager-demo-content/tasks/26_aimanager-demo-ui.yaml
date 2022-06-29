@@ -21,7 +21,7 @@
 
 
 
-- name: DEMO-UI -                🚀 Delete old instance (ignore errors))
+- name: 🚀 DEMO-UI - Delete old instance (ignore errors))
   shell: |
     oc delete deployment -n {{current_cp4waiops_cluster.project}} waiops-demo-ui-python --ignore-not-found
     oc delete job -n {{current_cp4waiops_cluster.project}} demo-ui-python-create-config --ignore-not-found
@@ -36,7 +36,7 @@
   ignore_errors: yes
 
 
-- name: DEMO-UI -                🚀 Create CP4WAIOPS Demo UI Configuration
+- name: 🚀 DEMO-UI - Create CP4WAIOPS Demo UI Configuration
   kubernetes.core.k8s:
     state: present
     template: ./templates/waiops-demo-ui/create-cp4waiops-demo-cm.j2
@@ -44,7 +44,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for Demo UI Configuration being ready
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: DEMO-UI -                🕦 Wait for Demo UI Configuration being ready
+- name: 🕦 DEMO-UI - Wait for Demo UI Configuration being ready
   shell: oc get cm -n {{current_cp4waiops_cluster.project}} demo-ui-python-config --ignore-not-found --no-headers|grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"
@@ -52,7 +52,7 @@
   delay: 15
 
 
-- name: DEMO-UI -                🚀 Create CP4WAIOPS Demo UI Deployment
+- name: 🚀 DEMO-UI - Create CP4WAIOPS Demo UI Deployment
   kubernetes.core.k8s:
     state: present
     template: ./templates/waiops-demo-ui/create-cp4waiops-demo-deploy.j2
@@ -60,7 +60,7 @@
 
 # Wait for Demo UI being ready
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: DEMO-UI -                🕦 Wait for Demo UI being ready
+- name: 🕦 DEMO-UI - Wait for Demo UI being ready
   shell: oc get pod -n {{current_cp4waiops_cluster.project}} |grep waiops-demo-ui-python|grep "1/1"|grep -v "Terminating"|grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"

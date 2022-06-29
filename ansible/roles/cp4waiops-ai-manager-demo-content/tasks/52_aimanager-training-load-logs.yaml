@@ -17,14 +17,14 @@
 
 
 
-- name: TRAINING LOAD LAD -      🚀 CREATE CLUSTERROLE
+- name: 📥 TRAINING LOAD LAD - CREATE CLUSTERROLE
   kubernetes.core.k8s:
     state: present
     namespace: default
     src: ./templates/training/default-clusterrole.yaml
     
 
-- name: TRAINING LOAD LAD -      🚀 LOAD ELASTICSEARCH LOG DATA 
+- name: 📥 TRAINING LOAD LAD - LOAD ELASTICSEARCH LOG DATA 
   kubernetes.core.k8s:
     state: present
     namespace: turbonomic

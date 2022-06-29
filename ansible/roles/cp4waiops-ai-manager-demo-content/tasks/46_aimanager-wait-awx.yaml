@@ -18,7 +18,7 @@
 # Wait for awx Namespace to be ready
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: CHECK -                  🕦 Wait for pods in namespace awx ready
+- name: 🕦 CHECK -  Wait for pods in namespace awx ready
   shell: |
     NUM_PODS=$(oc get pods -n awx| grep postgres|grep 1/1 | wc -l| tr -d ' ')
     echo $NUM_PODS
@@ -29,7 +29,7 @@
 
 
 
-- name: CHECK -                  🕦 Wait for awx UI to become ready
+- name: 🕦 CHECK -  Wait for awx UI to become ready
   shell: |
     export AWX_ROUTE=$(oc get route -n awx awx -o jsonpath={.spec.host})
     export AWX_URL=$(echo "https://$AWX_ROUTE")

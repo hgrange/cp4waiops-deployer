@@ -24,7 +24,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for Topology Pods
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: HACK    -             🕦 Wait for Topology Pods to become available - this can take up to 45 minutes (hack for v3.4.0)
+- name: 🕦 PATCH - Wait for Topology Pods to become available - this can take up to 45 minutes (hack for v3.4.0)
   shell: oc get po -n {{ current_cp4waiops_cluster.project }} | grep evtmanager-topology-merge| grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"
@@ -37,27 +37,27 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Patch Topology Pods
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: HACK    -             🩹 Patch aiops-topology-merge (hack for v3.4.0)
+- name: 🩹 PATCH - Patch aiops-topology-merge (hack for v3.4.0)
   shell: oc patch deployment evtmanager-topology-merge -n {{ current_cp4waiops_cluster.project }} --patch-file "{{role_path}}/templates/eventmanager/patches/evtmanager-topology-merge-patch.yaml"
   ignore_errors: yes
 
 
-- name: HACK    -             🩹 Patch aiops-topology-search (hack for v3.4.0)
+- name: 🩹 PATCH - Patch aiops-topology-search (hack for v3.4.0)
   shell: oc patch deployment evtmanager-topology-search -n {{ current_cp4waiops_cluster.project }} --patch-file "{{role_path}}/templates/eventmanager/patches/evtmanager-topology-search-patch.yaml"
   ignore_errors: yes
 
 
-- name: HACK    -             🩹 Patch aiops-topology-status (hack for v3.4.0)
+- name: 🩹 PATCH - Patch aiops-topology-status (hack for v3.4.0)
   shell: oc patch deployment evtmanager-topology-status -n {{ current_cp4waiops_cluster.project }} --patch-file "{{role_path}}/templates/eventmanager/patches/evtmanagerps-topology-status-patch.yaml"
   ignore_errors: yes
 
 
-- name: HACK    -             🩹 Patch aiops-topology-layout (hack for v3.4.0)
+- name: 🩹 PATCH - Patch aiops-topology-layout (hack for v3.4.0)
   shell: oc patch deployment evtmanager-topology-layout -n {{ current_cp4waiops_cluster.project }} --patch-file "{{role_path}}/templates/eventmanager/patches/evtmanager-topology-layout-patch.yaml"
   ignore_errors: yes
 
 
-- name: HACK    -             🩹 Patch evtmanager-ibm-hdm-analytics-dev-inferenceservice (hack for v3.4.0)
+- name: 🩹 PATCH - Patch evtmanager-ibm-hdm-analytics-dev-inferenceservice (hack for v3.4.0)
   shell: oc patch deployment evtmanager-ibm-hdm-analytics-dev-inferenceservice -n {{ current_cp4waiops_cluster.project }} --patch-file "{{role_path}}/templates/eventmanager/patches/evtmanager-inferenceservice-patch.yaml"
   ignore_errors: yes
 

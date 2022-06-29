@@ -20,7 +20,7 @@
 # Wait for Common Services
 # --------------------------------------------------------------------------------------------------------------------------------------
 
-- name: CHECK -                  🕦 Wait for more than >{{ cs_ns_min_pods }} pods in namespace ibm-common-services (this might take some time)
+- name: 🕦 CHECK -  Wait for more than >{{ cs_ns_min_pods }} pods in namespace ibm-common-services (this might take some time)
   shell: |
     NUM_PODS=$(oc get po -n ibm-common-services |grep Running| wc -l)
     echo $NUM_PODS
@@ -32,7 +32,7 @@
 
 
 
-- name: CHECK -                  🕦 Wait for ibm-common-services to become ready (this might take some time)
+- name: 🕦 CHECK -  Wait for ibm-common-services to become ready (this might take some time)
   shell: oc get po -n ibm-common-services | grep -v Running |grep -v Completed | grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"

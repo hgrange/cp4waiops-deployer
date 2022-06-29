@@ -22,7 +22,7 @@
   ignore_errors: yes
 
 
-- name: AIManager Runbook -      🌏 Get ZEN TOKEN
+- name: 🚀 AWX - Get ZEN TOKEN
   shell: |
     ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
     ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"
@@ -48,14 +48,14 @@
     executable: /bin/bash
 
 
-- name: AIManager Runbook -      💾 Set Fact ZEN_TOKEN
+- name: 🚀 AWX - Set Fact ZEN_TOKEN
   set_fact: ZEN_TOKEN={{ ACT_ZEN_TOKEN.stdout }} 
 
 
 
 
 
-- name: AIManager Runbook -      🚀 Create WAIOPS Runbook - Mitigate RobotShop Problem
+- name: 🚀 AWX - Create WAIOPS Runbook - Mitigate RobotShop Problem
   shell: |
     export ZEN_TOKEN={{ZEN_TOKEN}}
     export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath={.spec.host})
@@ -111,7 +111,7 @@
 
 
 
-- name: AIManager Runbook -      🚀 Create WAIOPS Runbook - Create RobotShop Problem
+- name: 🚀 AWX - Create WAIOPS Runbook - Create RobotShop Problem
   shell: |
     export ZEN_TOKEN={{ZEN_TOKEN}}
     export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath={.spec.host})
@@ -168,7 +168,7 @@
 
 
 
-- name: AIManager Runbook -      🚀 Create WAIOPS Runbook - Recycle RobotShop Problem
+- name: 🚀 AWX - Create WAIOPS Runbook - Recycle RobotShop Problem
   shell: |
     export ZEN_TOKEN={{ZEN_TOKEN}}
     export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath={.spec.host})

@@ -15,7 +15,7 @@
 
 
 
-- name: TRAINING RUN -           🚀 RUN TRAINING ALL
+- name: 🚀 TRAINING RUN - RUN TRAINING ALL
   shell: |
     set -x
     

@@ -16,7 +16,7 @@
 
 
 
-- name: TRAINING CREATE EVENTS - 🚀 CREATE AND LAUNCH TEMPORAL GROUPING CONFIGURATION
+- name: 🚀 TRAINING CREATE EVENTS - CREATE AND LAUNCH TEMPORAL GROUPING CONFIGURATION
   shell: |
     set -x
     export ROUTE=""
@@ -41,7 +41,7 @@
     executable: /bin/bash
 
 
-- name: TRAINING CREATE EVENTS - ✅ RESULT
+- name: 🟢 TRAINING CREATE EVENTS - RESULT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

@@ -19,7 +19,7 @@
   ignore_errors: yes
 
 
-- name: ROUTES -                 🚀 Create KAFKA Connections for Inception
+- name: 🌏 CONNECTIONS - Create KAFKA Connections for Inception
   shell: |
     oc create route passthrough -n {{current_cp4waiops_cluster.project}} --service aimanager-aio-controller
 
@@ -118,7 +118,7 @@
   args:
     executable: /bin/bash
   
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

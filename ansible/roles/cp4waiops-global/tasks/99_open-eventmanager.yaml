@@ -16,7 +16,7 @@
 
 
 
-- name: EVENT MANAGER -             🌏 Get EVENT MANAGER LOGINS
+- name: 🌏 EVENT MANAGER - Get EVENT MANAGER LOGINS
   shell: |
     export ROUTE=$(oc get route -n {{ current_cp4waiops_cluster.project }}  evtmanager-ibm-hdm-common-ui -o jsonpath={.spec.host})
     echo ""
@@ -41,7 +41,7 @@
   register: LOGINS
 
 
-- name: EVENT MANAGER -             🟢 EVENT MANAGER LOGINS
+- name: 🟢 EVENT MANAGER - EVENT MANAGER LOGINS
   debug: 
     var: LOGINS.stdout_lines
 

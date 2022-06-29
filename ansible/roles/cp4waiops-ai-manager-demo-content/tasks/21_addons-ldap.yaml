@@ -30,7 +30,7 @@
 #     template: ./templates/ldap/install-ldap.j2
 #   #when: INSTALL_LDAP == true
 
-- name: LDAP -                   🚀 Install OpenLDAP
+- name: 🚀 LDAP - Install OpenLDAP
   kubernetes.core.k8s:
     state: present
     template: ./templates/ldap/install-ldap.j2
@@ -38,7 +38,7 @@
 
 
 
-- name: TIMESTAMP -              ✅ END INSTALLATION - INSTALL OPENLDAP
+- name: 🕦 TIMESTAMP - END INSTALLATION - INSTALL OPENLDAP
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 

@@ -16,7 +16,7 @@
 
 
 
-- name: CHECK LAD TRAINING -     🔎 CHECK TRAINING DEFINITIONS EXISTS
+- name: 🔎 CHECK LAD TRAINING - CHECK TRAINING DEFINITIONS EXISTS
   shell: |
     set -x
     export ROUTE=""
@@ -97,15 +97,15 @@
   args:
     executable: /bin/bash
     
-- name: CHECK LAD TRAINING -     ✅ DEBUG
+- name: 🔎 CHECK LAD TRAINING
   debug: 
     var: output_string.stdout_lines
 
-- name: CHECK LAD TRAINING -     ☑️  Check if Training Definitions already exist
+- name: 🔎 CHECK LAD TRAINING - Check if Training Definitions already exist
   set_fact: TRAINING_EXISTS={{output_string.stdout_lines[0]}}
 
 
-- name: CHECK LAD TRAINING -     ✅ RESULT -  MODEL EXISTS - {{TRAINING_EXISTS}}
+- name: 🔎 CHECK LAD TRAINING - RESULT -  MODEL EXISTS - {{TRAINING_EXISTS}}
   debug: 
     var: TRAINING_EXISTS
   #when: PRINT_LOGINS == true

@@ -14,7 +14,7 @@
   ignore_errors: yes
 
 
-- name: AIManager Runbook -      🌏 Get ZEN TOKEN
+- name: 🚀 RUNBOOKS - Get ZEN TOKEN
   shell: |
     ZEN_API_HOST=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath='{.spec.host}')
     ZEN_LOGIN_URL="https://${ZEN_API_HOST}/v1/preauth/signin"

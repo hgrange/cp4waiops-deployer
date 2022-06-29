@@ -21,7 +21,7 @@
   ignore_errors: yes
 
 
-- name: AWX Runbook Content -    🌏 Get AWX URL
+- name: 🚀 AWX - Get AWX URL
   shell: |
     export AWX_ROUTE=$(oc get route -n awx awx -o jsonpath={.spec.host})
     export AWX_URL=$(echo "https://$AWX_ROUTE")
@@ -30,11 +30,11 @@
   register: ACT_AWX_URL
 
 
-- name: AWX Runbook Content -    💾 Set Fact AWX_URL {{ ACT_AWX_URL.stdout }} 
+- name: 🚀 AWX - Set Fact AWX_URL {{ ACT_AWX_URL.stdout }} 
   set_fact: AWX_URL={{ ACT_AWX_URL.stdout }} 
 
 
-- name: AWX Runbook Content -    🌏 Get AWX Password
+- name: 🚀 AWX - Get AWX Password
   shell: |
     export ADMIN_PASSWORD=$(oc -n awx get secret awx-admin-password -o jsonpath='{.data.password}' | base64 --decode && echo)
     echo $ADMIN_PASSWORD
@@ -42,12 +42,12 @@
   register: ACT_AWX_PWD
 
 
-- name: AWX Runbook Content -    💾 Set Fact AWX_PWD {{ ACT_AWX_PWD.stdout }} 
+- name: 🚀 AWX - Set Fact AWX_PWD {{ ACT_AWX_PWD.stdout }} 
   set_fact: AWX_PWD={{ ACT_AWX_PWD.stdout }} 
 
 
 
-- name: AWX Easy Install -       🚀 Create AWX Execution Environment
+- name: 🚀 AWX - Create AWX Execution Environment
   shell: |
     export RUNNER_IMAGE=niklaushirt/cp4waiops-awx:0.1.3
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/execution_environments/" -u "admin:{{ AWX_PWD }}" --insecure \
@@ -78,13 +78,13 @@
 
 
 
-- name: AWX Easy Install -       💾 Set Fact EXENV_ID {{ EXENV_ID.stdout }} 
+- name: 🚀 AWX - Set Fact EXENV_ID {{ EXENV_ID.stdout }} 
   set_fact: EXENV_ID={{ EXENV_ID.stdout }} 
 
 
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Project
+- name: 🚀 AWX - Create AWX Project
   shell: |
     export AWX_REPO=https://github.com/niklaushirt/ansible-demo
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/projects/" -u "admin:{{ AWX_PWD }}" --insecure \
@@ -122,13 +122,13 @@
   args:
     executable: /bin/bash
 
-- name: AWX Runbook Content -    💾 Set Fact AWX_PROJECT_ID {{ AWX_RESULT.stdout }} 
+- name: 🚀 AWX - Set Fact AWX_PROJECT_ID {{ AWX_RESULT.stdout }} 
   set_fact: AWX_PROJECT_ID={{ AWX_RESULT.stdout }} 
 
 
 
 
-- name: AWX Runbook Content -    🦟 AWX Project Stuck
+- name: 🚀 AWX - AWX Project Stuck
   debug:
     msg:
     - "*************************************************************************"
@@ -144,11 +144,11 @@
 
 
 
-- name: AWX Runbook Content -    💾 Set Fact AWX_PROJECT_ID {{ AWX_RESULT.stdout }} 
+- name: 🚀 AWX - Set Fact AWX_PROJECT_ID {{ AWX_RESULT.stdout }} 
   set_fact: AWX_PROJECT_ID={{ AWX_RESULT.stdout }} 
 
 
-- name: AWX Runbook Content -    🚀 Hack sync AWX Project
+- name: 🚀 AWX - Hack sync AWX Project
   shell: |
     export AWX_REPO=https://github.com/niklaushirt/ansible-demo
     export result=$(curl -X "GET" -s "{{ AWX_URL }}/api/v2/projects/{{ AWX_PROJECT_ID }}/update" -u "admin:{{ AWX_PWD }}" --insecure \
@@ -168,7 +168,7 @@
     executable: /bin/bash
 
 
-- name: AWX Runbook Content -    🚀 Wait for AWX Project
+- name: 🚀 AWX - Wait for AWX Project
   shell: |
     #sleep 60
     export STATUS=$(curl -X "GET" -s "{{ AWX_URL }}/api/v2/projects/" -u "admin:{{ AWX_PWD }}" --insecure|jq -c -r '.results[]| select( .name == "CP4WAIOPS Runbooks")|.status')
@@ -181,13 +181,13 @@
 
 
 
-- name: AWX Runbook Content -    💾 Set Fact Project Status - {{ STATUS.stdout }} 
+- name: 🚀 AWX - Set Fact Project Status - {{ STATUS.stdout }} 
   set_fact: STATUS={{ STATUS.stdout }} 
 
 
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Inventory (Project is {{STATUS}})
+- name: 🚀 AWX - Create AWX Inventory (Project is {{STATUS}})
   shell: |
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/inventories/" -u "admin:{{ AWX_PWD }}" --insecure \
     -H 'content-type: application/json' \
@@ -214,14 +214,14 @@
   args:
     executable: /bin/bash
 
-- name: AWX Runbook Content -    💾 Set Fact AWX_INVENTORY_ID {{ AWX_RESULT.stdout }} 
+- name: 🚀 AWX - Set Fact AWX_INVENTORY_ID {{ AWX_RESULT.stdout }} 
   set_fact: AWX_INVENTORY_ID={{ AWX_RESULT.stdout }} 
 
 
 
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Template Mitigate Robotshop Ratings Outage
+- name: 🚀 AWX - Create AWX Template Mitigate Robotshop Ratings Outage
   shell: |
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/job_templates/" -u "admin:{{ AWX_PWD }}" --insecure \
     -H 'content-type: application/json' \
@@ -247,7 +247,7 @@
 
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Template Create Robotshop Ratings Outage
+- name: 🚀 AWX - Create AWX Template Create Robotshop Ratings Outage
   shell: |
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/job_templates/" -u "admin:{{ AWX_PWD }}" --insecure \
     -H 'content-type: application/json' \
@@ -272,7 +272,7 @@
     executable: /bin/bash
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Template Start Robotshop Ratings
+- name: 🚀 AWX - Create AWX Template Start Robotshop Ratings
   shell: |
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/job_templates/" -u "admin:{{ AWX_PWD }}" --insecure \
     -H 'content-type: application/json' \
@@ -298,7 +298,7 @@
 
 
 
-- name: AWX Runbook Content -    🚀 Create AWX Template Stop Robotshop Ratings
+- name: 🚀 AWX - Create AWX Template Stop Robotshop Ratings
   shell: |
     export result=$(curl -X "POST" -s "{{ AWX_URL }}/api/v2/job_templates/" -u "admin:{{ AWX_PWD }}" --insecure \
     -H 'content-type: application/json' \

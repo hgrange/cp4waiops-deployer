@@ -24,14 +24,14 @@
 
 
 
-- name: DEMO USER -              🔎 Check OCP Demouser Account
+- name: 👩‍💻 DEMO USER - Check OCP Demouser Account
   shell: |
     oc get serviceaccount --ignore-not-found -n default demo-admin
   ignore_errors: yes
   register: USER_EXISTS
 
 
-- name: DEMO USER -              🩹 Create OCP Demouser Account
+- name: 👩‍💻 DEMO USER - Create OCP Demouser Account
   shell: |
         oc project {{current_cp4waiops_cluster.project}} 
         oc create serviceaccount -n default demo-admin

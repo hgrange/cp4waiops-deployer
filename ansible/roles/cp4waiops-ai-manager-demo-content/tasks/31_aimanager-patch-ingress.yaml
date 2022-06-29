@@ -21,7 +21,7 @@
   ignore_errors: yes
    
 
-- name: NETWORK -                🔎 CHECK Ingress already patched
+- name: 🌏 NETWORK - CHECK Ingress already patched
   shell: |
     set -x
 
@@ -38,11 +38,11 @@
     executable: /bin/bash
     
   
-- name: NETWORK -                ✅ DEBUG Ingress already patched
+- name: 🌏 NETWORK - DEBUG Ingress already patched
   debug: 
     var: output_string.stdout_lines
 
-- name: NETWORK -                ☑️ CHECK Ingress already patched
+- name: 🌏 NETWORK - ☑️ CHECK Ingress already patched
   set_fact: INGRESS_PATCHED={{output_string.stdout_lines[0]}}
 
 
@@ -50,13 +50,13 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Adapt Slack Welcome Message
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: SLACK -                  🕦 Wait for Slack Pod Ready
+- name: 🕦 NETWORK - Wait for Slack Pod Ready
   shell: oc wait --namespace="{{current_cp4waiops_cluster.project}}" --for=condition=Ready pods $(oc get po -n "{{current_cp4waiops_cluster.project}}"|grep "aimanager-aio-chatops-slack-integrator"|awk '{print$1}') --timeout=600s
   ignore_errors: yes  
   register: slack_ready
 
 
-- name: NETWORK -                🩹 Patch NetworkPolicy
+- name: 🌏 NETWORK - Patch NetworkPolicy
   shell: |
     cat <<EOF | oc apply -f -
     apiVersion: networking.k8s.io/v1
@@ -81,7 +81,7 @@
   ignore_errors: yes
 
 
-- name: CERTIFICATES -           🩹 Patch AutomationUIConfig Certificates
+- name: 🌏 CERTIFICATES - Patch AutomationUIConfig Certificates
   shell: |
     oc project {{current_cp4waiops_cluster.project}}
     NAMESPACE={{current_cp4waiops_cluster.project}}
@@ -132,13 +132,13 @@
     executable: /bin/bash
 
 
-- name: CERTIFICATES -           🟢 Patch AutomationUIConfig Certificates
+- name: 🌏 CERTIFICATES - Patch AutomationUIConfig Certificates
   debug: 
     var: certificate_patch
 
 
 
-- name: CERTIFICATES -           🩹 Patch Ingress Certificates (you can ignore errors in this step)
+- name: 🌏 CERTIFICATES - Patch Ingress Certificates (you can ignore errors in this step)
   shell: |
     ingress_pod=$(oc get secrets -n openshift-ingress | grep tls |grep -v router-token-| grep -v router-metrics-certs-default | awk '{print $1}')
     oc get secret -n openshift-ingress ${ingress_pod} -o jsonpath='{.data.tls\.crt}'  | base64 -d > /tmp/cert.crt
@@ -156,7 +156,7 @@
   register: certificate_patch
   ignore_errors: yes
 
-- name: CERTIFICATES -           🟢 Patch Ingress Certificates
+- name: 🌏 CERTIFICATES - Patch Ingress Certificates
   debug: 
     var: certificate_patch
 

@@ -12,7 +12,7 @@
 
 
   
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true
@@ -31,7 +31,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # WAIOPS
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: TOPOLOGY -               🚀 COPY OVERLAY TOPOLOGY TO POD
+- name: 🚀 TOPOLOGY - COPY OVERLAY TOPOLOGY TO POD
   shell: |
     set -x
     
@@ -55,7 +55,7 @@
   args:
     executable: /bin/bash
 
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true
@@ -113,7 +113,7 @@
   args:
     executable: /bin/bash
   
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

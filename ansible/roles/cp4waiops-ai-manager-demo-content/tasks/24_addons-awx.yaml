@@ -25,13 +25,13 @@
   ignore_errors: yes
 
   
-- name: AWX -                    🚀 Create AWX Operator
+- name: 🚀 AWX - Create AWX Operator
   kubernetes.core.k8s:
     state: present
     namespace: awx
     src: ./templates/awx/operator-install.yaml
   
-- name: AWX -                    🚀 Create AWX Instance (while waiting for CP4WAIOPS Installation to progress)
+- name: 🚀 AWX - Create AWX Instance (while waiting for CP4WAIOPS Installation to progress)
   kubernetes.core.k8s:
     state: present
     namespace: awx

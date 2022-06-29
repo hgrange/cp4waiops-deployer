@@ -18,7 +18,7 @@
 
 
 
-- name: TRAINING CREATE LAD -    🚀 CREATE LAD CONFIGURATION
+- name: 🚀 TRAINING CREATE LAD - CREATE LAD CONFIGURATION
   shell: |
     set -x
     export ROUTE=""
@@ -129,7 +129,7 @@
   args:
     executable: /bin/bash
     
-- name: TRAINING CREATE LAD -    ✅ RESULT
+- name: 🟢 TRAINING CREATE LAD - RESULT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

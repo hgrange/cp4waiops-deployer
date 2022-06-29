@@ -19,7 +19,7 @@
   ignore_errors: yes
 
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: TOPOLOGY -               🚀 CREATE K8S OBSERVER
+- name: 🚀 TOPOLOGY - CREATE K8S OBSERVER
   shell: |
     set -x
     
@@ -150,7 +150,7 @@
     executable: /bin/bash
 
 
-- name: 🟢 OUTPUT -                 RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   

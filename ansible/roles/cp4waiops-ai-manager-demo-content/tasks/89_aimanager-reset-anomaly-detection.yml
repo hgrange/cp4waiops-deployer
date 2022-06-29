@@ -14,7 +14,7 @@
 
 
 
-- name: TRAINING          -       🚀 RESET ANOMALY DETECTION
+- name: 🚀 ANOMALY DETECTION - RESET ANOMALY DETECTION
   shell: |
     set -x
     

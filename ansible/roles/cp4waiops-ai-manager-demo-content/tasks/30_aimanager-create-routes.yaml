@@ -22,7 +22,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Patch Ingress
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: ROUTES -                 🩹 Patch Ingress policy-group
+- name: 🚀 ROUTES - Patch Ingress policy-group
   shell: oc patch namespace default --type=json -p '[{"op":"add","path":"/metadata/labels","value":{"network.openshift.io/policy-group":"ingress"}}]'
   register: ingress_patched
 
@@ -37,7 +37,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Create Topology Routes
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: ROUTES -               🔎 Check Topology Routes
+- name: 🚀 ROUTES - Check Topology Routes
   shell: |
     oc get route --ignore-not-found -n {{current_cp4waiops_cluster.project}} topology-merge
   ignore_errors: yes
@@ -45,29 +45,29 @@
 
 
 
-- name: ROUTES -                 🚀 Create Topology Routes
+- name: 🚀 ROUTES - Create Topology Routes
   block:
-  - name: ROUTES -                 🚀 Create Topology Route - topology-merge
+  - name: 🚀 ROUTES - Create Topology Route - topology-merge
     shell: oc create route passthrough topology-merge -n {{current_cp4waiops_cluster.project}} --insecure-policy="Redirect" --service=aiops-topology-merge --port=https-merge-api
     ignore_errors: yes
     when: create_topo_route == true
 
-  - name: ROUTES -                 🚀 Create Topology Route - topology-rest
+  - name: 🚀 ROUTES - Create Topology Route - topology-rest
     shell: oc create route passthrough topology-rest -n {{current_cp4waiops_cluster.project}} --insecure-policy="Redirect" --service=aiops-topology-rest-observer --port=https-rest-observer-admin
     ignore_errors: yes
     when: create_topo_route == true
 
-  - name: ROUTES -                 🚀 Create Topology Route - topology-file
+  - name: 🚀 ROUTES - Create Topology Route - topology-file
     shell: oc create route passthrough topology-file -n {{current_cp4waiops_cluster.project}} --insecure-policy="Redirect" --service=aiops-topology-file-observer --port=https-file-observer-admin
     ignore_errors: yes
     when: create_topo_route == true
 
-  - name: ROUTES -                 🚀 Create Topology Route - topology-manage
+  - name: 🚀 ROUTES - Create Topology Route - topology-manage
     shell: oc create route passthrough topology-manage -n {{current_cp4waiops_cluster.project}} --service=aiops-topology-topology --port=https-topology-api
     ignore_errors: yes
     when: create_topo_route == true
 
-  - name: ROUTES -                 🚀 Create Topology Route - topology-file-api
+  - name: 🚀 ROUTES - Create Topology Route - topology-file-api
     shell: oc create route reencrypt topology-file-api -n {{current_cp4waiops_cluster.project}} --service=aiops-topology-file-observer --port=https-file-observer-api
     ignore_errors: yes
     when: create_topo_route == true
@@ -77,14 +77,14 @@
 
 
 
-- name: ROUTES -                 🚀 Create external Routes
+- name: 🚀 ROUTES - Create external Routes
   block:
-  - name: ROUTES -                 🚀 Create external Flink Job Manager Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Create external Flink Job Manager Route (you can ignore errors in this step)
     shell: oc create route edge job-manager -n {{current_cp4waiops_cluster.project}} --service=cp4waiops-eventprocessor-eve-29ee-ep-jobmanager --port=ui
     ignore_errors: yes
     when: create_external_routes == true
   
-  - name: ROUTES -                 🚀 Create external Flink Policy Job Manager Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Create external Flink Policy Job Manager Route (you can ignore errors in this step)
     shell: oc create route edge job-manager-policy -n {{current_cp4waiops_cluster.project}} --service=aiops-ir-lifecycle-eventprocessor-ep-jobmanager --port=ui
     ignore_errors: yes
 
@@ -93,30 +93,30 @@
 
 
 
-  - name: ROUTES -                 🚀 Create external AI Manager API Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Create external AI Manager API Route (you can ignore errors in this step)
     shell: oc create route passthrough ai-platform-api -n {{current_cp4waiops_cluster.project}}  --service=aimanager-aio-ai-platform-api-server --port=4000 --insecure-policy=Redirect --wildcard-policy=None
     ignore_errors: yes
     when: create_external_routes == true
 
 
-  - name: ROUTES -                 🚀 Create external Datalayer API Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Create external Datalayer API Route (you can ignore errors in this step)
     shell: oc create route reencrypt datalayer-api -n {{current_cp4waiops_cluster.project}}  --service=aiops-ir-core-ncodl-api --port=secure-port --insecure-policy=Redirect --wildcard-policy=None
     ignore_errors: yes
     when: create_external_routes == true
 
 
-  - name: ROUTES -                 🚀 Create external AIO Controller Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Create external AIO Controller Route (you can ignore errors in this step)
     shell: oc create route passthrough aimanager-aio-controller -n {{current_cp4waiops_cluster.project}}  --service=aimanager-aio-controller
     ignore_errors: yes
     when: create_external_routes == true
 
 
-  - name: ROUTES -                 🚀 Enable Swagger on external Datalayer API Route (you can ignore errors in this step)
+  - name: 🚀 ROUTES - Enable Swagger on external Datalayer API Route (you can ignore errors in this step)
     shell: oc set env deploy -n {{current_cp4waiops_cluster.project}} aiops-ir-core-ncodl-api ENABLE_SWAGGER_UI="true" 
     ignore_errors: yes
     when: create_external_routes == true
 
-  # - name: ROUTES -                 🚀 Create Spark Master UI Route (you can ignore errors in this step)
+  # - name: 🚀 ROUTES - Create Spark Master UI Route (you can ignore errors in this step)
   #   shell: oc expose svc aiops-ir-analytics-spark-master -n {{current_cp4waiops_cluster.project}} --name spark
   #   ignore_errors: yes
   #   when: create_external_routes == true
@@ -208,7 +208,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Delete ImgPull error pods
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: ROUTES -                 🩹 Delete Pods with ImgPull Error  (you can ignore errors in this step)
+- name: 🚀 ROUTES - Delete Pods with ImgPull Error  (you can ignore errors in this step)
   shell: |
         errorPods=$(oc get po -n {{current_cp4waiops_cluster.project}}|grep ImagePull|awk '{print$1}')
         if [[ ! $errorPods == "" ]]; then

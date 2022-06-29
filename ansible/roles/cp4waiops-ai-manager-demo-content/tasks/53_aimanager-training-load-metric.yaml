@@ -14,14 +14,14 @@
   ignore_errors: yes
 
 
-- name: TRAINING LOAD METRIC -   🚀 CREATE CLUSTERROLE
+- name: 📥 TRAINING LOAD METRIC - CREATE CLUSTERROLE
   kubernetes.core.k8s:
     state: present
     namespace: default
     src: ./templates/training/default-clusterrole.yaml
     
 
-- name: TRAINING LOAD METRIC -   🚀 LOAD CASSANDRA METRIC DATA 
+- name: 📥 TRAINING LOAD METRIC - LOAD CASSANDRA METRIC DATA 
   kubernetes.core.k8s:
     state: present
     namespace: default

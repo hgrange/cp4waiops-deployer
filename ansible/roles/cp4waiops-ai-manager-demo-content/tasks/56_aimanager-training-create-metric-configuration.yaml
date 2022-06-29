@@ -14,7 +14,7 @@
 
 
 
-- name: TRAINING CREATE METRICS - 🚀 CREATE METRICS ANALYSIS CONFIGURATION
+- name: 🚀 TRAINING CREATE METRICS - CREATE METRICS ANALYSIS CONFIGURATION
   shell: |
     set -x
     export ROUTE=""
@@ -35,7 +35,7 @@
     executable: /bin/bash
 
 
-- name: TRAINING CREATE METRICS - ✅ RESULT
+- name: 🟢 TRAINING CREATE METRICS - RESULT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

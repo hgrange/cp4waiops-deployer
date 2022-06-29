@@ -16,7 +16,7 @@
 
 
 
-- name: TRAINING CREATE SNOW -   🚀 CREATE SNOW CONFIGURATION
+- name: 🚀 TRAINING CREATE SNOW - CREATE SNOW CONFIGURATION
   shell: |
     set -x
     export ROUTE=""
@@ -44,7 +44,7 @@
 
 
 
-- name: TRAINING CREATE SNOW -   ✅ RESULT
+- name: 🟢 TRAINING CREATE SNOW - RESULT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true

@@ -16,7 +16,7 @@
 
 
 
-- name: DEMO-UI -                🌏 Get DEMO UI LOGINS
+- name: 🌏 DEMO-UI - Get DEMO UI LOGINS
   shell: |
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
     export DEMOUI_ROUTE=$(oc get route -n {{ current_cp4waiops_cluster.project }} waiops-demo-ui-python -o jsonpath={.spec.host})
@@ -40,7 +40,7 @@
   register: LOGINS
 
 
-- name: DEMO-UI -                🟢 DEMO UI LOGINS
+- name: 🟢 DEMO-UI - DEMO UI LOGINS
   debug: 
     var: LOGINS.stdout_lines
 

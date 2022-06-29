@@ -16,7 +16,7 @@
 
 
 
-- name: TRAINING WAIT -          🕦 WAIT FOR COMPLETION METRICS LOAD
+- name: 🕦 TRAINING WAIT - WAIT FOR COMPLETION METRICS LOAD
   shell: |
     while : ; do
           READY=$(oc get jobs -n default --ignore-not-found load-metric-cassandra)
@@ -35,21 +35,21 @@
     executable: /bin/bash
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP JOB METRICS LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP JOB METRICS LOAD
   kubernetes.core.k8s:
     state: absent
     src: ./templates/training/load-job-metric.yaml
   
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP COMPLETED JOBS METRICS LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP COMPLETED JOBS METRICS LOAD
   shell: |
     oc delete pod  -n default --ignore-not-found $(oc get po -n default|grep load-metric-cassandra|awk '{print$1}')
   register: ES_READY
   ignore_errors: yes
 
 
-- name: TRAINING WAIT -          🕦 WAIT FOR COMPLETION SNOW LOAD
+- name: 🕦 TRAINING WAIT - WAIT FOR COMPLETION SNOW LOAD
   shell: |
       while : ; do
           READY=$(oc get jobs -n default --ignore-not-found load-snow-indexes)
@@ -68,14 +68,14 @@
     executable: /bin/bash
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP JOB SNOW LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP JOB SNOW LOAD
   kubernetes.core.k8s:
     state: absent
     src: ./templates/training/load-job-snow.yaml
   
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP COMPLETED JOBS SNOW LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP COMPLETED JOBS SNOW LOAD
   shell: |
     oc delete pod  -n default --ignore-not-found $(oc get po -n default|grep load-snow-indexes|awk '{print$1}')
   register: ES_READY
@@ -85,7 +85,7 @@
 
 
 
-- name: TRAINING WAIT -          🕦 WAIT FOR COMPLETION LAD LOAD
+- name: 🕦 TRAINING WAIT - WAIT FOR COMPLETION LAD LOAD
   shell: |
       while : ; do
           READY=$(oc get jobs -n default --ignore-not-found load-log-indexes)
@@ -104,14 +104,14 @@
     executable: /bin/bash
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP JOB LAD LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP JOB LAD LOAD
   kubernetes.core.k8s:
     state: absent
     src: ./templates/training/load-job-logs.yaml
   
 
 
-- name: TRAINING WAIT -          🧻 CLEANUP COMPLETED JOBS LAD LOAD
+- name: 🧻 TRAINING WAIT - CLEANUP COMPLETED JOBS LAD LOAD
   shell: |
     oc delete pod  -n default --ignore-not-found $(oc get po -n default|grep load-log-indexes|awk '{print$1}')
   register: ES_READY

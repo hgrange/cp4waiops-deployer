@@ -16,7 +16,7 @@
 
 
 
-- name: AI MANAGER -             🌏 Get AI MANAGER LOGINS
+- name: 🌏 AI MANAGER - Get AI MANAGER LOGINS
   shell: |
     export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
     export AIMANAGER_ROUTE=$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath={.spec.host})
@@ -41,7 +41,7 @@
   register: LOGINS
 
 
-- name: AI MANAGER -             🟢 AI MANAGER LOGINS
+- name: 🟢 AI MANAGER - AI MANAGER LOGINS
   debug: 
     var: LOGINS.stdout_lines
 
