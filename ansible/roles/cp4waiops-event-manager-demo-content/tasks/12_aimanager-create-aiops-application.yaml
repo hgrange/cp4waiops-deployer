@@ -30,7 +30,7 @@
   shell: |
     set -x
         
-    echo "Create Custom Topology - Starting..."
+    echo "Create Custom Topology - Create Template"
     
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
 
@@ -52,6 +52,7 @@
 
     if [[ $TEMPLATE_ID == "" ]];
     then
+      echo "Create Template"
       curl -X "POST" "$TOPO_ROUTE/1.0/topology/groups" --insecure \
       -u $LOGIN \
       -H 'Content-Type: application/json' \
@@ -122,7 +123,7 @@
   shell: |
     set -x
         
-    echo "Create Custom Topology - Starting..."
+    echo "Create Custom Topology - Create App"
     
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
 
@@ -176,6 +177,8 @@
   shell: |
     set -x
 
+    echo "Create Custom Topology - Add Members to App"
+
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
 
 
@@ -202,6 +205,7 @@
     # # CREATE EDGES
     # # -------------------------------------------------------------------------------------------------------------------------------------------------
     
+    echo "Add K8s Observer"
     if [[ $K8S_OBS_ID == "" ]];
     then  
       echo "No K8s Observer defined"
@@ -215,6 +219,7 @@
       }"
     fi 
 
+    echo "Add Template (File Observer)"
     curl -X "POST" "$TOPO_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
     -u $LOGIN \
     -H 'Content-Type: application/json' \
@@ -224,8 +229,6 @@
     }"
 
 
-
-    echo "Added..."
 
 
   register: output_string
