@@ -60,7 +60,7 @@
       path: "{{config_file_path}}"
     register: p
   - debug:
-      msg: "File exists..."
+      msg: "  ✅ Config File exists..."
     when: p.stat.exists
   - fail: msg="The specified config file {{config_file_path}} does not exist"
     when: p.stat.exists == False
@@ -74,9 +74,7 @@
     debug:
       var: config_file
 
-  - name: Show Global Config
-    debug:
-      var: config_file.catalog_image
+
 
 
 
