@@ -83,7 +83,7 @@
   args:
     executable: /bin/bash
 
-- name: DEBUG -                 🟢 Output
+- name: 🟢 OUTPUT
   debug: 
     var: POLICY_RESULT.stdout_lines
 

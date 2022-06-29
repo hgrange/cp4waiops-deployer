@@ -76,7 +76,7 @@
 
 - name: 🚀 LDAPREGISTER - Create LDAP Integration
   block:
-  - name: LDAPREGISTER -           📥 Register LDAP Server
+  - name: 🚀 LDAPREGISTER -           📥 Register LDAP Server
     shell:         
       #echo 'cloudctl iam ldap-create "LDAP" --basedn "{{ LDAP_BASE }}" --server "ldap://openldap.default:389" --binddn "cn=admin,{{ LDAP_BASE }}" --binddn-password "{{ LDAP_ADMIN_PASSWORD }}" -t "Custom" --group-filter "(&(cn=%v)(objectclass=groupOfUniqueNames))" --group-id-map "*:cn" --group-member-id-map "groupOfUniqueNames:uniqueMember" --user-filter "(&(uid=%v)(objectclass=Person))" --user-id-map "*:uid"'
       cloudctl iam ldap-create "LDAP" --basedn {{ current_cp4waiops_feature.ldap_base }} --server ldap://openldap.default:389 --binddn cn=admin,{{ current_cp4waiops_feature.ldap_base }} --binddn-password {{ current_cp4waiops_feature.ldap_admin_password }} -t "Custom" --group-filter "(&(cn=%v)(objectclass=groupOfUniqueNames))" --group-id-map "*:cn" --group-member-id-map "groupOfUniqueNames:uniqueMember" --user-filter "(&(uid=%v)(objectclass=Person))" --user-id-map "*:uid"
@@ -212,7 +212,7 @@
   args:
     executable: /bin/bash
     
-- name: TRAINING CREATE LAD -    ✅ RESULT
+- name: 🟢  OUTPUT
   debug: 
     var: output_string.stdout_lines
   #when: PRINT_LOGINS == true
