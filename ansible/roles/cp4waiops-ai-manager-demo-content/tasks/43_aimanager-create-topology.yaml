@@ -86,6 +86,7 @@
     export TOPO_ROUTE="https://"$(oc get route -n {{current_cp4waiops_cluster.project}} topology-file-api -o jsonpath={.spec.host})
     export JOB_ID=robot-shop-topology
 
+    echo "Create File Observer Job"
     echo "URL: $TOPO_ROUTE"
     echo "LOGIN: $LOGIN"
 

@@ -30,7 +30,7 @@
   shell: |
     set -x
         
-    echo "Create Custom Topology - Starting..."
+    echo "Create Custom Topology - Create Template"
     
 
     export EVTMGR_REST_USR=$(oc get secret aiops-topology-asm-credentials -n {{current_cp4waiops_cluster.project}} -o jsonpath='{.data.username}' | base64 --decode)
@@ -52,6 +52,7 @@
 
     if [[ $TEMPLATE_ID == "" ]];
     then
+      echo "Create Template"
       curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups" --insecure \
       -u $LOGIN \
       -H 'Content-Type: application/json' \
@@ -75,8 +76,8 @@
           ]
       }'
     else
-      echo "Delete Template"
-            curl -X "DELETE" "$TOPO_MGT_ROUTE/1.0/topology/groups/$TEMPLATE_ID" --insecure \
+      echo "Recreate Template"
+      curl -X "DELETE" "$TOPO_MGT_ROUTE/1.0/topology/groups/$TEMPLATE_ID" --insecure \
       -u $LOGIN \
       -H 'Content-Type: application/json' \
       -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255'
@@ -106,6 +107,8 @@
       }'
 
     fi
+
+    echo "Create Custom Topology - Create App"
 
     if [[ $APP_ID == "" ]];
     then    
@@ -140,7 +143,7 @@
   shell: |
     set -x
 
-    
+    echo "Create Custom Topology - Add Members to App"
 
     export EVTMGR_REST_USR=$(oc get secret aiops-topology-asm-credentials -n {{current_cp4waiops_cluster.project}} -o jsonpath='{.data.username}' | base64 --decode)
     export EVTMGR_REST_PWD=$(oc get secret aiops-topology-asm-credentials -n {{current_cp4waiops_cluster.project}} -o jsonpath='{.data.password}' | base64 --decode)
@@ -164,16 +167,21 @@
     # # -------------------------------------------------------------------------------------------------------------------------------------------------
     # # CREATE EDGES
     # # -------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
-    -u $LOGIN \
-    -H 'Content-Type: application/json' \
-    -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
-    -d "{
-      \"_id\": \"$K8S_OBS_ID\"
-    }"
+    echo "Add K8s Observer"
+    if [[ $K8S_OBS_ID == "" ]];
+    then  
+      echo "No K8s Observer defined"
+    else
+      curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
+      -u $LOGIN \
+      -H 'Content-Type: application/json' \
+      -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
+      -d "{
+        \"_id\": \"$K8S_OBS_ID\"
+      }"
+    fi
 
-
+    echo "Add Template (File Observer)"
     curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
     -u $LOGIN \
     -H 'Content-Type: application/json' \

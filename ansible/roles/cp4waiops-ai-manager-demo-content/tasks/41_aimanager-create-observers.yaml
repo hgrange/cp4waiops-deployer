@@ -23,15 +23,12 @@
   shell: |
     set -x
     
-    
-
+    echo "Creating K8s Observer"
     oc create route passthrough -n {{current_cp4waiops_cluster.project}} --service aimanager-aio-controller --port extport
 
 
     export AI_PLATFORM_ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} ai-platform-api  -o jsonpath={.spec.host})
     export AIO_PLATFORM_ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} aimanager-aio-controller -o jsonpath={.spec.host})
-
-
 
     echo "        Namespace:          {{current_cp4waiops_cluster.project}}"
     echo "        AI_PLATFORM_ROUTE:  $AI_PLATFORM_ROUTE"
