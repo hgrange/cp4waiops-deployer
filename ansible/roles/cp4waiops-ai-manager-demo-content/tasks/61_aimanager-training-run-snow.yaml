@@ -5,7 +5,7 @@
 
 
 
-- name: TRAINING RUN -           📥 WRITE TO LOGFILE
+- name: TRAINING RUN -       📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Run SNOW Training"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

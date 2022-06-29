@@ -10,7 +10,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing CP4WAIOPS Operator"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -140,7 +140,7 @@
 
 
 
-- name: AIMANAGER OPERATOR -     📥 WRITE TO LOGFILE
+- name: AIMANAGER OPERATOR - 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🕦 Wait for CSVs to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -174,7 +174,7 @@
 
 
 
-- name: AIMANAGER OPERATOR -     📥 WRITE TO LOGFILE
+- name: AIMANAGER OPERATOR - 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" ✅ CSVs are ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

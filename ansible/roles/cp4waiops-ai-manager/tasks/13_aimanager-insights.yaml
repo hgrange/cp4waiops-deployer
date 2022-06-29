@@ -10,7 +10,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name:  AIMANAGER INSTALL -     📥 WRITE TO LOGFILE
+- name:  AIMANAGER INSTALL - 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Enabling AI MAnager Insights"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

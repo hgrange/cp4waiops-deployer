@@ -10,7 +10,7 @@
 # Get Cluster FQDN
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🔐 Getting Access Details"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -38,7 +38,7 @@
     var: logins.stdout_lines
 
 
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log

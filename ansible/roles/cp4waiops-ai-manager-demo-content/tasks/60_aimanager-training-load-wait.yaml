@@ -5,7 +5,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: TRAINING WAIT -          📥 WRITE TO LOGFILE
+- name: TRAINING WAIT -      📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Wait for Training Data to finish loading"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

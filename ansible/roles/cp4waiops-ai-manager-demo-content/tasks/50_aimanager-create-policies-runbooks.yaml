@@ -5,7 +5,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Policies -      📥 WRITE TO LOGFILE
+- name: AIManager Policies -  📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create Runbooks Trigger Policy"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

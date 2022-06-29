@@ -5,7 +5,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Runbook -      📥 WRITE TO LOGFILE
+- name: AIManager Runbook -  📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Load AI Manager Runbooks"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

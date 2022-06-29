@@ -4,7 +4,7 @@
 
 
 
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Reset Anomaly Detection Pods"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

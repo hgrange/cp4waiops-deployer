@@ -12,7 +12,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ASM -                    📥 WRITE TO LOGFILE
+- name: ASM -                📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Disable match token rules"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

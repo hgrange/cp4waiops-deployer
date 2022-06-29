@@ -4,7 +4,7 @@
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
-- name: TRAINING LOAD SNOW -     📥 WRITE TO LOGFILE
+- name: TRAINING LOAD SNOW - 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Load SNOW Training Data into ElasticSearch"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

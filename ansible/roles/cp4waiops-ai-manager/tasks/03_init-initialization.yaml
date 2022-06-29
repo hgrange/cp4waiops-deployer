@@ -34,7 +34,7 @@
 
 
 
-- name: INITIALIZATION -         📥 WRITE TO LOGFILE
+- name: INITIALIZATION - 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Initializing Installer"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

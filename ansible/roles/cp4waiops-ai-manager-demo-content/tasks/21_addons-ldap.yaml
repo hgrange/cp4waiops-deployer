@@ -14,7 +14,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: LDAP -                   📥 WRITE TO LOGFILE
+- name: LDAP -               📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing Open LDAP"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

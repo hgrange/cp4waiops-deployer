@@ -10,7 +10,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: TOPOLOGY -               📥 WRITE TO LOGFILE
+- name: TOPOLOGY -           📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create Topology Merge Rules"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

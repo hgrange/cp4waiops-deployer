@@ -8,7 +8,7 @@
 
 
 
-- name: TRAINING CREATE LAD -    📥 WRITE TO LOGFILE
+- name: TRAINING CREATE LAD -📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create LAD Training Definition"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

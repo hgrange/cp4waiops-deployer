@@ -14,7 +14,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ELK -                    📥 WRITE TO LOGFILE
+- name: ELK -                📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing ELK"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

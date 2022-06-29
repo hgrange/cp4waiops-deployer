@@ -12,7 +12,7 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: INGRESS -                📥 WRITE TO LOGFILE
+- name: INGRESS -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create valid Ingress Certificates"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

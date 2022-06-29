@@ -5,7 +5,7 @@
 # Open Doc
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: DOCUMENTATION -          📥 WRITE TO LOGFILE
+- name: DOCUMENTATION -      📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🌏 Open AIManager"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -46,7 +46,7 @@
     var: LOGINS.stdout_lines
 
 
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🕦 Wait for AI Manager to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

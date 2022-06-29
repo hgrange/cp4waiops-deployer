@@ -13,7 +13,7 @@
 
 
 
-- name: TOPOLOGY -               📥 WRITE TO LOGFILE
+- name: TOPOLOGY -           📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create Ai Manager Application"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -48,7 +48,7 @@
     export TEMPLATE_ID=$(curl -X "GET" "$TOPO_MGT_ROUTE/1.0/topology/groups?_field=*" --insecure -u $LOGIN -H 'Content-Type: application/json' -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255'|jq -r -c '._items[]| select( .name == "robot-shop-template")|._id'| tail -1)
 
     echo "    APP_ID: $APP_ID"
-    echo "TEMPLATE_ID: $TEMPLATE_ID"
+    echo "    TEMPLATE_ID: $TEMPLATE_ID"
 
     if [[ $TEMPLATE_ID == "" ]];
     then

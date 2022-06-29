@@ -8,7 +8,7 @@
 
 
 
-- name: LOGGING -                📥 WRITE TO LOGFILE
+- name: LOGGING -            📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🚀 Starting {{current_cp4waiops_feature.kind}} Install - {{role_name}}"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

@@ -27,12 +27,12 @@
 # TEST SOME STUFF
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: TIMESTAMP -              🟢 START - INIT LOGGING
+- name: TIMESTAMP -          🕦 START - INIT LOGGING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: INIT LOGGING -              📝 Initialize Logging
+- name: INIT LOGGING -       📝 Initialize Logging
   shell: |
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     mv ../install_{{current_cp4waiops_feature.kind}}.log ../install_{{current_cp4waiops_feature.kind}}.log$currentDate

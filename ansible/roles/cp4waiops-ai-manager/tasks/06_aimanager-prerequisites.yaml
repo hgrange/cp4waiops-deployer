@@ -25,7 +25,7 @@
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
-- name: PREREQUISITES -          📥 WRITE TO LOGFILE
+- name: PREREQUISITES -      📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing Prerequisites"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
