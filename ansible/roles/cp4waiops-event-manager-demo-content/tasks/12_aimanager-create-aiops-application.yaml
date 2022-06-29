@@ -182,7 +182,7 @@
     export EVTMGR_REST_USR=$(oc get secret evtmanager-topology-asm-credentials -n $EVTMGR_NAMESPACE -o jsonpath='{.data.username}' | base64 --decode)
     export EVTMGR_REST_PWD=$(oc get secret evtmanager-topology-asm-credentials -n $EVTMGR_NAMESPACE -o jsonpath='{.data.password}' | base64 --decode)
 
-    export TOPO_ROUTE="https://"$(oc get route -n $EVTMGR_NAMESPACE topology-manage -o jsonpath={.spec.host})
+    export TOPO_ROUTE="https://"$(oc get route -n $EVTMGR_NAMESPACE evtmanager-topology-topology -o jsonpath={.spec.host})
 
     export LOGIN="$EVTMGR_REST_USR:$EVTMGR_REST_PWD"
 
