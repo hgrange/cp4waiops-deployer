@@ -45,7 +45,7 @@
     TARGET_FILE_PATH="/opt/ibm/netcool/asm/data/file-observer/${LOAD_FILE_NAME}"
     echo ""
     echo "Copying capture file [${FILE_OBSERVER_CAP}] to file observer pod [${FILE_OBSERVER_POD}]"
-    #oc cp -n $EVTMGR_NAMESPACE ${FILE_OBSERVER_CAP} ${FILE_OBSERVER_POD}:${TARGET_FILE_PATH}
+    oc cp -n $EVTMGR_NAMESPACE ${FILE_OBSERVER_CAP} ${FILE_OBSERVER_POD}:${TARGET_FILE_PATH}
 
 
   register: output_string
