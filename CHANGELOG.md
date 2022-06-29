@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+
+## [34.0.2] - 2022-06-29
+
+Realease for 3.4.0 GA. 
+Some specifics apply: please see the README file.
+
+### Major changes
+
+- Support for version WAIOPS 3.4
+- Completely revamped the Ansible project structure
+
+### Changed features
+
+- All steps for demo content are now automated
+
+
+
 ## [34.1.0] - 2022-06-14
 
 Complete rewrite for future integration into CloudPak Deployer.
