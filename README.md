@@ -9,15 +9,6 @@
 
 <div style="page-break-after: always;"></div>
 
-# ❗❗❗ This is the Repository for Field Validation Testing 3.4
-
-
-# ❗ ⚠️ ❗ Create the pull secrets for FVT before starting installation (adapt the file first):
-
-```bash
-./00_FVT_CREATE_SECRETS.sh
-```
-
 
 ### ❗ THIS IS WORK IN PROGRESS
 Please drop me a note on Slack or by mail nikh@ch.ibm.com if you find glitches or problems.
@@ -38,8 +29,8 @@ Those are the steps that you have to execute to install a complete demo environm
 
 1. [AI Manager Installation](#2-ai-manager-installation)
 1. [AI Manager Configuration](#3-ai-manager-configuration)
-1. [Slack integration](#4-slack-integration)
-1. [Demo the Solution](#5-demo-the-solution)
+1. [Slack integration](#6-slack-integration)
+1. [Demo the Solution](#7-demo-the-solution)
 
 > ❗You can find a PDF version of this guide here: [PDF](./INSTALL_CP4WAIOPS.pdf).
 > 
@@ -51,13 +42,20 @@ Those are the steps that you have to execute to install a complete demo environm
 These are the high level steps that you need to execute to install the demo environment
 
 1. Install AI Manager
-
+	1. Install directly from the OCP Web UI
+		1. In the the OCP Web UI click on the + sign in the right upper corner
+		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
+		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+		3. Click `Save`
+		
+	1. Install from your PC
 	```bash
 	ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
 	```
 
+
 1. [AI Manager Configuration](#3-ai-manager-configuration)
-1. [Slack integration](#4-slack-integration)
+1. [Slack integration](#6-slack-integration)
 
 <div style="page-break-after: always;"></div>
 
@@ -210,72 +208,57 @@ This allows the CP4WAIOPS images to be pulled from the IBM Container Registry.
 
 ### 2.4.1 Start AI Manager Installation 
 
+You have different options:
 
-0. ❗ Create the pull secrets for FVT (adapt the file first):
-
-```bash
-./00_FVT_CREATE_SECRETS.sh
-```
-
-
-
-
-1. Start the Easy Installer with the token from 2.3.1:
-
-```bash
-./01_easy-install.sh -t <REGISTRY_TOKEN>
-```
-
-2. Select option 🐥`00` to install the complete `AI Manager` environment with Demo Content.
-
-> there are options to install only vanilla 'AI Manager'
-
-
-
-Or directly run:
-
+1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
+	1. In the the OCP Web UI click on the + sign in the right upper corner
+	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
+	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+	3. Click `Save`
+	
+1. **Install from your PC** *with the token from 2.3.1*
 ```bash
 ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
 ```
+	
+1. **Install with the Easy Installer** *with the token from 2.3.1*
+	1. Run
+	```bash
+	./01_easy-install.sh -t <REGISTRY_TOKEN>
+	```
 
-> This takes about one to two hours.
+	2. Select option 🐥`01` to install the complete `AI Manager` environment with Demo Content.
+
+
+
+
+> This takes about 1.5 to 2 hours.
 > After completion Easy Installer will exit, open the documentation and the AI Manager webpage (on Mac) and you'll have to to perform the last manual steps.
 
 > You now have a full, basic installtion of AI Manager with:
 > 
 >  - AI Manager
->  - Open LDAP
+>  - Open LDAP & Register with AI Manager
 >  - RobotShop demo application
 >  - Trained Models based on precanned data (Log- and Metric Anomalies, Similar Incidents, Change Risk)
 >  - Topologies for demo scenarios
 >  - AWX (OpenSource Ansible Tower) with runbooks for the demo scenarios
 >  - Demo UI
->  
+>  - Demo Service Account 
+>  - Creates valid certificate for Ingress (Slack) 
+>  - External Routes (Flink, Topology, ...)
+>  - Create Policy Creation for Stories and Runbooks 
+> 
 
 
-<div style="page-break-after: always;"></div>
-
-## 2.5 Configure AI Manager 
-
-There are some minimal needed configurations that you have to do to fully configure the demo environment.
-Those are covered in the following chapters.
-
-### Minimal Configuration
+ <div style="page-break-after: always;"></div>
  
+---------------------------------------------------------------
+# 3. AI Manager Configuration 
+---------------------------------------------------------------
+
 Those are the manual configurations you'll need to demo the system and that are covered by the flow above.
  
- 
-**Basic Configuration**
- 
-1. Configure LDAP Logins
-
-
-**Advanced Configuration**
-
-1. Enable Story creation Policy
-1. Create AWX Connection
-1. Create Runbook Policy
-
 **Configure Topology**
  
 1. Re-Run Kubernetes Observer
@@ -284,29 +267,15 @@ Those are the manual configurations you'll need to demo the system and that are 
  
 1. Setup Slack
 
- <div style="page-break-after: always;"></div>
- 
----------------------------------------------------------------
-# 3. AI Manager Configuration 
----------------------------------------------------------------
-
-> ❗ Make sure the playbook `00` has completed before continuing
-
-
-> You have to do the following:
-> 
-> 1. Login to AI Manager
-> 1. Add LDAP Logins to CP4WAIOPS
-> 1. Re-Run Kubernetes Observer
-> 1. Now you can create the Slack Integration
 
 
 ## 3.1 First Login
 
-After successful installation, the Playbook creates a file `./LOGINS.txt` in your installation directory.
+After successful installation, the Playbook creates a file `./LOGINS.txt` in your installation directory (only if you installed from your PC).
 
 > ℹ️ You can also run `./tools/20_get_logins.sh` at any moment. This will print out all the relevant passwords and credentials.
 
+## 3.1.1 Login as admin
 
 * Open the `LOGINS.txt` file that has been created by the Installer in your root directory
 	![K8s CNI](./doc/pics/doc54.png)
@@ -321,77 +290,17 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 	![K8s CNI](./doc/pics/doc55.png)
 
+## 3.1.2 Login as demo User
+
+* Open the `LOGINS.txt` file that has been created by the Installer in your root directory
+	![K8s CNI](./doc/pics/doc54.png)
+* Open the URL from the `LOGINS.txt` file
+* Click on `Enterprise LDAP`
+* Login as `demo` with the password `P4ssw0rd!`
+
+
 	
 <div style="page-break-after: always;"></div>
-
-
-
-
-
-
-
-
-## 3.2 Add LDAP Logins to CP4WAIOPS 
-
-
-
-* Go to `AI Manager` Dashboard
-* Click on the top left "Hamburger" menu
-* Select `Access Control`
-
-	![K8s CNI](./doc/pics/doc2.png)
-	
-* Select `User Groups` Tab
-* Click `New User Group`
-	![K8s CNI](./doc/pics/doc3.png)
-
-* Enter demo (or whatever you like)
-	![K8s CNI](./doc/pics/doc4.png)
-
-* Click Next
-* Select `Identity Provider Groups`
-* Search for `demo`
-* Select `cn=demo,ou=Groups,dc=ibm,dc=com`
-	![K8s CNI](./doc/pics/doc5.png)
-
-* Click Next
-* Select Roles (I use Administrator for the demo environment)
-
-	![K8s CNI](./doc/pics/doc7.png)
-	
-* Click Next
-* Click Create
-
-
-* Click on the top right image
-* Select `Logout`
-
-	![K8s CNI](./doc/pics/doc9.png)
-
-* Click  `Log In`
-
-	![K8s CNI](./doc/pics/doc10.png)
-
-<div style="page-break-after: always;"></div>
-
-* Select `Change your Authentication method`
-
-	![K8s CNI](./doc/pics/doc11.png)
-	
-* Select `Enterprise LDAP`
-
-	![K8s CNI](./doc/pics/doc12.png)
-	
-<div style="page-break-after: always;"></div>	
-* Login with the demo credentials
-	* 	User: demo
-	*  Password: P4ssw0rd!
-
-	![K8s CNI](./doc/pics/doc13.png)
-	
-<div style="page-break-after: always;"></div>
-
-
 
 
 
@@ -407,7 +316,241 @@ In the AI Manager (CP4WAIOPS)
 <div style="page-break-after: always;"></div>
 
 ---------------------------------------------------------------
-# 4. Slack integration
+# 4 Event Manager Installation
+---------------------------------------------------------------
+
+
+## 4.1 Install Event Manager 
+
+
+### 4.1.1 Start Event Manager Installation 
+
+You have different options:
+
+1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
+	1. In the the OCP Web UI click on the + sign in the right upper corner
+	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
+	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 2.3.1
+	3. Click `Save`
+	
+1. **Install from your PC** *with the token from 2.3.1*
+```bash
+ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
+```
+	
+1. **Install with the Easy Installer** *with the token from 2.3.1*
+	1. Run
+	```bash
+	./01_easy-install.sh -t <REGISTRY_TOKEN>
+	```
+
+	2. Select option 🐥`02` to install the complete `Event Manager` environment with Demo Content.
+
+
+
+
+> This takes about 1 hour.
+
+
+
+ <div style="page-break-after: always;"></div>
+ 
+---------------------------------------------------------------
+# 5. Event Manager Configuration 
+---------------------------------------------------------------
+
+Those are the manual configurations you'll need to demo the system and that are covered by the flow above.
+ 
+**Configure Topology**
+ 
+1. Re-Run Kubernetes Observer
+
+**Configure Slack**
+ 
+1. Setup Slack
+
+
+
+## 5.1 First Login
+
+After successful installation, the Playbook creates a file `./LOGINS.txt` in your installation directory (only if you installed from your PC).
+
+> ℹ️ You can also run `./tools/20_get_logins.sh` at any moment. This will print out all the relevant passwords and credentials.
+
+### 5.1.1 Login as smadmin
+
+* Open the `LOGINS.txt` file that has been created by the Installer in your root directory
+* Open the URL from the `LOGINS.txt` file
+* Login as `smadmin` with the password from the `LOGINS.txt` file
+
+
+
+## 5.2 Topology
+
+### 5.2.1 Create Kubernetes Observer for the Demo Applications 
+
+This is basically the same as for AI Manager as we need two separate instances of the Topology Manager. 
+
+
+* In the `Event Manager` "Hamburger" Menu select `Administration`/`Topology Management`
+* Under `Observer jobs` click `Configure`
+* Click `Add new job`
+* Under `Kubernetes`, click on `Configure`
+* Choose `local` for `Connection Type`
+* Set `Unique ID` to `robot-shop`
+* Set `data_center` to `robot-shop`
+* Under `Additional Parameters`
+* Set `Terminated pods` to `true`
+* Set `Correlate` to `true`
+* Set Namespace to `robot-shop`
+* Under `Job Schedule`
+* Set `Time Interval` to 5 Minutes
+* Click `Save`
+
+## 5.3 EventManager Webhook 
+
+Create Webhooks in EventManager for Event injection and incident simulation for the Demo.
+
+The demo scripts (in the `demo` folder) give you the possibility to simulate an outage without relying on the integrations with other systems.
+
+At this time it simulates:
+
+- Git push event
+- Log Events (ELK)
+- Security Events (Falco)
+- Instana Events
+- Metric Manager Events (Predictive)
+- Turbonomic Events
+- CP4MCM Synthetic Selenium Test Events
+
+
+
+<div style="page-break-after: always;"></div>
+
+
+You have to define the following Webhook in EventManager (NOI): 
+
+* `Administration` / `Integration with other Systems`
+* `Incoming` / `New Integration`
+* `Webhook`
+* Name it `Demo Generic`
+* Jot down the WebHook URL and copy it to the `NETCOOL_WEBHOOK_GENERIC` in the `./tools/01_demo/incident_robotshop-noi.sh`file
+* Click on `Optional event attributes`
+* Scroll down and click on the + sign for `URL`
+* Click `Confirm Selections`
+
+
+Use this json:
+
+```json
+{
+  "timestamp": "1619706828000",
+  "severity": "Critical",
+  "summary": "Test Event",
+  "nodename": "productpage-v1",
+  "alertgroup": "robotshop",
+  "url": "https://pirsoscom.github.io/grafana-robotshop.html"
+}
+```
+
+Fill out the following fields and save:
+
+* Severity: `severity`
+* Summary: `summary`
+* Resource name: `nodename`
+* Event type: `alertgroup`
+* Url: `url`
+* Description: `"URL"`
+
+Optionnally you can also add `Expiry Time` from `Optional event attributes` and set it to a convenient number of seconds (just make sure that you have time to run the demo before they expire.
+
+<div style="page-break-after: always;"></div>
+
+
+## 5.4 Create custom Filters and Views
+
+
+### 5.4.1 Filter 
+
+
+* In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
+* Click `Administration`
+* Click `Filters`
+* Select `Global Filters` from the DropDown menu
+* Select `Default`
+* Click `Copy Filter` (the two papers on the top left) 
+* Set to `global`
+* Click `Ok`
+* Name: AIOPS
+* Logic: **Any** ❗ (the right hand option)
+* Filter:
+	* AlertGroup = 'CEACorrelationKeyParent'
+	* AlertGroup = 'robot-shop'
+
+![](./doc/pics/noi10.png)
+
+
+### 5.4.2 View 
+* In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
+* Click `Administration`
+* Click `Views`
+* Select `System Views` from the DropDown menu
+* Select `Example_IBM_CloudAnalytics`
+* Click `Copy View` (the two papers on the top left) 
+* Set to `global`
+* Click `Ok`
+* Name: AIOPS
+* Configure to your likings.
+
+
+## 5.5 Create grouping Policy 
+
+* In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
+* Click `Insights`
+* Click `Scope Based Grouping`
+* Click `Create Policy`
+* `Action` select fielt `Alert Group`
+* Toggle `Enabled` to `On`
+* Save
+
+<div style="page-break-after: always;"></div>
+
+## 5.6 Create Menu item
+
+In the Netcool WebGUI
+
+* Go to `Administration` / `Tool Configuration`
+* Click on `LaunchRunbook`
+* Copy it (the middle button with the two sheets)
+* Name it `Launch URL`
+* Replace the Script Command with the following code
+
+	```javascript
+	var urlId = '{$selected_rows.URL}';
+	
+	if (urlId == '') {
+	    alert('This event is not linked to an URL');
+	} else {
+	    var wnd = window.open(urlId, '_blank');
+	}
+	```
+* Save
+
+Then 
+
+* Go to `Administration` / `Menu Configuration`
+* Select `alerts`
+* Click on `Modify`
+* Move Launch URL to the right column
+* Save
+
+
+	
+<div style="page-break-after: always;"></div>
+
+
+---------------------------------------------------------------
+# 6. Slack integration
 ---------------------------------------------------------------
 
 
@@ -423,7 +566,7 @@ For the system to work you need to follow those steps:
 
 <div style="page-break-after: always;"></div>
 
-## 4.1 Create your Slack Workspace
+## 6.1 Create your Slack Workspace
 
 1. Create a Slack workspace by going to https://slack.com/get-started#/createnew and logging in with an email <i>**which is not your IBM email**</i>. Your IBM email is part of the IBM Slack enterprise account and you will not be able to create an independent Slack workspace outside if the IBM slack service. 
 
@@ -462,7 +605,7 @@ At this point you have created your own Slack workspace where you are the admini
 
 <div style="page-break-after: always;"></div>
 
-## 4.2 Create Your Slack App
+## 6.2 Create Your Slack App
 
 1. Create a Slack app, by going to https://api.slack.com/apps and clicking `Create New App`. 
 
@@ -494,7 +637,7 @@ At this point you have created your own Slack workspace where you are the admini
 
 <div style="page-break-after: always;"></div>
 
-## 4.3 Create Your Slack Channels
+## 6.3 Create Your Slack Channels
 
 
 1. In Slack add a two new channels:
@@ -529,7 +672,7 @@ At this point you have created your own Slack workspace where you are the admini
 
 <div style="page-break-after: always;"></div>
 
-## 4.4 Integrate Your Slack App
+## 6.4 Integrate Your Slack App
 
 In the Slack App: 
 
@@ -572,7 +715,7 @@ In the AI Manager (CP4WAIOPS)
 
 <div style="page-break-after: always;"></div>
 
-## 4.5 Create the Integration URL
+## 6.5 Create the Integration URL
 
 In the AI Manager (CP4WAIOPS) 
 
@@ -587,11 +730,11 @@ This is the URL you will be using for step 6.
 
 <div style="page-break-after: always;"></div>
 
-## 4.6 Create Slack App Communications
+## 6.6 Create Slack App Communications
 
 Return to the browser tab for the Slack app. 
 
-### 4.6.1 Event Subscriptions
+### 6.6.1 Event Subscriptions
 
 1. Select `Event Subscriptions`.
 
@@ -617,7 +760,7 @@ Return to the browser tab for the Slack app.
 6. Click `Save Changes` button.
 
 
-### 4.6.2 Interactivity & Shortcuts
+### 6.6.2 Interactivity & Shortcuts
 
 7. Select `Interactivity & Shortcuts`. 
 
@@ -629,7 +772,7 @@ Return to the browser tab for the Slack app.
 
 9. Click `Save Changes` button.
 
-### 4.6.3 Slash Commands
+### 6.6.3 Slash Commands
 
 Now, configure the `welcome` slash command. With this command, you can trigger the welcome message again if you closed it. 
 
@@ -648,7 +791,7 @@ Now, configure the `welcome` slash command. With this command, you can trigger t
 
 3. Click `Save`.
 
-### 4.6.4 Reinstall App
+### 6.6.4 Reinstall App
 
 The Slack app must be reinstalled, as several permissions have changed. 
 
@@ -667,10 +810,10 @@ If you run into problems validating the `Event Subscription` in the Slack Applic
 
 <div style="page-break-after: always;"></div>
 
-## 4.7 Slack Reset
+## 6.7 Slack Reset
 
 
-### 4.7.1 Get the User OAUTH Token
+### 6.7.1 Get the User OAUTH Token
 
 This is needed for the reset scripts in order to empty/reset the Slack channels.
 
@@ -705,7 +848,7 @@ In file `./tools/98_reset/14_reset-slack-changerisk.sh`
 
 
 
-### 4.7.2 Perform Slack Reset
+### 6.7.2 Perform Slack Reset
 
 Call either of the scripts above to reset the channel:
 
@@ -721,12 +864,12 @@ or
 
 
 ---------------------------------------------------------------
-# 5. Demo the Solution
+# 7. Demo the Solution
 ---------------------------------------------------------------
 
 
 
-## 5.1 Simulate incident - Command Line
+## 7.1 Simulate incident - Command Line
 
 **Make sure you are logged-in to the Kubernetes Cluster first** 
 
