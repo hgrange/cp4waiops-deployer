@@ -49,9 +49,9 @@ These are the high level steps that you need to execute to install the demo envi
 		3. Click `Save`
 		
 	1. Install from your PC
-	```bash
-	ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
-	```
+		```bash
+		ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
+		```
 
 
 1. [AI Manager Configuration](#3-ai-manager-configuration)
@@ -213,15 +213,15 @@ You have different options:
 	3. Click `Save`
 	
 1. **Install from your PC** *with the token from 1.3.1*
-```bash
-ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
-```
+	```bash
+	ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
+	```
 	
 1. **Install with the Easy Installer** *with the token from 1.3.1*
-	1. Run
-	```bash
-	./01_easy-install.sh -t <REGISTRY_TOKEN>
-	```
+	1. Just run:
+		```bash
+		./01_easy-install.sh -t <REGISTRY_TOKEN>
+		```
 
 	2. Select option 🐥`01` to install the complete `AI Manager` environment with Demo Content.
 
@@ -326,15 +326,15 @@ You have different options:
 	3. Click `Save`
 	
 1. **Install from your PC** *with the token from 1.3.1*
-```bash
-ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
-```
+	```bash
+	ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
+	```
 	
 1. **Install with the Easy Installer** *with the token from 1.3.1*
-	1. Run
-	```bash
-	./01_easy-install.sh -t <REGISTRY_TOKEN>
-	```
+	1. Just run:
+		```bash
+		./01_easy-install.sh -t <REGISTRY_TOKEN>
+		```
 
 	2. Select option 🐥`02` to install the complete `Event Manager` environment with Demo Content.
 
@@ -351,15 +351,6 @@ ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_
 # 5. Event Manager Configuration 
 ---------------------------------------------------------------
 
-Those are the manual configurations you'll need to demo the system and that are covered by the flow above.
- 
-**Configure Topology**
- 
-1. Re-Run Kubernetes Observer
-
-**Configure Slack**
- 
-1. Setup Slack
 
 
 
