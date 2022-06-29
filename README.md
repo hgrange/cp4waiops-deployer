@@ -59,7 +59,7 @@ These are the high level steps that you need to execute to install the demo envi
 
 <div style="page-break-after: always;"></div>
 
-## ℹ️ In-depth documentation
+## ℹ️ Old documentation for reference
 
 * Info
 	* [Changelog](./CHANGELOG.md)
