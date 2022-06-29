@@ -141,7 +141,7 @@
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-aimanager.yaml"
 
 
-- name:📥 Open Documentation
+- name: 📥 Open Documentation
   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/99_open-doc.yaml"
 
 
