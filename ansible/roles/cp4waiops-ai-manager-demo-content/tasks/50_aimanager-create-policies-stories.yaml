@@ -8,12 +8,12 @@
     
 ## RUNBOOKS Duplicate
 
-- name: TIMESTAMP -              🛰️ START - CREATE POLICY STORIES
+- name: 🛰️ START - PREREQUISITES - CREATE POLICY STORIES
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Policies -  📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create Policy for Story Creation"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

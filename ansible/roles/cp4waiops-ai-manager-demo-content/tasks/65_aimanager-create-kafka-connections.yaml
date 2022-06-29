@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: TIMESTAMP -              🛰️ START - CREATE KAFKA CONNECTIONS FOR INCEPTION
+- name: 🛰️ START - PREREQUISITES - CREATE KAFKA CONNECTIONS FOR INCEPTION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ROUTES -             📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create Kafka Connections for Inception"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

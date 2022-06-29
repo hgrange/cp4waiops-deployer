@@ -21,11 +21,11 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 
-- name: TIMESTAMP -              🛰️ START - PREREQUISITES
+- name: 🛰️ START - PREREQUISITES - PREREQUISITES
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
-- name: PREREQUISITES -      📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing Prerequisites"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

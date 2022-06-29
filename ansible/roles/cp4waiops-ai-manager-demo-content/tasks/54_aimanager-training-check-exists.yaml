@@ -1,12 +1,12 @@
 
 
 
-- name: TIMESTAMP -              🛰️ START - CHECK LAD EXISTS
+- name: 🛰️ START - PREREQUISITES - CHECK LAD EXISTS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: CHECK LAD TRAINING - 📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Check if Training Exists"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -111,7 +111,7 @@
   #when: PRINT_LOGINS == true
 
 
-- name: CHECK LAD TRAINING - 📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Check if Training Exists"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

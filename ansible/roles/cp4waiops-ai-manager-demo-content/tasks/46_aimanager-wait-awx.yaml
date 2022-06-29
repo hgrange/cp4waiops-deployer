@@ -5,7 +5,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
     
-- name: LOGGING -            📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🕦 Wait for AWX to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -43,7 +43,7 @@
 
 
 
-- name: LOGGING -            📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" ✅ AWX is ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -51,7 +51,7 @@
   ignore_errors: yes
 
 
-- name: AWX -                📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing AWX"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

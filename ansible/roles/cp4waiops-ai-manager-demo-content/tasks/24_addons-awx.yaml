@@ -11,12 +11,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Create AWX
 
-- name: TIMESTAMP -              🛰️ START - INSTALL AWX
+- name: 🛰️ START - PREREQUISITES - INSTALL AWX
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AWX -                📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing AWX"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

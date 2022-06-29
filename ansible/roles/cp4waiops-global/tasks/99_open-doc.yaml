@@ -7,7 +7,7 @@
 # *************************************************************************************************************************************************
 
 
-- name: DOCUMENTATION -      📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE=" 🌏 Open doc at https://github.ibm.com/NIKH/aiops-install-ansible-33#3-ai-manager-configuration"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

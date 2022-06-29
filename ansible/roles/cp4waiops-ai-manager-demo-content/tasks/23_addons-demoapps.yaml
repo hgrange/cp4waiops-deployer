@@ -8,12 +8,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Install RobotShop
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: TIMESTAMP -              🛰️ START - INSTALL DEMO APPS
+- name: 🛰️ START - PREREQUISITES - INSTALL DEMO APPS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: DEMO APPS -          📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing Demo Apps"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

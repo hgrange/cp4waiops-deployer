@@ -6,12 +6,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: TIMESTAMP -              🛰️ START - AIOPS DEMO UI
+- name: 🛰️ START - PREREQUISITES - AIOPS DEMO UI
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ROUTES -             📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create DEMO UI"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
@@ -69,7 +69,7 @@
 
 
 
-- name: DEMO-UI -            📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing DEMO UI"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

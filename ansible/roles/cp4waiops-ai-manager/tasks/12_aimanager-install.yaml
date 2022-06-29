@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: TIMESTAMP -              🛰️ START - AI MANAGER INSTALLATION
+- name: 🛰️ START - PREREQUISITES - AI MANAGER INSTALLATION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name:  AIMANAGER INSTALL - 📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Installing AI MAnager Instance"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

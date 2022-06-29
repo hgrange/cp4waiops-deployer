@@ -1,11 +1,11 @@
 
-- name: TIMESTAMP -              🛰️ START - CREATE SNOW ANALYSIS DEFINITIONS
+- name: 🛰️ START - PREREQUISITES - CREATE SNOW ANALYSIS DEFINITIONS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
-- name: TRAINING CREATE SNOW -   📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create SNOW Training Definition"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

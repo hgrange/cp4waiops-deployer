@@ -1,11 +1,11 @@
-- name: TIMESTAMP -              🛰️ START - RUN METRIC TRAINING
+- name: 🛰️ START - PREREQUISITES - RUN METRIC TRAINING
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
 
-- name: TRAINING RUN -       📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Run Metrics Training"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

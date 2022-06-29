@@ -7,12 +7,12 @@
 # *************************************************************************************************************************************************
     
 
-- name: TIMESTAMP -              🛰️ START - DISABLE SERVICE MATCH TOKEN RULE
+- name: 🛰️ START - PREREQUISITES - DISABLE SERVICE MATCH TOKEN RULE
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ASM -                📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Disable match token rules"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

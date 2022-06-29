@@ -5,12 +5,12 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
 
-- name: TIMESTAMP -              🛰️ START - CREATE ROUTES
+- name: 🛰️ START - PREREQUISITES - CREATE ROUTES
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: ROUTES -             📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Create External Routes"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

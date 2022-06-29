@@ -27,14 +27,14 @@
 # Get Config File
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-- name: TIMESTAMP -              🛰️ START - INITIALIZATION
+- name: 🛰️ START - PREREQUISITES - INITIALIZATION
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
 
 
-- name: INITIALIZATION - 📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Initializing Installer"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

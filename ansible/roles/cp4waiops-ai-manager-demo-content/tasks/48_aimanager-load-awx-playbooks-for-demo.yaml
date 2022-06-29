@@ -7,12 +7,12 @@
 # *************************************************************************************************************************************************
     
 
-- name: TIMESTAMP -              🛰️ START - LOAD AWX RUNBOOKS
+- name: 🛰️ START - PREREQUISITES - LOAD AWX RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AWX Runbook Content -📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Load Templates into AWX"
     export currentDate=$(date +%Y-%m-%d_%H:%M)

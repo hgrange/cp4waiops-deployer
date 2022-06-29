@@ -8,12 +8,12 @@
     
 ## RUNBOOKS Duplicate
 
-- name: TIMESTAMP -              🛰️ START - INSTALL AI MANAGER RUNBOOKS
+- name: 🛰️ START - PREREQUISITES - INSTALL AI MANAGER RUNBOOKS
   debug: 
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 
-- name: AIManager Runbook -  📥 WRITE TO LOGFILE
+- name: 📥 WRITE TO LOGFILE
   shell: |
     export MESSAGE="Load AI Manager Runbooks"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
