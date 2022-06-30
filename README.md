@@ -271,11 +271,33 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 > ℹ️ You can also run `./tools/20_get_logins.sh` at any moment. This will print out all the relevant passwords and credentials.
 
+## 3.1.1 Get the URL
+
+* Run `./tools/20_get_logins.sh` to get all the logins and URLs
+
+or
+
+* Run:
+
+```bash
+export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
+	
+echo "🌏 AI Manager:           https://$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath={.spec.host})"
+echo "🌏 Demo UI:              https://$(oc get route -n $WAIOPS_NAMESPACE waiops-demo-ui-python -o jsonpath={.spec.host})"
+
+```
+
+
+## 3.1.2 Login as demo User
+
+* Open the URL from the above
+* Click on `Enterprise LDAP`
+* Login as `demo` with the password `P4ssw0rd!`
+
+
 ## 3.1.1 Login as admin
 
-* Open the `LOGINS.txt` file that has been created by the Installer in your root directory
-	![K8s CNI](./doc/pics/doc54.png)
-* Open the URL from the `LOGINS.txt` file
+* Open the URL from the above
 * Click on `IBM provided credentials (admin only)`
 
 	![K8s CNI](./doc/pics/doc53.png)
@@ -286,13 +308,7 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 
 	![K8s CNI](./doc/pics/doc55.png)
 
-## 3.1.2 Login as demo User
 
-* Open the `LOGINS.txt` file that has been created by the Installer in your root directory
-	![K8s CNI](./doc/pics/doc54.png)
-* Open the URL from the `LOGINS.txt` file
-* Click on `Enterprise LDAP`
-* Login as `demo` with the password `P4ssw0rd!`
 
 
 	
