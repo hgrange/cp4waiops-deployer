@@ -39,7 +39,7 @@ Those are the steps that you have to execute to install a complete demo environm
 > 
 > 🚨🚨🚨🚨 📺 Here is a video that walks you through the complete [installation process](https://ibm.box.com/s/nn9731pjbbjq0i79o89zyr1v3kovfaxm).
 
-## 🚀 TLDR - Fast Track
+## 🚀 TLDR Fast Track
 
 These are the high level steps that you need to execute to install the demo environment.
 
