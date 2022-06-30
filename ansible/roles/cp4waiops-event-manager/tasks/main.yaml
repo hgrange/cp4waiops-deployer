@@ -82,6 +82,10 @@
 
 
 
+- name: 📥 Restart Demo UI
+  include_tasks: 21_eventmanager-restart-demoui.yaml
+
+
 # Access and documentaiton
 # - name: Get all logins
 #   include_tasks: "{{role_path}}/../cp4waiops-global/tasks/90_core-get-all-logins.yaml"
