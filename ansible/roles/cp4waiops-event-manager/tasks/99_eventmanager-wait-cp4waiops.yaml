@@ -40,12 +40,12 @@
   delay: 15
 
 
-- name: 🕦 CHECK -  Wait for all Pods in {{ current_cp4waiops_cluster.project }} to become ready (this might take some time)
-  shell: oc get po -n {{ current_cp4waiops_cluster.project }} | grep -v Completed | grep -v Error |grep "0/" |wc -l| tr -d ' '
-  register: kubectl_get_pods
-  until: kubectl_get_pods.stdout == "0"
-  retries: 500
-  delay: 15
+# - name: 🕦 CHECK -  Wait for all Pods in {{ current_cp4waiops_cluster.project }} to become ready (this might take some time)
+#   shell: oc get po -n {{ current_cp4waiops_cluster.project }} | grep -v Completed | grep -v Error |grep "0/" |wc -l| tr -d ' '
+#   register: kubectl_get_pods
+#   until: kubectl_get_pods.stdout == "0"
+#   retries: 500
+#   delay: 15
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------
