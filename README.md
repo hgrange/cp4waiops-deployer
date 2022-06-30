@@ -43,49 +43,27 @@ Those are the steps that you have to execute to install a complete demo environm
 
 These are the high level steps that you need to execute to install the demo environment.
 
-1. Install AI Manager with demo content
-	1. Install directly from the OCP Web UI
-		1. In the the OCP Web UI click on the + sign in the right upper corner
-		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
-		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
-		3. Click `Save`
+### 1. Install AI Manager with demo content
+1. In the the OCP Web UI click on the + sign in the right upper corner
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+3. Click `Save`
+	
+![K8s CNI](./doc/pics/install01.png)
 		
-	1. Install from your PC with the Easy Installer
-		1. Run
-			```bash
-			./01_easy-install.sh -t <REGISTRY_TOKEN>
-			```
-		1. Select option 🐥`01` to install the complete `AI Manager` environment with Demo Content.
-		
-		
-	1. Install from your PC with Ansible
-		```bash
-		ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
-		```
-		
-1. Install Event Manager with demo content
-	1. Install directly from the OCP Web UI
-		1. In the the OCP Web UI click on the + sign in the right upper corner
-		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
-		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
-		3. Click `Save`
-		
-	1. Install from your PC with the Easy Installer
-		1. Run
-			```bash
-			./01_easy-install.sh -t <REGISTRY_TOKEN>
-			```
-		1. Select option 🐥`02` to install the complete `Event Manager` environment with Demo Content.
-		
-		
-	1. Install from your PC with Ansible
-		```bash
-		ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
-		```
-		
+### 2. Install Event Manager with demo content
+1. In the the OCP Web UI click on the + sign in the right upper corner
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+3. Click `Save`
 
-1. [AI Manager Configuration](#3-ai-manager-configuration)
-1. [Slack integration](#6-slack-integration)
+
+### 3. Install other components
+1. In the the OCP Web UI click on the + sign in the right upper corner
+1. Select the content file from  [this directory](./tools/08_Quick_Install_Jobs/)
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+3. Click `Save`		
+
 
 <div style="page-break-after: always;"></div>
 
