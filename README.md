@@ -29,6 +29,8 @@ Those are the steps that you have to execute to install a complete demo environm
 
 1. [AI Manager Installation](#2-ai-manager-installation)
 1. [AI Manager Configuration](#3-ai-manager-configuration)
+1. [Event Manager Installation](#4-event-manager-installation)
+1. [Event Manager Configuration](#5-event-manager-configuration)
 1. [Slack integration](#6-slack-integration)
 1. [Demo the Solution](#7-demo-the-solution)
 
@@ -39,20 +41,48 @@ Those are the steps that you have to execute to install a complete demo environm
 
 ## 🚀 TLDR - Fast Track
 
-These are the high level steps that you need to execute to install the demo environment
+These are the high level steps that you need to execute to install the demo environment.
 
-1. Install AI Manager
+1. Install AI Manager with demo content
 	1. Install directly from the OCP Web UI
 		1. In the the OCP Web UI click on the + sign in the right upper corner
 		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
 		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
 		3. Click `Save`
 		
-	1. Install from your PC
+	1. Install from your PC with the Easy Installer
+		1. Run
+			```bash
+			./01_easy-install.sh -t <REGISTRY_TOKEN>
+			```
+		1. Select option 🐥`01` to install the complete `AI Manager` environment with Demo Content.
+		
+		
+	1. Install from your PC with Ansible
 		```bash
 		ansible-playbook ./ansible/01_cp4waiops-aimanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
 		```
-
+		
+1. Install Event Manager with demo content
+	1. Install directly from the OCP Web UI
+		1. In the the OCP Web UI click on the + sign in the right upper corner
+		1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
+		2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+		3. Click `Save`
+		
+	1. Install from your PC with the Easy Installer
+		1. Run
+			```bash
+			./01_easy-install.sh -t <REGISTRY_TOKEN>
+			```
+		1. Select option 🐥`02` to install the complete `Event Manager` environment with Demo Content.
+		
+		
+	1. Install from your PC with Ansible
+		```bash
+		ansible-playbook ./ansible/04_cp4waiops-eventmanager-all.yaml -e CP_ENTITLEMENT_KEY=<REGISTRY_TOKEN> 
+		```
+		
 
 1. [AI Manager Configuration](#3-ai-manager-configuration)
 1. [Slack integration](#6-slack-integration)
@@ -383,10 +413,34 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 * Login as `smadmin` with the password from the `LOGINS.txt` file
 
 
+## 5.2 Integration with AI Manager
 
-## 5.2 Topology
+* To get the connection parameters, run:
 
-### 5.2.1 Create Kubernetes Observer for the Demo Applications 
+```bash
+./tools/97_addons/prepareNetcoolIntegration.sh
+```
+
+> Execute the listed commads at the Objectserver prompt. 
+> 
+> This gives you all the parameters needed for creating the connection.
+  
+* In the `AI Manager` "Hamburger" Menu select `Operate`/`Data and tool integrations`
+* Click `Add connection`
+* Under `Netcool`, click on `Add connection`
+* Click `Connect`
+* Name it `Netcool`
+* Fill-in the information from the script above
+![](./doc/pics/netcool01.png)
+* Click `Test Connection`
+* Click `Next`
+* Toggle `Enable Data Collection` to the `ON` position
+* Click `Save`
+
+
+## 5.3 Topology
+
+### 5.3.1 Create Kubernetes Observer for the Demo Applications 
 
 This is basically the same as for AI Manager as we need two separate instances of the Topology Manager. 
 
@@ -406,7 +460,7 @@ This is basically the same as for AI Manager as we need two separate instances o
 * Set `Time Interval` to 5 Minutes
 * Click `Save`
 
-## 5.3 EventManager Webhook 
+## 5.4 EventManager Webhook 
 
 Create Webhooks in EventManager for Event injection and incident simulation for the Demo.
 
@@ -466,10 +520,10 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 <div style="page-break-after: always;"></div>
 
 
-## 5.4 Create custom Filters and Views
+## 5.5 Create custom Filters and Views
 
 
-### 5.4.1 Filter 
+### 5.5.1 Filter 
 
 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
@@ -489,7 +543,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 ![](./doc/pics/noi10.png)
 
 
-### 5.4.2 View 
+### 5.5.2 View 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
 * Click `Administration`
 * Click `Views`
@@ -502,7 +556,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 * Configure to your likings.
 
 
-## 5.5 Create grouping Policy 
+## 5.6 Create grouping Policy 
 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
 * Click `Insights`
@@ -514,7 +568,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 
 <div style="page-break-after: always;"></div>
 
-## 5.6 Create Menu item
+## 5.7 Create Menu item
 
 In the Netcool WebGUI
 
@@ -555,6 +609,7 @@ Then
 
 For the system to work you need to follow those steps:
 
+
 1. Create Slack Workspace
 1. Create Slack App
 1. Create Slack Channels
@@ -564,6 +619,7 @@ For the system to work you need to follow those steps:
 1. Slack Reset
 
 <div style="page-break-after: always;"></div>
+
 
 ## 6.1 Create your Slack Workspace
 
