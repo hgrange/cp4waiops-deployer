@@ -134,7 +134,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Check File Storage Class exists
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: 🌏 STORAGECLASS - Check File Storage Class exists {{ WAIOPS_STORAGE_CLASS_FILE }}
+- name: 🔎 STORAGECLASS - Check File Storage Class exists {{ WAIOPS_STORAGE_CLASS_FILE }}
   shell: |
           SC_EXISTS=$(oc get sc {{ WAIOPS_STORAGE_CLASS_FILE }} --ignore-not-found --no-headers| wc -l|tr -d ' ')
           if [ $SC_EXISTS -gt 0 ];
@@ -153,7 +153,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Check Large Block Storage Class exists
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name: 🌏 STORAGECLASS - Check Large Block Storage Class exists {{ WAIOPS_STORAGE_CLASS_LARGE_BLOCK }}
+- name: 🔎 STORAGECLASS - Check Large Block Storage Class exists {{ WAIOPS_STORAGE_CLASS_LARGE_BLOCK }}
   shell: |
           SC_EXISTS=$(oc get sc {{ WAIOPS_STORAGE_CLASS_LARGE_BLOCK }} --ignore-not-found --no-headers| wc -l|tr -d ' ')
           if [ $SC_EXISTS -gt 0 ];
