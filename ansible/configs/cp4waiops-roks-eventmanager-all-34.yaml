@@ -17,7 +17,8 @@ cp4waiops:
     kind: EventManager
     install: true
     # Version of the catalog subscription
-    subscription_channel: v1.7
+    subscription_channel: v1.8
+    starting_csv: noi.v1.4.0
 
   # --------------------------------------------------------------------------------------------------------------------------------------
   # CP4WAIOPS Event Manager Demo Content
