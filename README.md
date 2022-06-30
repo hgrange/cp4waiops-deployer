@@ -37,7 +37,7 @@ Those are the steps that you have to execute to install a complete demo environm
 > ❗You can find a PDF version of this guide here: [PDF](./INSTALL_CP4WAIOPS.pdf).
 > 
 
-### 🚨🚨🚨🚨 📺 Here is a video that walks you through the complete [installation process](https://ibm.box.com/s/nn9731pjbbjq0i79o89zyr1v3kovfaxm).
+##### 🚨🚨🚨🚨 📺 Here is a video that walks you through the complete [installation process](https://ibm.box.com/s/nn9731pjbbjq0i79o89zyr1v3kovfaxm).
 
 ## 🚀 TLDR - Fast Track
 
