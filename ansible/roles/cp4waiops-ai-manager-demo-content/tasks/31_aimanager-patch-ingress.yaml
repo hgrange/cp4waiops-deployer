@@ -171,9 +171,9 @@
 # Wait for nginx Pods
 # --------------------------------------------------------------------------------------------------------------------------------------
 - name: CERTIFICATES -           🕦 Wait for nginx coming back up
-  shell: oc get po -n {{current_cp4waiops_cluster.project}} | grep nginx|grep "1/1"|grep -c ""
+  shell: oc get po -n {{current_cp4waiops_cluster.project}} | grep nginx|grep -v ibm-nginx-tester|grep -v setup-nginx-job |grep "1/1"|grep -c ""
   register: kubectl_get_pods
-  until: kubectl_get_pods.stdout > "2"
+  until: kubectl_get_pods.stdout == "2"
   retries: 50
   delay: 15
 
