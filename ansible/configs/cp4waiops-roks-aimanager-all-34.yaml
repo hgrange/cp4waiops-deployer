@@ -19,8 +19,7 @@ cp4waiops:
     # Name of the CP4WAIOPS instance
     waiops_name: ibm-cp-watson-aiops
     # Version of the catalog subscription
-    #subscription_channel: v3.4.0
-    subscription_channel: 3.4-dev
+    subscription_channel: v3.4.0
 
   # --------------------------------------------------------------------------------------------------------------------------------------
   # CP4WAIOPS AI Manager Demo Content
