@@ -52,6 +52,7 @@
 - name: 🚀 AIMANAGER INSIGHTS - Patch Pull Secret
   shell: |
     oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+    oc delete pod $(oc get po -n {{ current_cp4waiops_cluster.project }}|grep insights-ui|awk '{print$1}') -n {{ current_cp4waiops_cluster.project }} --ignore-not-found
   register: kubectl_get_pods
   ignore_errors: yes
 
@@ -63,4 +64,4 @@
   retries: 50
   delay: 15
 
- 
+ aiops-insights-ui
