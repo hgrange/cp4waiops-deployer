@@ -27,7 +27,7 @@ Please drop me a note on Slack or by mail nikh@ch.ibm.com if you find glitches o
 
 Those are the steps that you have to execute to install a complete demo environment:
 
-1. [TLDR - Fast Track](https://github.com/niklaushirt/cp4waiops-deployer#-tldr---fast-track)
+1. [TLDR - Fast Track](https://github.com/niklaushirt/cp4waiops-deployer#-tldr-fast-track)
 1. [AI Manager Installation](#2-ai-manager-installation)
 1. [AI Manager Configuration](#3-ai-manager-configuration)
 1. [Event Manager Installation](#4-event-manager-installation)
