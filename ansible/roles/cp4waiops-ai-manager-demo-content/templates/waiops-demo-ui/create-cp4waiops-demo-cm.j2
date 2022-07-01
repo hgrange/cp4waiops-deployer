@@ -55,15 +55,15 @@ spec:
               export METRIC_TIME_STEP=100
 
 
-              export SLACK_URL="https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ"
-              export SLACK_USER="ibmaiopsdemo@gmail.com"
-              export SLACK_PWD="P4ssw0rd!"
+              export SLACK_URL="{{current_cp4waiops_cluster.demoui_slack_url}}"
+              export SLACK_USER="{{current_cp4waiops_cluster.demoui_slack_user}}"
+              export SLACK_PWD="{{current_cp4waiops_cluster.demoui_slack_pwd}}"
 
 
-              export ADMIN_MODE='true'
+              export ADMIN_MODE='{{current_cp4waiops_cluster.demoui_admin_mode}}'
 
-              export DEMO_USER='demo'
-              export DEMO_PWD='P4ssw0rd!'
+              export DEMO_USER='{{current_cp4waiops_cluster.demoui_aimanager_demo_user}}'
+              export DEMO_PWD='{{current_cp4waiops_cluster.demoui_aimanager_demo_pwd}}'
 
               cat <<EOF | oc apply -n {{current_cp4waiops_cluster.project}} -f -
                 apiVersion: v1
