@@ -18,6 +18,19 @@
     echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
   ignore_errors: yes
 
+
+- name: 🕦 TOPOLOGY -  Wait for Merge Route to become ready
+  shell: |
+    export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
+    export MERGE_ROUTE="https://"$(oc get route -n $EVTMGR_NAMESPACE evtmanager-topology-merge -o jsonpath={.spec.host})
+    ROUTE_RESPONSE=$(curl -X "GET" "$MERGE_ROUTE/1.0/merge/rules" --insecure -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' -H 'content-type: application/json')
+    echo $ROUTE_RESPONSE
+  register: route_response
+  until: ("<title>Error 401 Unauthorized</title>" in route_response.stdout)
+  retries: 500
+  delay: 15      
+
+
 # --------------------------------------------------------------------------------------------------------------------------------------
 # WAIOPS
 # --------------------------------------------------------------------------------------------------------------------------------------
@@ -28,10 +41,6 @@
     echo "Create Rules - Starting..."
     
     export EVTMGR_NAMESPACE=$(oc get po -A|grep noi-operator |awk '{print$1}')
-
-
-
-
 
     export EVTMGR_REST_USR=$(oc get secret evtmanager-topology-asm-credentials -n $EVTMGR_NAMESPACE -o jsonpath='{.data.username}' | base64 --decode)
     export EVTMGR_REST_PWD=$(oc get secret evtmanager-topology-asm-credentials -n $EVTMGR_NAMESPACE -o jsonpath='{.data.password}' | base64 --decode)
