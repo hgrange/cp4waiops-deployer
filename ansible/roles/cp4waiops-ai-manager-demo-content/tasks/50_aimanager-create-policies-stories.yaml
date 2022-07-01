@@ -45,7 +45,7 @@
     export POLICY_ROUTE=$(oc get routes -n $WAIOPS_NAMESPACE policy-api -o jsonpath="{['spec']['host']}")
     echo $POLICY_ROUTE
 
-    echo "{{role_path}}/templates/policies/runbook-trigger-policy.json"
+    # echo "{{role_path}}/templates/policies/runbook-trigger-policy.json"
 
     export result=$(curl -XPOST -k -s "https://$POLICY_ROUTE/policyregistry.ibm-netcool-prod.aiops.io/v1alpha/system/cfd95b7e-3bc7-4006-a4a8-a73a79c71255/policies"  \
       -H 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' \
@@ -53,6 +53,13 @@
       -u $POLICY_LOGIN \
       -d @/tmp/story_policy.json)
     echo $result
+
+
+
+
+
+
+
 
   ignore_errors: yes
   register: POLICY_RESULT

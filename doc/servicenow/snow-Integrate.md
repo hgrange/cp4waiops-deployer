@@ -79,8 +79,8 @@ If you don't have one, follow the instructions [https://docs.github.com/en/free-
 
 #### Fork GitHub repository 
 
-1. Fork the following repository `https://github.ibm.com/jorgego/servicenow-integration-fork`
-1. Enter `https://github.ibm.com/<your-repo>/servicenow-integration-fork` as repository, `main` as the branch and in the `Credential` drop-down, select the entry with the credentials that were created in the previous steps.
+1. Fork the following repository `https://github.ibm.com/watson-ai4it/servicenow-integration`
+1. Enter `https://github.ibm.com/watson-ai4it/servicenow-integration` as repository, `main` as the branch and in the `Credential` drop-down, select the entry with the credentials that were created in the previous steps.
 ![Studio](./images/studio3.png)
 1. Click `Import` to import the source code.
 
