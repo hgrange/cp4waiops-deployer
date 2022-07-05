@@ -908,9 +908,43 @@ or
 # 7. Demo the Solution
 ---------------------------------------------------------------
 
+## 7.1 Simulate incident - Web Demo UI
 
 
-## 7.1 Simulate incident - Command Line
+## 7.1.1 Get the URL
+
+* Run:
+
+	```bash
+	export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
+		
+	echo "🌏 AI Manager:           https://$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath={.spec.host})"
+	echo "🌏 Demo UI:              https://$(oc get route -n $WAIOPS_NAMESPACE waiops-demo-ui-python -o jsonpath={.spec.host})"
+	
+	```
+
+## 7.1.2 Open the Web Demo UI
+
+* Open the Demo UI URL from the above
+* Login with the password `P4ssw0rd!`
+
+
+## 7.1.3 Simulate the incident
+
+* Click on the red `Create Incident Memory Leak` button
+
+This will create alerts and a story in AI Manager.
+
+
+## 7.1.2 Login to AI Manager as demo User
+
+* Open the AI Manager URL from the above
+* Click on `Enterprise LDAP`
+* Login as `demo` with the password `P4ssw0rd!`
+
+ℹ️  Give it a minute or two for all events and anomalies to arrive in AI Manager and Slack.
+
+## 7.2 Simulate incident - Command Line
 
 **Make sure you are logged-in to the Kubernetes Cluster first** 
 
@@ -922,7 +956,7 @@ In the terminal type
 
 This will delete all existing Alerts/Stories and inject pre-canned event, metrics and logs to create a story.
 
-ℹ️  Give it a minute or two for all events and anomalies to arrive in Slack.
+ℹ️  Give it a minute or two for all events and anomalies to arrive in AI Manager and Slack.
 ℹ️  You might have to run the script 3-4 times for the log anomalies to start appearing.
 
 
