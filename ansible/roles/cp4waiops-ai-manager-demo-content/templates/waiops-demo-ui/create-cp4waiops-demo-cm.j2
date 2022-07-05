@@ -55,15 +55,15 @@ spec:
               export METRIC_TIME_STEP=100
 
 
-              export SLACK_URL="{{current_cp4waiops_cluster.demoui_slack_url}}"
-              export SLACK_USER="{{current_cp4waiops_cluster.demoui_slack_user}}"
-              export SLACK_PWD="{{current_cp4waiops_cluster.demoui_slack_pwd}}"
+              export SLACK_URL="{{current_cp4waiops_feature.demoui_slack_url}}"
+              export SLACK_USER="{{current_cp4waiops_feature.demoui_slack_user}}"
+              export SLACK_PWD="{{current_cp4waiops_feature.demoui_slack_pwd}}"
 
 
-              export ADMIN_MODE='{{current_cp4waiops_cluster.demoui_admin_mode}}'
+              export ADMIN_MODE='{{current_cp4waiops_feature.demoui_admin_mode}}'
 
-              export DEMO_USER='{{current_cp4waiops_cluster.demoui_aimanager_demo_user}}'
-              export DEMO_PWD='{{current_cp4waiops_cluster.demoui_aimanager_demo_pwd}}'
+              export DEMO_USER='{{current_cp4waiops_feature.demoui_aimanager_demo_user}}'
+              export DEMO_PWD='{{current_cp4waiops_feature.demoui_aimanager_demo_pwd}}'
 
               cat <<EOF | oc apply -n {{current_cp4waiops_cluster.project}} -f -
                 apiVersion: v1
