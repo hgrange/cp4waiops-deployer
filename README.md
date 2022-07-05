@@ -110,14 +110,6 @@ So please if you have any feedback contact me
 
 Clone the GitHub Repository
 
-From IBM internal:
-
-```
-git clone https://<YOUR GIT TOKEN>@github.ibm.com/NIKH/cp4waiops-deployer.git 
-```
-
-Or my external repo:
-
 ```
 git clone https://github.com/niklaushirt/cp4waiops-deployer.git
 ```
