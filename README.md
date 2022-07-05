@@ -46,7 +46,7 @@ These are the high level steps that you need to execute to install the demo envi
 ### 1. Install AI Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
 1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
-2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`
 	
 ![K8s CNI](./doc/pics/install01.png)
@@ -54,15 +54,23 @@ These are the high level steps that you need to execute to install the demo envi
 ### 2. Install Event Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
 1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
-2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
+3. Click `Save`
+
+### 3. Install AI Manager, Event Manager and Turbonomic with demo content
+1. In the the OCP Web UI click on the + sign in the right upper corner
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/01_FVT_INSTALL_ALL.yaml)
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`
 
 
-### 3. Install other components
+### 4. Install other components
 1. In the the OCP Web UI click on the + sign in the right upper corner
 1. Select the content file from  [this directory](./tools/08_Quick_Install_Jobs/)
-2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`		
+
+> ℹ️ If you get a ClusterRoleBinding already exists, ust delete it at the beginning of the YAML
 
 
 <div style="page-break-after: always;"></div>
