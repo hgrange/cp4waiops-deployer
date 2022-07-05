@@ -51,7 +51,7 @@ EOF
 
 
 
-export OMNIBUS_ROOT_PASSWORD=$(oc get secret $EVTMGR_INSTANCE-omni-secret -o jsonpath='{.data.OMNIBUS_ROOT_PASSWORD}' | base64 --decode)
+export OMNIBUS_ROOT_PASSWORD=$(oc get secret $EVTMGR_INSTANCE-omni-secret -n $EVTMGR_NAMESPACE -o jsonpath='{.data.OMNIBUS_ROOT_PASSWORD}' | base64 --decode)
 echo ""
 echo ""
 echo "🚀 Create Netcool Integration with:"
@@ -82,5 +82,5 @@ echo "  go"
 echo "  exit"
 echo ""
 
-oc exec -it $EVTMGR_INSTANCE-ncoprimary-0 -- /opt/IBM/tivoli/netcool/omnibus/bin/nco_sql -user root -password $OMNIBUS_ROOT_PASSWORD -server AGG_P
+oc exec -n $EVTMGR_NAMESPACE -it $EVTMGR_INSTANCE-ncoprimary-0 -- /opt/IBM/tivoli/netcool/omnibus/bin/nco_sql -user root -password $OMNIBUS_ROOT_PASSWORD -server AGG_P
 
