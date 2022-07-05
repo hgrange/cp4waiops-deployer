@@ -1,5 +1,5 @@
 <center> <h1>CP4WatsonAIOps CP4WAIOPS v.3.4.0</h1> </center>
-<center> <h2>Demo Environment Installation - Short Track 🚀</h2> </center>
+<center> <h2>Demo Environment Installation 🚀</h2> </center>
 
 ![K8s CNI](./doc/pics/front.png)
 
@@ -41,7 +41,7 @@ Those are the steps that you have to execute to install a complete demo environm
 
 ## 🚀 TLDR Fast Track
 
-These are the high level steps that you need to execute to install the demo environment.
+These are the options you have to install the demo environment.
 
 ### 1. Install AI Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
@@ -73,29 +73,6 @@ These are the high level steps that you need to execute to install the demo envi
 > ℹ️ If you get a ClusterRoleBinding already exists, ust delete it at the beginning of the YAML
 
 
-<div style="page-break-after: always;"></div>
-
-## ℹ️ Old documentation for reference
-
-* Info
-	* [Changelog](./CHANGELOG.md)
-	* [Demo Architecture](./doc/ARCHITECTURE.md)
-	* [Detailed Prerequisites](./doc/PREREQUISITES.md)
-	* [Troubleshooting](./doc/TROUBLESHOOTING.md)
-* Installation
-	* [Event Manager Install](./doc/INSTALL_EVENT_MANAGER.md)
-	* [Event Manager Configuration](./doc/CONF_EVENT_MANAGER.md)
-	* [Uninstall CP4WAIOPS](./doc/UNINSTALL.md)
-* Configuration
-	* [Manual Runbook Configuration](./doc/CONF_RUNBOOKS.md)
-	* [Additional Configuration](./doc/CONF_MISC.md)
-	* [Service Now integration](./doc/INTEGRATION_SNOW.md)
-* Install additional components
-	* [Installing Turbonomic](./doc/INSTALL_TURBONOMIC.md)
-	* [Installing ELK ](./doc/INSTALL_ELK.md)
-
-
-
 
 
 <div style="page-break-after: always;"></div>
@@ -103,9 +80,6 @@ These are the high level steps that you need to execute to install the demo envi
 ---------------------------------------------------------------
 # 1 Introduction
 ---------------------------------------------------------------
-
-
-This document is a short version of the full [README](./README_FULL.md) 🐥 that contains only the essential steps.
 
 
 
@@ -116,7 +90,7 @@ This is provided `as-is`:
 * It clearly can be improved
 
 
-**❗This has been tested for the new CP4WAIOPS v.3.4.0 release on OpenShift 4.8 (4.10 not being available on Techzone yet) on ROKS**
+**❗This has been tested for the new CP4WAIOPS v.3.4.0 release on OpenShift 4.8 and 4.10 on ROKS**
 
 
 
@@ -157,8 +131,11 @@ I installed the demo in a ROKS environment.
 
 You'll need:
 
-- ROKS 4.8
+- ROKS 4.8 or 4.10
 - 5x worker nodes Flavor `b3c.16x64` (so 16 CPU / 64 GB) 
+
+
+
 
 You **might** get away with less if you don't install some components (Event Manager, ELK, Turbonomic,...) but no guarantee:
 
@@ -166,7 +143,29 @@ You **might** get away with less if you don't install some components (Event Man
 
 <div style="page-break-after: always;"></div>
 
-### 1.2.2 Tooling 
+### 1.2.2 Get a ROKS Cluster (IBMers only)
+
+IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collection/custom-roks-vmware-requests) (ususally valid for 2 weeks)
+
+1. Create a cluster for `Practice/Self Education` if you don't have an Opportunity Number
+
+	![K8s CNI](./doc/pics/roks01.png)
+
+1. Select the maximum end date that fits your needs (2 weeks maximum)
+
+	![K8s CNI](./doc/pics/roks03.png)
+	
+1. Fill-in the remaining fields
+	2. Geograpy: whetever is closest to you
+	3. Worker node count: 5
+	4. Flavour: b3c.16x64
+	5. OpenShift Version: 4.10
+
+	![K8s CNI](./doc/pics/roks02.png)
+
+1. Click `Submit`
+	
+### 1.2.3 Tooling 
 
 You need the following tools installed in order to follow through this guide (if you decide to install from your PC):
 
@@ -179,7 +178,7 @@ You need the following tools installed in order to follow through this guide (if
 
 
 
-#### 1.2.1 On Mac - Automated (preferred) 
+#### 1.2.3.1 On Mac - Automated (preferred) 
 
 *Only needed if you decide to install from your PC*
 
@@ -189,7 +188,7 @@ Just run:
 ./10_install_prerequisites_mac.sh
 ```
 
-#### 1.2.2 On Ubuntu - Automated (preferred) 
+#### 1.2.3.2 On Ubuntu - Automated (preferred) 
 
 *Only needed if you decide to install from your PC*
 
@@ -205,9 +204,9 @@ Just run:
 
 ## 1.3 Pull Secrets 
 
-### 1.3.1 Get the CP4WAIOPS installation token 
+### 1.3.1 Get the CP4WAIOPS installation token (registry pull token) 
 
-You can get the installation (pull) token from [https://myibm.ibm.com/products-services/containerlibrary](https://myibm.ibm.com/products-services/containerlibrary).
+You can get the installation (registry pull token) token from [https://myibm.ibm.com/products-services/containerlibrary](https://myibm.ibm.com/products-services/containerlibrary).
 
 This allows the CP4WAIOPS images to be pulled from the IBM Container Registry.
 
@@ -225,7 +224,7 @@ You have different options:
 1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
 	1. In the the OCP Web UI click on the + sign in the right upper corner
 	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
-	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
+	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 	3. Click `Save`
 	
 1. **Install from your PC** *with the token from 1.3.1*
@@ -245,21 +244,21 @@ You have different options:
 
 
 > This takes about 1.5 to 2 hours.
-> After completion Easy Installer will exit, open the documentation and the AI Manager webpage (on Mac) and you'll have to to perform the last manual steps.
+> After completion Easy Installer will open the documentation and the AI Manager webpage (on Mac) and you'll have to to perform the last manual steps.
 
 > You now have a full, basic installtion of AI Manager with:
 > 
 >  - AI Manager
 >  - Open LDAP & Register with AI Manager
 >  - RobotShop demo application
->  - Trained Models based on precanned data (Log- and Metric Anomalies, Similar Incidents, Change Risk)
+>  - Trained Models based on pre-canned data (Log- and Metric Anomalies, Similar Incidents, Change Risk)
 >  - Topologies for demo scenarios
 >  - AWX (OpenSource Ansible Tower) with runbooks for the demo scenarios
 >  - Demo UI
 >  - Demo Service Account 
->  - Creates valid certificate for Ingress (Slack) 
+>  - Valid certificate for Ingress (Slack) 
 >  - External Routes (Flink, Topology, ...)
->  - Create Policy Creation for Stories and Runbooks 
+>  - Policies for Stories and Runbooks 
 > 
 
 
@@ -304,14 +303,14 @@ echo "🌏 Demo UI:              https://$(oc get route -n $WAIOPS_NAMESPACE wai
 ```
 
 
-## 3.1.2 Login as demo User
+## 3.1.2 Login as demo User (preferred)
 
 * Open the URL from the above
 * Click on `Enterprise LDAP`
 * Login as `demo` with the password `P4ssw0rd!`
 
 
-## 3.1.1 Login as admin
+### 3.1.2.1 Login as admin
 
 * Open the URL from the above
 * Click on `IBM provided credentials (admin only)`
@@ -326,12 +325,6 @@ echo "🌏 Demo UI:              https://$(oc get route -n $WAIOPS_NAMESPACE wai
 
 
 
-
-	
-<div style="page-break-after: always;"></div>
-
-
-
 ## 3.2 Re-Run Kubernetes Integration
 
 In the AI Manager (CP4WAIOPS) 
@@ -339,6 +332,16 @@ In the AI Manager (CP4WAIOPS)
 1. In the `AI Manager` "Hamburger" Menu select `Define`/`Data and tool integrations`
 1. Click `Kubernetes`	
 1. Under `robot-shop`, click on `Run` (with the small play button)
+
+
+## 3.3 Configure Slack
+
+Continue [here](#6-slack-integration) for [Slack integration](#6-slack-integration)
+	
+<div style="page-break-after: always;"></div>
+
+
+
 
 
 <div style="page-break-after: always;"></div>
@@ -922,6 +925,9 @@ or
 	echo "🌏 Demo UI:              https://$(oc get route -n $WAIOPS_NAMESPACE waiops-demo-ui-python -o jsonpath={.spec.host})"
 	
 	```
+	
+	![demo](./doc/pics/demo03.png)
+	
 
 ## 7.1.2 Open the Web Demo UI
 
@@ -931,10 +937,11 @@ or
 
 ## 7.1.3 Simulate the incident
 
-* Click on the red `Create Incident Memory Leak` button
+Click on the red `Create Incident Memory Leak` button
 
 This will create alerts and a story in AI Manager.
 
+![demo](./doc/pics/demo01.png)
 
 ## 7.1.2 Login to AI Manager as demo User
 
@@ -943,6 +950,10 @@ This will create alerts and a story in AI Manager.
 * Login as `demo` with the password `P4ssw0rd!`
 
 ℹ️  Give it a minute or two for all events and anomalies to arrive in AI Manager and Slack.
+
+
+![demo](./doc/pics/demo02.png)
+
 
 ## 7.2 Simulate incident - Command Line
 
@@ -958,5 +969,28 @@ This will delete all existing Alerts/Stories and inject pre-canned event, metric
 
 ℹ️  Give it a minute or two for all events and anomalies to arrive in AI Manager and Slack.
 ℹ️  You might have to run the script 3-4 times for the log anomalies to start appearing.
+
+
+<div style="page-break-after: always;"></div>
+
+## ℹ️ Old documentation for reference
+
+* Info
+	* [Changelog](./CHANGELOG.md)
+	* [Demo Architecture](./doc/ARCHITECTURE.md)
+	* [Detailed Prerequisites](./doc/PREREQUISITES.md)
+	* [Troubleshooting](./doc/TROUBLESHOOTING.md)
+* Installation
+	* [Event Manager Install](./doc/INSTALL_EVENT_MANAGER.md)
+	* [Event Manager Configuration](./doc/CONF_EVENT_MANAGER.md)
+	* [Uninstall CP4WAIOPS](./doc/UNINSTALL.md)
+* Configuration
+	* [Manual Runbook Configuration](./doc/CONF_RUNBOOKS.md)
+	* [Additional Configuration](./doc/CONF_MISC.md)
+	* [Service Now integration](./doc/INTEGRATION_SNOW.md)
+* Install additional components
+	* [Installing Turbonomic](./doc/INSTALL_TURBONOMIC.md)
+	* [Installing ELK ](./doc/INSTALL_ELK.md)
+
 
 
