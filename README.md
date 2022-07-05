@@ -257,7 +257,7 @@ You have different options:
  <div style="page-break-after: always;"></div>
  
 ---------------------------------------------------------------
-# 3. AI Manager Configuration 
+# 3 AI Manager Configuration 
 ---------------------------------------------------------------
 
 Those are the manual configurations you'll need to demo the system and that are covered by the flow above.
