@@ -159,7 +159,7 @@
   shell: oc get csv -n {{ current_cp4waiops_cluster.project }}|grep ibm-aiops-orchestrator|grep "Succeeded"| grep -v ibm-watson-aiops-ui-operator | grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"
-  retries: 50
+  retries: 500
   delay: 15
 
 
@@ -169,7 +169,7 @@
   shell: oc get csv -n {{ current_cp4waiops_cluster.project }}|grep -v "Succeeded"| grep -v ibm-watson-aiops-ui-operator | grep -c ""
   register: kubectl_get_pods
   until: kubectl_get_pods.stdout == "1"
-  retries: 50
+  retries: 500
   delay: 15
 
 
