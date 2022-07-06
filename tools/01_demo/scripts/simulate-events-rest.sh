@@ -32,13 +32,7 @@ do
 
       EVENTS_SECONDS=10
       OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-      if [ "${OS}" == "darwin" ]; then
-            # Suppose we're on Mac
-            export SKEW_PREFIX="-v"
-      else
-            # Suppose we're on a Linux flavour
-            export SKEW_PREFIX="-d" 
-      fi
+
 
 
 
@@ -46,7 +40,18 @@ do
       do
             ((EVENTS_SECONDS++))
             EVENTS_SECONDS=$((EVENTS_SECONDS+60))
-            EVENTS_SECONDS_SKEW=$SKEW_PREFIX"+"$EVENTS_SECONDS"S"
+
+            if [ "${OS}" == "darwin" ]; then
+                  # Suppose we're on Mac
+                  export EVENTS_SECONDS_SKEW="-v+"$EVENTS_SECONDS"S"
+            else
+                  # Suppose we're on a Linux flavour
+                  export EVENTS_SECONDS_SKEW=-d"+"$EVENTS_SECONDS" seconds"
+            fi
+
+echo "DATE_FORMAT_EVENTS:"$DATE_FORMAT_EVENTS
+echo "EVENTS_SECONDS_SKEW:"$EVENTS_SECONDS_SKEW
+
 
             # Get timestamp in ELK format
             export my_timestamp=$(date $EVENTS_SECONDS_SKEW $DATE_FORMAT_EVENTS)".000Z"
