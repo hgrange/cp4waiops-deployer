@@ -153,7 +153,7 @@ if [ "${OS}" == "darwin" ]; then
       #export DATE_FORMAT_EVENTS="+%Y-%m-%dT%H:%M"
 else
       # Suppose we're on a Linux flavour
-      export DATE_FORMAT_EVENTS="-d$EVENTS_SKEW +%Y-%m-%dT%H:%M:%S" 
+      export DATE_FORMAT_EVENTS="-d'2 hours ago +%Y-%m-%dT%H:%M:%S" 
       #export DATE_FORMAT_EVENTS="+%Y-%m-%dT%H:%M" 
 fi
 
@@ -166,10 +166,11 @@ if [ "${OS}" == "darwin" ]; then
       # HUMIO export DATE_FORMAT_LOGS="+%s000"
 else
       # Suppose we're on a Linux flavour
-      export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
+      export DATE_FORMAT_LOGS="-d'2 hours ago' +%Y-%m-%dT%H:%M:%S.000000+00:00"
       #export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00" 
       # HUMIO export DATE_FORMAT_LOGS="+%s000"
 fi
+
 
 echo " "
 
