@@ -31,14 +31,14 @@ do
 
 
       EVENTS_SECONDS=10
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-if [ "${OS}" == "darwin" ]; then
-      # Suppose we're on Mac
-      export SKEW_PREFIX="-v"
-else
-      # Suppose we're on a Linux flavour
-      export SKEW_PREFIX="-d" 
-fi
+      OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+      if [ "${OS}" == "darwin" ]; then
+            # Suppose we're on Mac
+            export SKEW_PREFIX="-v"
+      else
+            # Suppose we're on a Linux flavour
+            export SKEW_PREFIX="-d" 
+      fi
 
 
 
