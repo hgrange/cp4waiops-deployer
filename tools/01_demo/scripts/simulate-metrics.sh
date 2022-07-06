@@ -108,15 +108,7 @@ do
       do
 
             ADD_SECONDS=$(($ADD_SECONDS+($TIME_INCREMENT_MINUTES*60)))
-
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-if [ "${OS}" == "darwin" ]; then
-      # Suppose we're on Mac
-      export act_timestamp_readable=$(date -v "$METRICS_SKEW" -v "+"$ADD_SECONDS"S" "$DATE_FORMAT_READABLE")
-else
-      # Suppose we're on a Linux flavour
-      export act_timestamp_readable=$(date -d "+ "$METRICS_SKEW" minutes" -d "+ "$ADD_SECONDS" seconds" "$DATE_FORMAT_READABLE")
-fi
+            export act_timestamp_readable=$(date -v "$METRICS_SKEW" -v "+"$ADD_SECONDS"S" "$DATE_FORMAT_READABLE")
 
 
             echo "        ♻️  ITERATION: $ITERATIONS-$BUNDLE_ITERATIONS     at "$act_timestamp_readable"   -     Seconds skew "$ADD_SECONDS"   - "$MY_TIMESTAMP
@@ -125,16 +117,9 @@ fi
             # Clear incection file
             ADD_SECONDS=$(($ADD_SECONDS+$TIME_INCREMENT_SECONDS))
 
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-if [ "${OS}" == "darwin" ]; then
-      # Suppose we're on Mac
+            # Get timestamp in ELK format
             export MY_TIMESTAMP=$(date -v "$METRICS_SKEW" -v "+"$ADD_SECONDS"S" "$DATE_FORMAT")"$ADD_MSECONDS_STRING"
             export my_timestamp_readable=$(date -v "$METRICS_SKEW" -v "+"$ADD_SECONDS"S" "$DATE_FORMAT_READABLE")
-else
-      # Suppose we're on a Linux flavour
-            export MY_TIMESTAMP=$(date -d "+ "$METRICS_SKEW" minutes" -d "+ "$ADD_SECONDS" seconds" "$DATE_FORMAT")"$ADD_MSECONDS_STRING"
-            export my_timestamp_readable=$(date -d "+ "$METRICS_SKEW" minutes" -d "+ "$ADD_SECONDS" seconds" "$DATE_FORMAT_READABLE")
-fi
 
 
             for value in "${MY_RES_IDS[@]}"

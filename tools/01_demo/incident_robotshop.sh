@@ -11,8 +11,8 @@
 export APP_NAME=robot-shop
 export LOG_TYPE=elk   # humio, elk, splunk, ...
 export EVENTS_TYPE=noi
-export EVENTS_SKEW="120"
-export LOGS_SKEW="90"
+export EVENTS_SKEW="-120M"
+export LOGS_SKEW="-90M"
 export METRICS_SKEW="+5M"
 
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,6 +45,15 @@ echo ""
 echo "***************************************************************************************************************************************************"
 echo "***************************************************************************************************************************************************"
 
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+if [ "${OS}" == "darwin" ]; then
+      echo "OK"
+else
+      echo "❗ This tool currently only runs on Mac OS due to shell limitations."
+      echo "❗ Please use the Demo Web UI for Incident simulation."
+      echo "❌ Exiting....."
+      exit 1 
+fi
 
 # Get Namespace from Cluster 
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
@@ -241,11 +250,11 @@ echo "     📥 Get Date Formats"
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [ "${OS}" == "darwin" ]; then
       # Suppose we're on Mac
-      export DATE_FORMAT_EVENTS="-v-"$EVENTS_SKEW"M +%Y-%m-%dT%H:%M:%S"
+      export DATE_FORMAT_EVENTS="-v$EVENTS_SKEW +%Y-%m-%dT%H:%M:%S"
       #export DATE_FORMAT_EVENTS="+%Y-%m-%dT%H:%M"
 else
       # Suppose we're on a Linux flavour
-      export DATE_FORMAT_EVENTS="-d'"$EVENTS_SKEW" minutes ago +%Y-%m-%dT%H:%M:%S" 
+      export DATE_FORMAT_EVENTS="-d$EVENTS_SKEW +%Y-%m-%dT%H:%M:%S" 
       #export DATE_FORMAT_EVENTS="+%Y-%m-%dT%H:%M" 
 fi
 
@@ -253,12 +262,12 @@ fi
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 if [ "${OS}" == "darwin" ]; then
       # Suppose we're on Mac
-      export DATE_FORMAT_LOGS="-v-"$LOGS_SKEW"M +%Y-%m-%dT%H:%M:%S.000000+00:00"
+      export DATE_FORMAT_LOGS="-v$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
       #export DATE_FORMAT_LOGS="-v$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
       # HUMIO export DATE_FORMAT_LOGS="+%s000"
 else
       # Suppose we're on a Linux flavour
-      export DATE_FORMAT_LOGS="-d'"$LOGS_SKEW" minutes ago' +%Y-%m-%dT%H:%M:%S.000000+00:00"
+      export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
       #export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00" 
       # HUMIO export DATE_FORMAT_LOGS="+%s000"
 fi
