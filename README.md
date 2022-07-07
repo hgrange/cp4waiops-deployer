@@ -419,29 +419,9 @@ After successful installation, the Playbook creates a file `./LOGINS.txt` in you
 * Click `Save`
 
 
-## 5.3 Topology
-
-### 5.3.1 Create Kubernetes Observer for the Demo Applications 
-
-This is basically the same as for AI Manager as we need two separate instances of the Topology Manager. 
 
 
-* In the `Event Manager` "Hamburger" Menu select `Administration`/`Topology Management`
-* Under `Observer jobs` click `Configure`
-* Click `Add new job`
-* Under `Kubernetes`, click on `Configure`
-* Choose `local` for `Connection Type`
-* Set `Unique ID` to `robot-shop`
-* Set `data_center` to `robot-shop`
-* Under `Additional Parameters`
-* Set `Terminated pods` to `true`
-* Set `Correlate` to `true`
-* Set Namespace to `robot-shop`
-* Under `Job Schedule`
-* Set `Time Interval` to 5 Minutes
-* Click `Save`
-
-## 5.4 EventManager Webhook 
+## 5.3 EventManager Webhook 
 
 Create Webhooks in EventManager for Event injection and incident simulation for the Demo.
 
@@ -501,10 +481,10 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 <div style="page-break-after: always;"></div>
 
 
-## 5.5 Create custom Filters and Views
+## 5.4 Create custom Filters and Views
 
 
-### 5.5.1 Filter 
+### 5.4.1 Filter 
 
 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
@@ -524,7 +504,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 ![](./doc/pics/noi10.png)
 
 
-### 5.5.2 View 
+### 5.4.2 View 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
 * Click `Administration`
 * Click `Views`
@@ -537,7 +517,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 * Configure to your likings.
 
 
-## 5.6 Create grouping Policy 
+## 5.5 Create grouping Policy 
 
 * In the `Event Manager` "Hamburger" Menu select `Netcool WebGui`
 * Click `Insights`
@@ -549,7 +529,7 @@ Optionnally you can also add `Expiry Time` from `Optional event attributes` and 
 
 <div style="page-break-after: always;"></div>
 
-## 5.7 Create Menu item
+## 5.6 Create Menu item
 
 In the Netcool WebGUI
 
