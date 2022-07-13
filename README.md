@@ -41,7 +41,10 @@ Those are the steps that you have to execute to install a complete demo environm
 
 ## 🚀 TLDR Fast Track
 
+![K8s CNI](./doc/pics/JOB_INSTALL.gif)
+
 These are the options you have to install the demo environment.
+
 
 ### 1. Install AI Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
