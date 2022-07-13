@@ -152,7 +152,7 @@ IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collecti
 	
 1. Fill-in the remaining fields
 
-	1. Geograpy: whetever is closest to you
+	1. Geograpy: whatever is closest to you
 	2. Worker node count: 5
 	3. Flavour: b3c.16x64
 	4. OpenShift Version: 4.10
