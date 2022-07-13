@@ -300,7 +300,7 @@ openTheUrl () {
 
 
 
-menu_EASY_ALL () {
+menu_EASY_AI_ALL () {
       echo "----------------------------------------------------------------------------------------------------------------"
       echo " 🚀  Install complete Demo Environment for AI Manager - cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml" 
       echo "----------------------------------------------------------------------------------------------------------------"
@@ -373,6 +373,79 @@ menu_EASY_ALL () {
 
 }
 
+
+menu_EASY_EVENT_ALL () {
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo " 🚀  Install complete Demo Environment for EVENT Manager - cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml" 
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo ""
+
+      # Check if already installed
+      if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
+            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
+
+            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
+            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+                  echo ""
+                  echo "   ✅ Ok, continuing..."
+                  echo ""
+            else
+                  echo ""
+                  echo "    ❌  Aborting"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  return
+            fi
+      fi
+
+      #Get Pull Token
+      if [[ $CP_ENTITLEMENT_KEY == "" ]];
+      then
+            echo ""
+            echo ""
+            echo "  Enter CP4WAIOPS Pull token: "
+            read TOKEN
+      else
+            TOKEN=$CP_ENTITLEMENT_KEY
+      fi
+
+      echo ""
+      echo "  🔐 You have provided the following Token:"
+      echo "    "$TOKEN
+      echo ""
+
+      # Install
+      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
+      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+            echo ""
+
+            cd ansible
+            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml" 
+            cd -
+
+
+
+
+      else
+            echo "    ⚠️  Skipping"
+            echo "--------------------------------------------------------------------------------------------"
+            echo  ""    
+            echo  ""
+      fi
+
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "  "
+      echo "  ✅ Complete Demo Environment for Event Manager Installation done"
+      echo "  "
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+
+
+}
 
 
 menu_INSTALL_AIMGR () {
@@ -959,12 +1032,20 @@ echo "${NC}"
       echo "  "
       echo "  🐥 ${UBlue}CP4WAIOPS - Complete Install${NC}"
 
-
+      echo "  "
       if [[ $WAIOPS_PODS -lt $WAIOPS_PODS_MIN ]]; then
-            echo "     🚀  ${BYellow}00  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content"
+            echo "     🚀  ${BYellow}01  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content"
       else
-            echo "     ✅  ${DGreen}00  - Install AI Manager Demo${NC}                                 - Already installed "
+            echo "     ✅  ${DGreen}01  - Install AI Manager Demo${NC}                                 - Already installed "
       fi
+
+      if [[ $EVTMGR_NAMESPACE == "" ]]; then
+            echo "         02  - Install Event Manager Demo                              - Install Event Manager with Demo Content"
+      else
+            echo "     ✅  ${DGreen}02  - Install Event Manager Demo${NC}                              - Already installed "
+      fi
+
+      echo "  "
 
       echo "  "
       echo "  "      
@@ -974,20 +1055,20 @@ echo "${NC}"
 
       echo "  🐥 ${UBlue}CP4WAIOPS - Base Install Only (without any demo content)${NC}"
       if [[ $WAIOPS_NAMESPACE == "" ]]; then
-            echo "         01  - Install AI Manager                                      - Install CP4WAIOPS AI Manager Component Only"
+            echo "         10  - Install AI Manager                                      - Install CP4WAIOPS AI Manager Component Only"
       else
-            echo "     ✅  01  - Install AI Manager                                      - Already installed "
+            echo "     ✅  10  - Install AI Manager                                      - Already installed "
       fi
 
       if [[ $EVTMGR_NAMESPACE == "" ]]; then
-            echo "         02  - Install Event Manager                                   - Install CP4WAIOPS Event Manager Component Only"
+            echo "         11  - Install Event Manager                                   - Install CP4WAIOPS Event Manager Component Only"
       else
-            echo "     ✅  02  - Install Event Manager                                   - Already installed "
+            echo "     ✅  11  - Install Event Manager                                   - Already installed "
       fi
 
 
 
-      echo "         09  - Open Documentation                                      - Open the AI Manager installation Documentation"
+      echo "         19  - Open Documentation                                      - Open the AI Manager installation Documentation"
       echo "  "
       echo "  "
       echo "  "
@@ -1090,12 +1171,13 @@ echo "${NC}"
   read selection
   echo ""
   case $selection in
-      00 ) clear ; menu_EASY_ALL  ;;
+      01 ) clear ; menu_EASY_AI_ALL  ;;
+      02 ) clear ; menu_EASY_EVENT_ALL  ;;
 
-      01 ) clear ; menu_INSTALL_AIMGR  ;;
-      02 ) clear ; menu_INSTALL_EVTMGR  ;;
+      10 ) clear ; menu_INSTALL_AIMGR  ;;
+      11 ) clear ; menu_INSTALL_EVTMGR  ;;
 
-      09 ) clear ; menuAWX_OPENDOC  ;;
+      19 ) clear ; menuAWX_OPENDOC  ;;
 
 
       21 ) clear ; menu_INSTALL_TURBO  ;;

@@ -9,4 +9,4 @@ oc cp -n default ${INSTALL_POD}:/cp4waiops-deployer/install_InfrastructureManage
 oc cp -n default ${INSTALL_POD}:/cp4waiops-deployer/install_ELK.log ./install_ELK.log 
 oc cp -n default ${INSTALL_POD}:/cp4waiops-deployer/install_Turbonomic.log ./install_Turbonomic.log 
 
-
+oc logs -n default -f $INSTALL_POD > install.log
