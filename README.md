@@ -152,10 +152,10 @@ IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collecti
 	
 1. Fill-in the remaining fields
 
-	2. Geograpy: whetever is closest to you
-	3. Worker node count: 5
-	4. Flavour: b3c.16x64
-	5. OpenShift Version: 4.10
+	1. Geograpy: whetever is closest to you
+	2. Worker node count: 5
+	3. Flavour: b3c.16x64
+	4. OpenShift Version: 4.10
 
 	![K8s CNI](./doc/pics/roks02.png)
 
