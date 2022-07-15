@@ -42,7 +42,7 @@ cp4waiops:
 
     # RUNBOOKS
     # Install AWX and create Runbooks
-    create_runbooks: false
+    create_runbooks: true
    
     # Demo UI
     install_demo_ui: true
