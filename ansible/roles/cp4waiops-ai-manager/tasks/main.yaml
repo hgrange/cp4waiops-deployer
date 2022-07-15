@@ -133,6 +133,7 @@
 # Enable CP4WAIOPS Insights
 - name: 📥 Enable CP4WAIOPS Insights
   include_tasks: 13_aimanager-insights.yaml
+  when: current_cp4waiops_feature.enable_aiops_insights == true
 
 
 # Access and documentaiton
