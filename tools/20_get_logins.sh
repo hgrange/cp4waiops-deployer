@@ -629,7 +629,8 @@ echo "                🌏 Datalayer SWAGGER:        https://$apiURL/irdatalayer
 echo "    "
 apiURL=$(oc get routes -n $WAIOPS_NAMESPACE aimanager-aio-controller  -o jsonpath="{['spec']['host']}")
 echo "                🌏 AIO Controller API:       https://$apiURL/"
-echo "                🌏 AIO Controller SWAGGER:   https://$apiURL/irdatalayer.aiops.io/openapi/ui/#/"
+#echo "                🌏 AIO Controller SWAGGER:   https://$apiURL/irdatalayer.aiops.io/openapi/ui/#/"
+echo "                🌏 AIO Controller SWAGGER:   https://$apiURL/openapi/ui/#/"
 
 echo ""
 echo ""
