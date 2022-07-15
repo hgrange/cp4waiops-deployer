@@ -61,8 +61,8 @@
     fi
 
     ZEN_TOKEN=$(echo "${ZEN_LOGIN_RESPONSE}" | jq -r .token)
-    echo "${ZEN_TOKEN}"
-    echo "        AI_PLATFORM_ROUTE:  $ZEN_TOKEN"
+    # echo "${ZEN_TOKEN}"
+    # echo "        AI_PLATFORM_ROUTE:  $ZEN_TOKEN"
 
 
     echo "Getting local K8s API"

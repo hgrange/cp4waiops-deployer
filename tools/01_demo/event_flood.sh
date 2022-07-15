@@ -99,19 +99,8 @@ oc project $WAIOPS_NAMESPACE  >/tmp/demo.log 2>&1  || true
 
 
 export USER_PASS="$(oc get secret aiops-ir-core-ncodl-api-secret -o jsonpath='{.data.username}' | base64 --decode):$(oc get secret aiops-ir-core-ncodl-api-secret -o jsonpath='{.data.password}' | base64 --decode)"
-oc apply -n $WAIOPS_NAMESPACE -f ./tools/01_demo/scripts/datalayer-api-route.yaml >/tmp/demo.log 2>&1  || true
-sleep 2
 export DATALAYER_ROUTE=$(oc get route  -n $WAIOPS_NAMESPACE datalayer-api  -o jsonpath='{.status.ingress[0].host}')
 
-
-#------------------------------------------------------------------------------------------------------------------------------------
-#  Deactivating MYSQL Service
-#------------------------------------------------------------------------------------------------------------------------------------
-echo " "
-echo "   ------------------------------------------------------------------------------------------------------------------------------"
-echo "   🚀  Deactivating MYSQL Service for Demo Scenario..."
-echo "   ------------------------------------------------------------------------------------------------------------------------------"
-oc patch service mysql -n robot-shop --patch '{"spec": {"selector": {"service": "mysql-outage"}}}'
 
 
 
@@ -125,21 +114,8 @@ echo "   -----------------------------------------------------------------------
 
 
 
-echo "     📥 Get Kafka Topics"
-export KAFKA_TOPIC_LOGS=$(oc get kafkatopics -n $WAIOPS_NAMESPACE | grep cp4waiops-cartridge-logs-$LOG_TYPE| awk '{print $1;}')
-
-echo " "
-echo "     🔐 Get Kafka Password"
-export KAFKA_SECRET=$(oc get secret -n $WAIOPS_NAMESPACE |grep 'aiops-kafka-secret'|awk '{print$1}')
-export SASL_USER=$(oc get secret $KAFKA_SECRET -n $WAIOPS_NAMESPACE --template={{.data.username}} | base64 --decode)
-export SASL_PASSWORD=$(oc get secret $KAFKA_SECRET -n $WAIOPS_NAMESPACE --template={{.data.password}} | base64 --decode)
-export KAFKA_BROKER=$(oc get routes iaf-system-kafka-0 -n $WAIOPS_NAMESPACE -o=jsonpath='{.status.ingress[0].host}{"\n"}'):443
-echo " "
-
 echo "     📥 Get Working Directories"
-export WORKING_DIR_LOGS="./tools/01_demo/INCIDENT_FILES/$APP_NAME/logs"
 export WORKING_DIR_EVENTS="./tools/01_demo/INCIDENT_FILES/$APP_NAME/events_rest"
-export WORKING_DIR_METRICS="./tools/01_demo/INCIDENT_FILES/$APP_NAME/metrics"
 
 echo " "
 
@@ -158,78 +134,10 @@ else
 fi
 
 
-OS=$(uname -s | tr '[:upper:]' '[:lower:]')
-if [ "${OS}" == "darwin" ]; then
-      # Suppose we're on Mac
-      export DATE_FORMAT_LOGS="-v$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
-      #export DATE_FORMAT_LOGS="-v$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
-      # HUMIO export DATE_FORMAT_LOGS="+%s000"
-else
-      # Suppose we're on a Linux flavour
-      export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00"
-      #export DATE_FORMAT_LOGS="-d$LOGS_SKEW +%Y-%m-%dT%H:%M:%S.000000+00:00" 
-      # HUMIO export DATE_FORMAT_LOGS="+%s000"
-fi
-
 echo " "
 
 
-#------------------------------------------------------------------------------------------------------------------------------------
-#  Get Kafkacat executable
-#------------------------------------------------------------------------------------------------------------------------------------
-echo "     📥  Getting Kafkacat executable"
-if [ -x "$(command -v kafkacat)" ]; then
-      export KAFKACAT_EXE=kafkacat
-else
-      if [ -x "$(command -v kcat)" ]; then
-            export KAFKACAT_EXE=kcat
-      else
-            echo "     ❗ ERROR: kafkacat is not installed."
-            echo "     ❌ Aborting..."
-            exit 1
-      fi
-fi
-echo " "
 
-#------------------------------------------------------------------------------------------------------------------------------------
-#  Get the cert for kafkacat
-#------------------------------------------------------------------------------------------------------------------------------------
-echo "     🥇 Getting Kafka Cert"
-oc extract secret/kafka-secrets -n $WAIOPS_NAMESPACE --keys=ca.crt --confirm  >/tmp/demo.log 2>&1  || true
-echo "      ✅ OK"
-
-
-
-#------------------------------------------------------------------------------------------------------------------------------------
-#  Check Credentials
-#------------------------------------------------------------------------------------------------------------------------------------
-echo " "
-echo " "
-echo "   ------------------------------------------------------------------------------------------------------------------------------"
-echo "   🔗  Checking credentials"
-echo "   ------------------------------------------------------------------------------------------------------------------------------"
-
-if [[ $KAFKA_TOPIC_LOGS == "" ]] ;
-then
-      echo " ❌ Please create the $LOG_TYPE Kafka Log Integration. Aborting..."
-      exit 1
-else
-      echo "       ✅ OK - Logs Topic"
-fi
-
-
-if [[ $KAFKA_BROKER == "" ]] ;
-then
-      echo " ❌ Make sure that your Kafka instance is accesssible. Aborting..."
-      exit 1
-else
-      echo "       ✅ OK - Kafka Broker"
-fi
-
-echo " "
-echo " "
-echo " "
-echo " "
 
 
 
@@ -237,28 +145,14 @@ echo "   -----------------------------------------------------------------------
 echo "     🔎  Parameters for Incident Simulation for $APP_NAME"
 echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
 echo "     "
-echo "       🗂  Log Topic                   : $KAFKA_TOPIC_LOGS"
-echo "       🌏 Kafka Broker URL            : $KAFKA_BROKER"
-echo "       🔐 Kafka User                  : $SASL_USER"
-echo "       🔐 Kafka Password              : $SASL_PASSWORD"
-echo "       🖥️  Kafka Executable            : $KAFKACAT_EXE"
-echo "     "
 echo "       📝 Log Type                    : $LOG_TYPE"
 echo "       📅 Date Format Logs            : $DATE_FORMAT_LOGS"
 echo "       📝 Events Type                 : $EVENTS_TYPE"
 echo "       📅 Date Format Events          : $DATE_FORMAT_EVENTS"
 echo "     "
-echo "       📂 Directory for Logs          : $WORKING_DIR_LOGS"
 echo "       📂 Directory for Events        : $WORKING_DIR_EVENTS"
 echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
 echo "   "
-echo "   "
-echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
-echo "     🗄️  Log Files to be loaded"
-echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
-ls -1 $WORKING_DIR_LOGS | grep "json"
-echo "     "
-
 echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
 echo "     🗄️  Event Files to be loaded"
 echo "   ----------------------------------------------------------------------------------------------------------------------------------------"
@@ -276,27 +170,16 @@ echo "   -----------------------------------------------------------------------
 # RUNNING Injection
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-while true
+#while : ; do
+for i in {1..1000}
 do
-
-# Inject the Events Inception files
-      ./tools/01_demo/scripts/simulate-events-rest.sh
-
-      # Prepare the Log Inception files
-      ./tools/01_demo/scripts/prepare-logs-fast.sh
-
-      # Inject the Log Inception files
-      ./tools/01_demo/scripts/simulate-logs.sh 
-
-      # Inject the Metric Anomalies
-      ./tools/01_demo/scripts/simulate-metrics.sh
-
-      # Inject the Log Inception files
-      ./tools/01_demo/scripts/simulate-logs.sh 
-      ./tools/01_demo/scripts/simulate-logs.sh 
-      ./tools/01_demo/scripts/simulate-logs.sh 
-
+      # Inject the Events Inception files
+      ./tools/01_demo/scripts/simulate-events-rest.sh &
 done
+sleep 5
+#done
+
+
 
 echo " "
 echo " "

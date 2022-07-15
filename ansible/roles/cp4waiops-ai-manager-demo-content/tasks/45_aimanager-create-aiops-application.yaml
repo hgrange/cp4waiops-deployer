@@ -168,11 +168,11 @@
     # # -------------------------------------------------------------------------------------------------------------------------------------------------
     # # CREATE EDGES
     # # -------------------------------------------------------------------------------------------------------------------------------------------------
-    echo "  Add K8s Observer"
     if [[ $K8S_OBS_ID == "" ]];
     then  
       echo "    No K8s Observer defined"
     else
+      echo "  Add K8s Observer Resources"
       curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
       -u $LOGIN \
       -H 'Content-Type: application/json' \
@@ -182,7 +182,7 @@
       }"
     fi
 
-    echo "  Add Template (File Observer)"
+    echo "  Add Template (File Observer) Resources"
     curl -X "POST" "$TOPO_MGT_ROUTE/1.0/topology/groups/$APP_ID/members" --insecure \
     -u $LOGIN \
     -H 'Content-Type: application/json' \

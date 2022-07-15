@@ -26,7 +26,6 @@
 
 
 
-
 cp4waiops:
 # cp4waiops namespace
 - project: cp4waiops
@@ -57,16 +56,16 @@ cp4waiops:
 
     # TOPOLOGY
     # Install RobotShop Application
-    install_robotshop: false
+    install_robotshop: true
     # Create Topology
-    create_topology: false
+    create_topology: true
     # Create RobotShop overlay topology
-    install_robotshop_topology: false
+    install_robotshop_topology: true
 
     # RUNBOOKS
     # Install AWX and create Runbooks
     create_runbooks: false
-   
+
     # Demo UI
     install_demo_ui: false
     demoui_slack_url: https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ

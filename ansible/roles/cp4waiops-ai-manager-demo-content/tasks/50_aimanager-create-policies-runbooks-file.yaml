@@ -33,7 +33,7 @@
     )
 
     ZEN_TOKEN=$(echo "${ZEN_LOGIN_RESPONSE}" | jq -r .token)
-    echo $ZEN_TOKEN
+    #echo $ZEN_TOKEN
 
     export ROUTE=$(oc get route -n {{current_cp4waiops_cluster.project}} cpd -o jsonpath={.spec.host})
     echo "ROUTE: "$ROUTE
@@ -41,7 +41,7 @@
           -H "Authorization: bearer $ZEN_TOKEN" \
           -H 'Content-Type: application/json; charset=utf-8' )
 
-    echo "RESULT:"$result
+    #echo "RESULT:"$result
 
     export RUNBOOK_ID=$(echo $result| sed 's/\\\\"/\"/g'|jq -r '.[]| select(.name|contains("Mitigate"))|._runbookId'| head -n 1)
     echo "RUNBOOK_ID: $RUNBOOK_ID"
