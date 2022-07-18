@@ -45,7 +45,7 @@ print('        ✅ AIManager Namespace:       '+aimanagerns)
 print('     ❓ Getting EventManager Namespace')
 stream = os.popen("oc get po -A|grep noi-operator |awk '{print$1}'")
 eventmanagerns = stream.read().strip()
-print('        ✅ EventManager Namespace:       '+eventmanagerns)
+print('        ✅ EventManager Namespace:    '+eventmanagerns)
 
 
 
@@ -147,8 +147,9 @@ stream = os.popen('oc get route -n openshift-console console -o jsonpath={.spec.
 openshift_url = stream.read().strip()
 stream = os.popen("oc -n default get secret $(oc get secret -n default |grep -m1 demo-admin-token|awk '{print$1}') -o jsonpath='{.data.token}'|base64 --decode")
 openshift_token = stream.read().strip()
-stream = os.popen("oc status|grep -m1 \"In project\"|awk '{print$6}'")
+stream = os.popen("oc status|head -1|awk '{print$6}'")
 openshift_server = stream.read().strip()
+
 
 print('     ❓ Getting Details Vault')
 stream = os.popen('oc get route -n '+aimanagerns+' ibm-vault-deploy-vault-route -o jsonpath={.spec.host}')
@@ -591,7 +592,8 @@ def login(request):
         'SLACK_USER': SLACK_USER,
         'SLACK_PWD': SLACK_PWD,
         'DEMO_USER': DEMO_USER,
-        'DEMO_PWD': DEMO_PWD
+        'DEMO_PWD': DEMO_PWD,
+        'ADMIN_MODE': ADMIN_MODE
     }
 
     return HttpResponse(template.render(context, request))

@@ -41,8 +41,8 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="10%"><a href="https://{{ aimanager_url }}" target="_blank"
-                                                role="button" class="btn btn-warning btn-lg">AI Manager</a></td>
+                                    <td width="10%"><a href="https://{{ aimanager_url }}" target="_blank"
+                                                role="button" class="btn btn-info btn-lg">AI Manager</a></td>
                                         {% if ADMIN_MODE == 'true' %}
                                         <td>👩‍💻&nbsp;&nbsp;USER: {{aimanager_user}}</td>
                                     </td>
@@ -63,7 +63,7 @@
 
                                     <tr>
                                         <td width="10%"><a href="{{ SLACK_URL }}" target="_blank"
-                                                role="button" class="btn btn-warning btn-lg">Slack</a></td>
+                                                role="button" class="btn btn-info btn-lg">Slack</a></td>
                                         <td>👩‍💻&nbsp;&nbsp;USER: {{ SLACK_USER }}</td>
                                         </td>
                                         <td>🔐&nbsp;&nbsp;PASSWORD:  {{ SLACK_PWD }}</p>
@@ -80,13 +80,20 @@
                                     {% if eventmanager_url != '' %}
                                     <tr>
                                         <td width="10%"><a href="https://{{ eventmanager_url }}" target="_blank"
-                                                role="button" class="btn btn-warning btn-lg">Event Manager</a></td>
-                                        <td>👩‍💻&nbsp;&nbsp;USER: {{eventmanager_user}}</td>
+                                                    role="button" class="btn btn-info btn-lg">Event Manager</a></td>
+                                            {% if ADMIN_MODE == 'true' %}
+                                            <td>👩‍💻&nbsp;&nbsp;USER: {{eventmanager_user}}</td>
                                         </td>
-                                        {% if ADMIN_MODE == 'true' %}
                                         <td>🔐&nbsp;&nbsp;PASSWORD: {{eventmanager_pwd}}</td>
-                                        {% endif %}
-                                    </tr>
+                                            {% else %}
+                                            <td>👩‍💻&nbsp;&nbsp;USER: {{ DEMO_USER }} </td>
+                                        </td>
+                                        <td>🔐&nbsp;&nbsp;PASSWORD: {{ DEMO_PWD }} </td>
+     
+                                            {% endif %}
+                           
+                                        </tr>
+                       
                                     <tr>
                                         <td colspan="3">
                                             <hr>
@@ -105,7 +112,7 @@
 
                                     <tr>
                                         <td><a href="http://{{ robotshop_url }}" target="_blank"
-                                                role="button" class="btn btn-info">RobotShop</a></td>
+                                                role="button" class="btn btn-success">RobotShop</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -115,7 +122,7 @@
 
                                     <tr>
                                         <td><a href="https://{{ awx_url }}" target="_blank"
-                                                role="button" class="btn btn-info">AWX</a></td>
+                                                role="button" class="btn btn-success">AWX</a></td>
                                         <td>👩‍💻&nbsp;&nbsp;USER: {{awx_user}}</td>
                                         <td>🔐&nbsp;&nbsp;PASSWORD: {{awx_pwd}}</td>
                                     </tr>
@@ -127,7 +134,7 @@
                                     {% if ADMIN_MODE == 'true' %}
                                     <tr>
                                         <td><a href="http://{{ ladp_url }}" target="_blank"
-                                                role="button" class="btn btn-info">OpenLdap</a></td>
+                                                role="button" class="btn btn-success">OpenLdap</a></td>
                                         <td>👩‍💻&nbsp;&nbsp;USER: {{ladp_user}}</td>
                                         <td>🔐&nbsp;&nbsp;PASSWORD: {{ladp_pwd}}</td>
                                     </tr>
@@ -142,7 +149,7 @@
                                     {% if elk_url != '' %}
                                     <tr>
                                         <td><a href="https://{{ elk_url }}" target="_blank"
-                                                role="button" class="btn btn-info">ELK</a></td>
+                                                role="button" class="btn btn-success">ELK</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -154,7 +161,7 @@
                                     {% if turonomic_url != '' %}
                                     <tr>
                                         <td><a href="https://{{ turonomic_url }}" target="_blank"
-                                                role="button" class="btn btn-info">Turbonomic</a></td>
+                                                role="button" class="btn btn-success">Turbonomic</a></td>
                                         <td>👩‍💻&nbsp;&nbsp;USER: admin</td>
                                         <td>🔐&nbsp;&nbsp;PASSWORD: as set on install</td>
                                     </tr>
@@ -176,7 +183,7 @@
                                     {% if ADMIN_MODE == 'true' %}
                                     <tr>
                                         <td><a href="https://{{ vault_url }}" target="_blank"
-                                                role="button" class="btn btn-danger btn-sm">Vault</a></td>
+                                                role="button" class="btn btn-warning btn-sm">Vault</a></td>
                                         <td>🔐&nbsp;&nbsp;TOKEN: {{vault_token}}</td>
 
                                     </tr>
@@ -190,7 +197,7 @@
                               
                                     <tr>
                                         <td><a href="https://{{ flink_url }}" target="_blank"
-                                                role="button" class="btn btn-danger btn-sm">Flink</a></td>
+                                                role="button" class="btn btn-warning btn-sm">Flink Connectors</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -198,10 +205,10 @@
                                         </td>
                                     </tr>
 
-                                    {% if spark_url != '' %}
+                                    {% if flink_url_policy != '' %}
                                     <tr>
                                         <td><a href="https://{{ flink_url_policy }}" target="_blank"
-                                                role="button" class="btn btn-danger btn-sm">Flink Policy Framework</a></td>
+                                                role="button" class="btn btn-warning btn-sm">Flink Policy Framework</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -213,14 +220,14 @@
                                     {% if spark_url != '' %}
                                     <tr>
                                         <td><a href="http://{{ spark_url }}" target="_blank"
-                                                role="button" class="btn btn-danger btn-sm">Spark</a></td>
+                                                role="button" class="btn btn-warning btn-sm">Spark</a></td>
                                     </tr>
                                     {% endif %}
 
                                     {% if ADMIN_MODE == 'true' %}
                                     <tr>
                                         <td><a href="https://{{ openshift_url }}" target="_blank"
-                                                role="button" class="btn btn-danger btn-sm">OpenShift</a></td>
+                                                role="button" class="btn btn-warning btn-sm">OpenShift</a></td>
                                         <td colspan=2 style="max-width:650px;word-break: break-all">oc login  --server={{openshift_server}} --token={{openshift_token}}</td>
 
                                     </tr>
