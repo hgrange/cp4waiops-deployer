@@ -261,11 +261,11 @@ def injectMetrics(METRIC_ROUTE,METRIC_TOKEN,METRICS_TO_SIMULATE,METRIC_TIME_SKEW
 
     headers = {'Content-Type': 'application/json', 'Accept-Charset': 'UTF-8', 'Authorization': 'Bearer '+METRIC_TOKEN, 'X-TenantID' : 'cfd95b7e-3bc7-4006-a4a8-a73a79c71255'}
 
-    for i in range (1,20):
+    for i in range (1,40):
         output_json='{"groups":['
         CURR_ITERATIONS=CURR_ITERATIONS+1
 
-        for i in range (1,20):
+        for i in range (1,40):
             for line in METRICS_TO_SIMULATE:
                 line=line.strip()
                 timestamp = timestamp + datetime.timedelta(milliseconds=METRIC_TIME_STEP)
