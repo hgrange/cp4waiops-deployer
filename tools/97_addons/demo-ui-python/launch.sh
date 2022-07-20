@@ -159,7 +159,7 @@ export DEMO_LOGS='
 
 
 cd demoui
-python manage.py runserver
+python manage.py runserver --http_timeout 240
 
 
 

@@ -290,7 +290,7 @@ def injectAllFanREST(request):
         os.system('oc patch service mysql -n robot-shop --patch "{\\"spec\\": {\\"selector\\": {\\"service\\": \\"mysql-outage\\"}}}"')
 
         injectMetricsFanTemp(METRIC_ROUTE,METRIC_TOKEN)
-        time.sleep(10)
+        time.sleep(3)
         injectEventsFan(DATALAYER_ROUTE,DATALAYER_USER,DATALAYER_PWD)
         injectMetricsFan(METRIC_ROUTE,METRIC_TOKEN)
         injectLogs(KAFKA_BROKER,KAFKA_USER,KAFKA_PWD,KAFKA_TOPIC_LOGS,KAFKA_CERT,LOG_TIME_FORMAT,DEMO_LOGS)
