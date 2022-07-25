@@ -9,6 +9,9 @@ export DIR_PREFIX=my-data
 
 
 
+export WAIOPS_NAMESPACE=$(oc get po -A|grep aiops-orchestrator-controller |awk '{print$1}')
+
+oc project $WAIOPS_NAMESPACE >/dev/null 2>/dev/null
 
 
 

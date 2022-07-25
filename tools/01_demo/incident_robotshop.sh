@@ -107,7 +107,7 @@ export DATALAYER_ROUTE=$(oc get route  -n $WAIOPS_NAMESPACE datalayer-api  -o js
 echo ""
 echo ""
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
-read -p "    ❓ Do you want to close existing Stories and Alerts❓ [y,N] " DO_COMM
+read  -t 5 -p "    ❓ Do you want to close existing Stories and Alerts❓ [y,N] " DO_COMM
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
 if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
       echo ""
@@ -132,7 +132,7 @@ fi
 echo ""
 echo ""
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
-read -p "    ❓ Do you want to open the webpages for the demo❓ [y,N] " DO_COMM
+read  -t 5 -p "    ❓ Do you want to open the webpages for the demo❓ [y,N] " DO_COMM
 echo "   ------------------------------------------------------------------------------------------------------------------------------"
 if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
       export DEMOUI_ROUTE="http://"$(oc get route -n $WAIOPS_NAMESPACE waiops-demo-ui-python -o jsonpath={.spec.host})
