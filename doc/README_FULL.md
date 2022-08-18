@@ -1,4 +1,4 @@
-<center> <h1>CP4WatsonAIOps CP4WAIOPS v3.4.0</h1> </center>
+<center> <h1>CP4WatsonAIOps CP4WAIOPS v3.4.1</h1> </center>
 <center> <h2>Demo Environment Installation - 🐥 EASY INSTALL</h2> </center>
 
 ![K8s CNI](./doc/pics/front.png)
@@ -65,7 +65,7 @@ This is provided `as-is`:
 * It clearly can be improved
 
 
-**❗This has been tested for the new CP4WAIOPS v3.4.0 release on OpenShift 4.8.**
+**❗This has been tested for the new CP4WAIOPS v3.4.1 release on OpenShift 4.8.**
 
 **I have tested on ROKS 4.8 and the scripts run to completion.**
 

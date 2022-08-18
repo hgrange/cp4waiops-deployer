@@ -9,7 +9,7 @@
 # Format for different modules is 
 # - project: cp4waiops
 #   instances:
-#     cp.stg.icr.io/cp/ibm-watson-aiops-catalog:v3.4.0.0-20220318.1607-5b33fc8b1
+#     cp.stg.icr.io/cp/ibm-watson-aiops-catalog:v3.4.1.0-20220318.1607-5b33fc8b1
 
 
 # Format for instances is:
