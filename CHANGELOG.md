@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-## [34.1.1] - 2022-06-29
+## [34.1.0] - 2022-06-29
+
+Realease for 3.4.1 GA. 
+
+### Major changes
+
+- Support for version WAIOPS 3.4.1
+- Re-added fixed ChangeRisk training
+
+
+
+
+
+
+## [34.0.2] - 2022-06-29
 
 Realease for 3.4.0 GA. 
 Some specifics apply: please see the README file.
@@ -23,7 +37,7 @@ Some specifics apply: please see the README file.
 
 
 
-## [34.1.0] - 2022-06-14
+## [34.0.1] - 2022-06-14
 
 Complete rewrite for future integration into CloudPak Deployer.
 The installation is now based on configuration files containing the features to be installed.
@@ -35,7 +49,7 @@ For a complete example see ./ansible/configs/cp4waiops-roks-all-33.yaml
 
 
 
-## [34.0.1] - 2022-06-09
+## [34.0.0] - 2022-06-09
 
 Realease for Field Validation Testing. 
 Some specifics apply: please see the README file.
