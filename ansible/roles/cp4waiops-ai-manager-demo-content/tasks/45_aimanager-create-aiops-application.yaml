@@ -123,6 +123,7 @@
           "iconId": "application",
           "vertexType": "group",
           "correlatable": "true",
+          "disruptionCostPerMin": "10000",
           "name": "robot-shop",
           "entityTypes": [
               "waiopsApplication"
