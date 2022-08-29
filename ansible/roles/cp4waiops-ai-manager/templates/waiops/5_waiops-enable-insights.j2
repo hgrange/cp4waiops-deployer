@@ -26,7 +26,6 @@ spec:
     matchLabels:
       app.kubernetes.io/component: common-datarouting
       app.kubernetes.io/instance: aiops
-      component: saas-disable
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -37,7 +36,6 @@ spec:
       labels:
         app.kubernetes.io/component: common-datarouting
         app.kubernetes.io/instance: aiops
-        component: saas-disable
     spec:
       affinity:
         nodeAffinity:
