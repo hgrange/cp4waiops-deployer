@@ -41,7 +41,7 @@
   kubernetes.core.k8s:
     state: present
     template: './templates/waiops/5_waiops-enable-insights.j2'
-
+  ignore_errors: yes
 
 - name: 🕦 AIMANAGER INSIGHTS - Wait 120 seconds
   shell: |
