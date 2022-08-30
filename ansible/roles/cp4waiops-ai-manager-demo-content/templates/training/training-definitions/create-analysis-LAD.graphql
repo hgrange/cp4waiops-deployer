@@ -10,9 +10,12 @@ mutation createTrainingDefinition {
     trainingSchedule: {
       frequency: manual
       repeat: daily
-      timeRangeValidStart: null
-      timeRangeValidEnd: null
-      noEndDate: false
+      atTimeHour: 11,
+      atTimeMinute: 8,
+        timeRangeValidStart: "2022-08-30T11:08:00.000+02:00",
+        timeRangeValidEnd: null,
+        noEndDate: true
+
     }
   ) {
     status
