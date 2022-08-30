@@ -9,9 +9,9 @@ current_cp4waiops_feature:
   # CP4WAIOPS EVENT MANAGER CONFIGURATION
   # --------------------------------------------------------------------------------------------------------------------------------------
   # Version of the catalog subscription
-  subscription_channel: v1.8
-  starting_csv: noi.v1.5.0
-  noi_version: 1.6.5
+  subscription_channel: v1.9
+  starting_csv: noi.v1.5.1
+  noi_version: 1.6.5.1
 
 
 

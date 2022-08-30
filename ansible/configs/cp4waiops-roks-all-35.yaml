@@ -4,31 +4,8 @@
 # CP4WAIOPS INSTANCES
 # --------------------------------------------------------------------------------------------------------------------------------------
 # *************************************************************************************************************************************************
-# Each module has its own section (project - corresponding to namespace) and instances.
-
-# Format for different modules is 
-# - project: cp4waiops
-#   instances:
-#     cp.stg.icr.io/cp/ibm-watson-aiops-catalog:v3.4.1.0-20220318.1607-5b33fc8b1
-
-
-# Format for instances is:
-#   instances:
-#   # --------------------------------------------------------------------------------------------------------------------------------------
-#   # CP4WAIOPS AI Manager
-#   # --------------------------------------------------------------------------------------------------------------------------------------
-#   - name: cp4waiops-aimanager
-#     # Type of feature
-#     kind: AIManager
-#     # Install this feature (true/false)
-#     install: false
-#     <FEATURE SPECIFIC PARAMETERS>
-
-
-
 
 cp4waiops:
-# cp4waiops namespace
 - project: cp4waiops
   instances:
   # --------------------------------------------------------------------------------------------------------------------------------------
@@ -36,13 +13,13 @@ cp4waiops:
   # --------------------------------------------------------------------------------------------------------------------------------------
   - name: cp4waiops-aimanager
     kind: AIManager
-    install: false
+    install: true
     # CP4WAIOPS Size of the install (small: PoC/Demo, tall: Production)
     waiops_size: small
     # Name of the CP4WAIOPS instance
     waiops_name: ibm-cp-watson-aiops
     # Version of the catalog subscription
-    subscription_channel: v3.3
+    subscription_channel: v3.4
 
     # Install AIOps Insights
     enable_aiops_insights: true
@@ -57,22 +34,22 @@ cp4waiops:
 
     # TRAINING
     # Train the Models based on pre-canned content
-    train_models: false
+    train_models: true
 
     # TOPOLOGY
     # Install RobotShop Application
-    install_robotshop: false
+    install_robotshop: true
     # Create Topology
-    create_topology: false
+    create_topology: true
     # Create RobotShop overlay topology
-    install_robotshop_topology: false
+    install_robotshop_topology: true
 
     # RUNBOOKS
     # Install AWX and create Runbooks
-    create_runbooks: false
+    create_runbooks: true
    
     # Demo UI
-    install_demo_ui: false
+    install_demo_ui: true
     demoui_slack_url: https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ
     demoui_slack_user: ibmaiopsdemo@gmail.com
     demoui_slack_pwd: P4ssw0rd!
@@ -82,12 +59,12 @@ cp4waiops:
 
     # OUTPUT
     # Print all logins
-    print_logins: false
+    print_logins: true
     # Open the relevant Web UIs
-    open_web_ui: false
+    open_web_ui: true
 
     # LDAP
-    install_ldap: false
+    install_ldap: true
     # ldap domain
     ldap_domain: ibm.com
     # ldap base
@@ -97,20 +74,19 @@ cp4waiops:
 
     # PARAMETERS (you should not modify those)
     # Create external routes (needed to create demo content)
-    create_external_routes: false
+    create_external_routes: true
     # Create a valid ingress certificate (needed for Slack integration)
-    create_valid_ingress_certificate: false
+    create_valid_ingress_certificate: true
     # Create Policy for Story Creation
-    create_story_policy: false
+    create_story_policy: true
     # Create Kafka connection for Log inception (needed to create log anomalies in the demo environment)
-    create_log_connection: false
+    create_log_connection: true
     # Create Service Account
-    create_account: false
+    create_account: true
 
 
 
 
-# cp4waiops-evtmgr namespace
 - project: cp4waiops-evtmgr
   instances:
   # --------------------------------------------------------------------------------------------------------------------------------------
@@ -118,16 +94,22 @@ cp4waiops:
   # --------------------------------------------------------------------------------------------------------------------------------------
   - name: cp4waiops-eventmanager
     kind: EventManager
-    install: false
+    install: true
     # Version of the catalog subscription
     subscription_channel: v1.9
     starting_csv: noi.v1.5.1
     noi_version: 1.6.5.1
 
+  # --------------------------------------------------------------------------------------------------------------------------------------
+  # CP4WAIOPS Event Manager Demo Content
+  # --------------------------------------------------------------------------------------------------------------------------------------
+  - name: cp4waiops-eventmanager
+    kind: EventManagerDemoContent
+    install: true
 
 
 
-# cp4waiops-infra namespace
+
 - project: cp4waiops-infra
   instances:
   # --------------------------------------------------------------------------------------------------------------------------------------
@@ -142,7 +124,7 @@ cp4waiops:
 
 
 
-# No specific namespace needed
+
 - project: cp4waiops-addons
   instances:
   # --------------------------------------------------------------------------------------------------------------------------------------
@@ -158,7 +140,7 @@ cp4waiops:
   # --------------------------------------------------------------------------------------------------------------------------------------
   - name: cp4waiops-turbonomic
     kind: Turbonomic
-    install: false
+    install: true
 
 
 
