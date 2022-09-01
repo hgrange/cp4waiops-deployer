@@ -88,8 +88,8 @@ spec:
     app:  waiops-event-gateway
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8000
+      targetPort: 8000
 ---
 apiVersion: route.openshift.io/v1
 kind: Route

@@ -334,7 +334,7 @@ export  ADD_SECONDS=0
 # Init VALUES File
 echo "t_uid,mr_id,tstamp,anomalous,expected,max,min,value" > $WORKING_DIR_OUTPUT"/tararam.dt_metric_value.csv"
 
-export start_timestamp=$(date -j -v-28d "+%Y%m%d-%H0000")
+export start_timestamp=$(date -j -v-31d "+%Y%m%d-%H0000")
 export base_timestamp=$start_timestamp
 export my_timestamp=$(date -j -f %Y%m%d-%H%M%S $start_timestamp  +%Y-%m-%d\ %H:%M:00)
 

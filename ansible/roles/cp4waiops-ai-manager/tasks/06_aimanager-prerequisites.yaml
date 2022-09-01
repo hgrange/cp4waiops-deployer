@@ -67,6 +67,15 @@
   ignore_errors: yes
 
 
+
+# Link Pull Secret for default
+- name:   🚀 PREREQUISITES - Patch default Pull Secret
+  shell: |
+    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+  ignore_errors: yes
+
+
+
 # Create aiops-topology-service-account
 - name:   🚀 PREREQUISITES - Create aiops-topology-service-account
   shell: |

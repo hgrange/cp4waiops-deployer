@@ -13,6 +13,7 @@ Realease for 3.5.0 FVT
 ### Major changes
 
 - Support for disruptionCostPerMin
+- Adapted LAD model
 
 
 
