@@ -12,18 +12,18 @@
 #   Gives metrics values between 100 and 110
 #   If you put "fixed base value"=ITERATIONS then it will use the counter (for PodRestarts for example)
 declare -a MY_RES_IDS=(
-"mysql-predictive,MemoryUsagePercent,MemoryUsage,90,10"
-"mysql-predictive,MemoryUsageMean,MemoryUsage,50000,1000"
-"mysql-predictive,MemoryUsageMax,MemoryUsage,50000,10000"
-"mysql-predictive,PodRestarts,PodRestarts,ITERATIONS,1"
-"mysql-predictive,TransactionsPerSecond,TransactionsPerSecond,0,1"
-"mysql-predictive,Latency,Latency,1000,100"
-"ratings-predictive,MemoryUsagePercent,MemoryUsage,45,10"
-"ratings-predictive,MemoryUsageMean,MemoryUsage,50000,1000"
-"ratings-predictive,MemoryUsageMax,MemoryUsage,50000,10000"
-"ratings-predictive,PodRestarts,PodRestarts,0,1"
-"ratings-predictive,TransactionsPerSecond,TransactionsPerSecond,160,40"
-"ratings-predictive,Latency,Latency,2,1"
+"mysql,MemoryUsagePercent,MemoryUsage,90,10"
+"mysql,MemoryUsageMean,MemoryUsage,50000,1000"
+"mysql,MemoryUsageMax,MemoryUsage,50000,10000"
+"mysql,PodRestarts,PodRestarts,ITERATIONS,1"
+"mysql,TransactionsPerSecond,TransactionsPerSecond,0,1"
+"mysql,Latency,Latency,1000,100"
+"ratings,MemoryUsagePercent,MemoryUsage,45,10"
+"ratings,MemoryUsageMean,MemoryUsage,50000,1000"
+"ratings,MemoryUsageMax,MemoryUsage,50000,10000"
+"ratings,PodRestarts,PodRestarts,0,1"
+"ratings,TransactionsPerSecond,TransactionsPerSecond,160,40"
+"ratings,Latency,Latency,2,1"
 )
 
 
@@ -92,9 +92,9 @@ export  ITERATIONS=0
 
 # {"timestamp":"MY_TIMESTAMP","resourceID":"qotd-rating (qotd/qotd-rating-76d4964f5-8l8z6):::7QthWgdy4IaSS0KkxFUkYmBCLC0","metrics":{"cpu.user_usage":CPU_USAGE},"attributes":{"group":"docker","node":"qotd-rating (qotd/qotd-rating-76d4964f5-8l8z6):::7QthWgdy4IaSS0KkxFUkYmBCLC0"}},
 # {"timestamp":"MY_TIMESTAMP","resourceID":"MY_RESOURCE_ID","metrics":{"MY_METRIC_NAME":MY_METRIC_VALUE},"attributes":{"group":"MY_GROUP_ID","node":"MY_RESOURCE_ID"}},
-# {"timestamp":"MY_TIMESTAMP","resourceID":"mysql-predictive","metrics":{"MemoryUsageMax":MSQL_MEM_MAX,"MemoryUsageMean":MSQL_MEM_MEAN,"MemoryUsagePercent":MSQL_MEM_PERCENT},"attributes":{"group":"MemoryUsage","node":"mysql-predictive"}}
+# {"timestamp":"MY_TIMESTAMP","resourceID":"mysql","metrics":{"MemoryUsageMax":MSQL_MEM_MAX,"MemoryUsageMean":MSQL_MEM_MEAN,"MemoryUsagePercent":MSQL_MEM_PERCENT},"attributes":{"group":"MemoryUsage","node":"mysql"}}
 
-# mysql-predictive,MemoryUsageMax,MemoryUsage,FIX, VARIATION
+# mysql,MemoryUsageMax,MemoryUsage,FIX, VARIATION
 
 # Loop until CTRL-C
 while true

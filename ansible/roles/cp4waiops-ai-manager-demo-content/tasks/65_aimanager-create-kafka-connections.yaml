@@ -87,7 +87,9 @@
         "topic": "cp4waiops-cartridge-logs-elk-iuacrepx",
         "base_parallelism": 5,
         "num_partitions": 1,
-        "display_name": "ELKInception3"
+        "display_name": "ELKInception3",
+        "json_option": "none",
+        "logs_per_second": 2000
       },
       "connection_type": "kafka",
       "connection_updated_at": "2021-07-26T15:18:25.43602Z",
