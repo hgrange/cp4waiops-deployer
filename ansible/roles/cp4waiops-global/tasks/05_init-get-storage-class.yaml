@@ -61,7 +61,7 @@
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
             SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-ceph-rbd")
-            if [[ ! $SC_ODF_STRING =~ "ocs-storagecluster-ceph-rbd" ]]; 
+            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-ceph-rbd*}" ];
             then
               echo "ocs-storagecluster-ceph-rbd"
             else
@@ -101,7 +101,7 @@
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
             SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
-            if [[ ! $SC_ODF_STRING =~ "ocs-storagecluster-cephfs" ]]; 
+            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-cephfs*}" ];
             then
               echo "ocs-storagecluster-cephfs"
             else
