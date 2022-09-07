@@ -60,10 +60,10 @@
       else
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
-            SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-ceph-rbd")
-            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-ceph-rbd*}" ];
+                    SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
+            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-cephfs*}" ];
             then
-              echo "ocs-storagecluster-ceph-rbd"
+              echo "ocs-storagecluster-cephfs"
             else
               echo "ibmc-file-gold-gid"
             fi
@@ -109,10 +109,10 @@
             fi
         else
           # Use Default Class (storageclass.kubernetes.io/is-default-class:true)
-          SC_DEFAULT_STRING=$(oc get sc | grep "(default)")
-          if [ -z "${SC_DEFAULT_STRING##*(default)*}" ]; 
+          SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-ceph-rbd")
+          if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-ceph-rbd*}" ];
           then
-            echo ${SC_DEFAULT_STRING//\(*} 
+            echo "ocs-storagecluster-ceph-rbd"
           else
             echo "No default StorageClass defined. Unable to determine what SC to use." 
             echo "Please define one using storageclass.kubernetes.io/is-default-class:true"
