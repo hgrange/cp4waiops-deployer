@@ -60,7 +60,13 @@
       else
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
-            echo "ibmc-file-gold-gid"
+            SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-ceph-rbd")
+            if [[ ! $SC_ODF_STRING =~ "In project" ]]; 
+            then
+              echo "ocs-storagecluster-ceph-rbd"
+            else
+              echo "ibmc-file-gold-gid"
+            fi
         else
           # Use Default Class (storageclass.kubernetes.io/is-default-class:true)
           SC_DEFAULT_STRING=$(oc get sc | grep "(default)")
@@ -94,7 +100,13 @@
       else
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
-            echo "ibmc-block-gold"
+            SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
+            if [[ ! $SC_ODF_STRING =~ "In project" ]]; 
+            then
+              echo "ocs-storagecluster-cephfs"
+            else
+              echo "ibmc-block-gold"
+            fi
         else
           # Use Default Class (storageclass.kubernetes.io/is-default-class:true)
           SC_DEFAULT_STRING=$(oc get sc | grep "(default)")
@@ -113,7 +125,6 @@
   when: config_file.storage_class_block=="automatic"
   #args:
   #  executable: /bin/bash
-
 
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Set File Storage Class
