@@ -6,13 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [35.0.1] - 2022-09-07
+## [35.0.1] - 2022-09-08
 
 Realease for 3.5.0 FVT on OCP VPC 2
 
 ### Major changes
 
 - Support for OCS/ODF
+- New AWX Version 
+- Corrected AWX execution bug
 
 
 
