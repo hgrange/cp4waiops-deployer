@@ -60,12 +60,12 @@
       else
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
-                    SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
-            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-cephfs*}" ];
+            SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
+            if [ -z "${SC_ODF_STRING##ocs-storagecluster-cephfs}" ];
             then
-              echo "ocs-storagecluster-cephfs"
-            else
               echo "ibmc-file-gold-gid"
+            else
+              echo "ocs-storagecluster-cephfs"
             fi
         else
           # Use Default Class (storageclass.kubernetes.io/is-default-class:true)
@@ -101,11 +101,11 @@
         if [ -z "${CLUSTER_NAME##*appdomain.cloud*}" ]; 
         then
             SC_ODF_STRING=$(oc get sc | grep "ocs-storagecluster-cephfs")
-            if [ -z "${SC_ODF_STRING##*$ocs-storagecluster-cephfs*}" ];
+            if [ -z "${SC_ODF_STRING##ocs-storagecluster-cephfs}" ];
             then
-              echo "ocs-storagecluster-cephfs"
+              echo "ibmc-block-gold"             
             else
-              echo "ibmc-block-gold"
+              echo "ocs-storagecluster-cephfs"
             fi
         else
           # Use Default Class (storageclass.kubernetes.io/is-default-class:true)
