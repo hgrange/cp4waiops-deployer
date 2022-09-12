@@ -86,6 +86,15 @@
 - name:   🚀 AIMANAGER OPERATOR - Delete lingering Pods before check for reinstall
   shell: |
     oc delete pod $(oc get po -n {{ current_cp4waiops_cluster.project }}|grep ContainerStatusUnknown|awk '{print$1}') -n {{ current_cp4waiops_cluster.project }}
+  register: kubectl_get_pods
+  ignore_errors: yes
+
+
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Wait for Operator to settle
+# --------------------------------------------------------------------------------------------------------------------------------------
+- name:   🚀 AIMANAGER OPERATOR - Wait for Operator to settle
+  shell: |
     # Wait for Operator to settle
     sleep 20
   register: kubectl_get_pods

@@ -374,6 +374,18 @@
 
 
 
+# --------------------------------------------------------------------------------------------------------------------------------------
+# Delete lingering Luigi Pods 
+# --------------------------------------------------------------------------------------------------------------------------------------
+- name:   ⚠️ HACK - Delete lingering Luigi Pods  (hack 3.5)
+  shell: |
+    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+    oc delete pod $(oc get po -n {{ current_cp4waiops_cluster.project }}|grep ImagePullBackOff|awk '{print$1}') -n {{ current_cp4waiops_cluster.project }}
+  register: kubectl_get_pods
+  ignore_errors: yes
+
+
+
 
 # Access and documentaiton
 - name: 📥  Get all logins
