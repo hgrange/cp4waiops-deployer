@@ -110,7 +110,7 @@ spec:
                 # --------------------------------------------------------------------------------------------------------------------------------------
                 - name: cp4waiops-aimanager
                   kind: AIManager
-                  install: false
+                  install: true
                   # CP4WAIOPS Size of the install (small: PoC/Demo, tall: Production)
                   waiops_size: small
                   # Name of the CP4WAIOPS instance
@@ -127,7 +127,7 @@ spec:
                 # --------------------------------------------------------------------------------------------------------------------------------------
                 - name: cp4waiops-aimanager-demo-content
                   kind: AIManagerDemoContent
-                  install: false
+                  install: true
 
                   # TRAINING
                   # Train the Models based on pre-canned content
@@ -191,7 +191,7 @@ spec:
                 # --------------------------------------------------------------------------------------------------------------------------------------
                 - name: cp4waiops-eventmanager
                   kind: EventManager
-                  install: false
+                  install: true
                   # Version of the catalog subscription
                   subscription_channel: v1.8
                   starting_csv: noi.v1.5.0
@@ -202,7 +202,7 @@ spec:
                 # --------------------------------------------------------------------------------------------------------------------------------------
                 - name: cp4waiops-eventmanager
                   kind: EventManagerDemoContent
-                  install: false
+                  install: true
 
 
 
@@ -237,7 +237,7 @@ spec:
                 # --------------------------------------------------------------------------------------------------------------------------------------
                 - name: cp4waiops-turbonomic
                   kind: Turbonomic
-                  install: false
+                  install: true
 
 
 
