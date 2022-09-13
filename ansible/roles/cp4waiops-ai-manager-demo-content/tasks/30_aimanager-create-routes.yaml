@@ -133,14 +133,6 @@
 #   delay: 15
 
 
-# # --------------------------------------------------------------------------------------------------------------------------------------
-# # Patch Service Account
-# # --------------------------------------------------------------------------------------------------------------------------------------
-# - name: HACK    -             🩹 Patch aiops-topology-service-account (hack for v3.4.1)
-#   shell: |
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-topology-service-account -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#   ignore_errors: yes
-
 
   
 
@@ -189,20 +181,6 @@
 #   delay: 15
 
 
-# # --------------------------------------------------------------------------------------------------------------------------------------
-# # Patch IR Analytics Pods
-# # --------------------------------------------------------------------------------------------------------------------------------------
-# - name: HACK    -             🩹 Patch IR Analytics Pods (hack for v3.4.1) (you can ignore errors in this step)
-#   shell: |
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-topology-service-account -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-analytics-spark-worker -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-analytics-spark-pipeline-composer -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-analytics-spark-master -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-analytics-probablecause -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-analytics-classifier -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc patch -n {{current_cp4waiops_cluster.project}} serviceaccount aiops-ir-lifecycle-eventprocessor-ep -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-#     oc delete pod $(oc get po -n {{current_cp4waiops_cluster.project}}|grep ImagePull|awk '{print$1}') -n {{current_cp4waiops_cluster.project}}
-#   ignore_errors: yes
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------
