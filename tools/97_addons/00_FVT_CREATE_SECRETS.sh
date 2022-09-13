@@ -7,13 +7,13 @@ echo ""
 
 echo "------------------------------------------------------------------------------------------------------------------------------"
 echo " 🧻 Delete existing Secrets"
-oc delete secret ibm-entitlement-key -n cp4waiops
 oc delete secret ibm-aiops-pull-secret -n cp4waiops
-oc delete secret ibm-entitlement-key -n cp4waiops-evtmgr
+oc delete secret ibm-aiops-pull-secret -n cp4waiops
 oc delete secret ibm-aiops-pull-secret -n cp4waiops-evtmgr
-oc delete secret ibm-entitlement-key -n openshift-marketplace
+oc delete secret ibm-aiops-pull-secret -n cp4waiops-evtmgr
 oc delete secret ibm-aiops-pull-secret -n openshift-marketplace
-oc delete secret ibm-entitlement-key -n openshift-operators
+oc delete secret ibm-aiops-pull-secret -n openshift-marketplace
+oc delete secret ibm-aiops-pull-secret -n openshift-operators
 oc delete secret ibm-aiops-pull-secret -n openshift-operators
 echo ""
 echo ""
@@ -54,7 +54,7 @@ oc registry login --registry="cp.icr.io" --auth-basic="cp:$ICR_TOKEN" --to=temp-
 oc registry login --registry="cp.stg.icr.io" --auth-basic="cp:$ICR_TOKEN" --to=temp-pull-secret.yaml
 oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson=temp-pull-secret.yaml
 
-oc get secret/pull-secret -n openshift-config --template='{{index .data ".dockerconfigjson" | base64decode}}' > temp-ibm-entitlement-key.yaml
+oc get secret/pull-secret -n openshift-config --template='{{index .data ".dockerconfigjson" | base64decode}}' > temp-ibm-aiops-pull-secret.yaml
 echo ""
 echo ""
 
@@ -62,15 +62,15 @@ echo ""
 
 echo "------------------------------------------------------------------------------------------------------------------------------"
 echo " 🚀 Creating Pull Secrets"
-oc create secret generic ibm-entitlement-key -n cp4waiops --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-entitlement-key -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-entitlement-key -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-entitlement-key -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
+oc create secret generic ibm-aiops-pull-secret -n cp4waiops --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
 
-oc create secret generic ibm-aiops-pull-secret -n cp4waiops --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
+oc create secret generic ibm-aiops-pull-secret -n cp4waiops --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
+oc create secret generic ibm-aiops-pull-secret -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-aiops-pull-secret.yaml
 echo ""
 echo ""
 
@@ -89,10 +89,10 @@ ansible-playbook ./ansible/99_test.yaml  -e CP_ENTITLEMENT_KEY=$ICR_TOKEN
 
 
 # If you get pull errors execute this
-kubectl patch -n openshift-marketplace serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
-kubectl patch -n openshift-marketplace serviceaccount ibm-operator-catalog -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+kubectl patch -n openshift-marketplace serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
+kubectl patch -n openshift-marketplace serviceaccount ibm-operator-catalog -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
 oc delete pod $(oc get po -n openshift-marketplace|grep ImagePull|awk '{print$1}') -n openshift-marketplace
 
 
-kubectl patch -n cp4waiops serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+kubectl patch -n cp4waiops serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
 

@@ -3,10 +3,10 @@
     msg="{{ lookup('pipe','date +%d.%m.%Y---%H:%M:%S') }}"
 
 # Link Pull Secret for default
-- name:   🚀 PREREQUISITES - Patch default Pull Secret
-  shell: |
-    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
-  ignore_errors: yes
+# - name:   🚀 PREREQUISITES - Patch default Pull Secret
+#   shell: |
+#     oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
+#   ignore_errors: yes
 
 
 - name: Log

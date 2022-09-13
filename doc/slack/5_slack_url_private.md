@@ -13,7 +13,7 @@ metadata:
   name: {{ WAIOPS_NAME }}
   namespace: {{ WAIOPS_NAMESPACE }}
 spec:
-  imagePullSecret: ibm-entitlement-key
+  imagePullSecret: ibm-aiops-pull-secret
   license:
     accept: true
   pakModules:

@@ -48,7 +48,7 @@ echo "      ❎  Remove Downloaded Training Data"
 rm -r -f ./tools/02_training/TRAINING_FILES
 echo "      ❎  Remove Pull Secrets"
 rm pull-secret-backup.yaml>/dev/null 2>/dev/null
-rm temp-ibm-entitlement-key.yaml>/dev/null 2>/dev/null
+rm temp-ibm-aiops-pull-secret.yaml>/dev/null 2>/dev/null
 rm temp-pull-secret.yaml>/dev/null 2>/dev/null
 
 

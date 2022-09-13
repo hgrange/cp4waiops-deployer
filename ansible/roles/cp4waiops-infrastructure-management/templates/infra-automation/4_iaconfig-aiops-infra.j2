@@ -4,7 +4,7 @@ metadata:
   name: ibm-ia-installer
   namespace: {{ current_cp4waiops_cluster.project }}
 spec:
-  imagePullSecret: ibm-entitlement-key
+  imagePullSecret: ibm-aiops-pull-secret
   infraAutoComposableComponents:
     - enabled: true
       name: ibm-management-im-install
