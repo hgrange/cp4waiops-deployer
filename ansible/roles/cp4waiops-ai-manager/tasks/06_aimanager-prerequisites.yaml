@@ -58,18 +58,9 @@
     oc create secret docker-registry 'ibm-aiops-pull-secret' --docker-server={{ config_file.entitled_registry }} --docker-username={{ config_file.entitled_registry_user }} --docker-password={{ CP_ENTITLEMENT_KEY }} --namespace={{ current_cp4waiops_cluster.project }}
     oc create secret docker-registry 'ibm-aiops-pull-secret' --docker-server={{ config_file.entitled_registry }} --docker-username={{ config_file.entitled_registry_user }} --docker-password={{ CP_ENTITLEMENT_KEY }} --namespace=openshift-marketplace
     oc create secret docker-registry 'ibm-aiops-pull-secret' --docker-server={{ config_file.entitled_registry }} --docker-username={{ config_file.entitled_registry_user }} --docker-password={{ CP_ENTITLEMENT_KEY }} --namespace=openshift-operators
-    oc patch -n openshift-marketplace serviceaccount ibm-aiops-catalog -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-    oc patch -n openshift-marketplace serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
   ignore_errors: yes
 
 
-
-# Link Pull Secret for default
-- name:   🚀 PREREQUISITES - Patch default Pull Secret
-  shell: |
-    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-  ignore_errors: yes
 
 
 

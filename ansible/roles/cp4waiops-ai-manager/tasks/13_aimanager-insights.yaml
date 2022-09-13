@@ -19,13 +19,6 @@
   ignore_errors: yes
 
 
-- name: 🔐 AIMANAGER INSIGHTS - Patch Pull Secret
-  shell: |
-    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-  register: kubectl_get_pods
-  ignore_errors: yes
-
-
 - name: 🚀 AIMANAGER INSIGHTS - Get Datarouter Image
   shell: |
     oc get -n {{ current_cp4waiops_cluster.project }} $(oc get -n {{ current_cp4waiops_cluster.project }} deploy -o name | grep ir-core-operator) -o jsonpath={.spec.template.metadata.annotations."olm\.relatedImage\.datarouting-service"}
@@ -48,13 +41,6 @@
    sleep 120
   ignore_errors: yes
 
-
-- name: 🚀 AIMANAGER INSIGHTS - Patch Pull Secret
-  shell: |
-    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount aiops-insights-ui -p '{"imagePullSecrets": [{"name": "ibm-aiops-pull-secret"}]}'
-    oc delete pod $(oc get po -n {{ current_cp4waiops_cluster.project }}|grep insights-ui|awk '{print$1}') -n {{ current_cp4waiops_cluster.project }} --ignore-not-found
-  register: kubectl_get_pods
-  ignore_errors: yes
 
 
 - name: 🕦 AIMANAGER INSIGHTS - Wait for AI MAnager Insights to become ready
