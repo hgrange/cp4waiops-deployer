@@ -8,13 +8,9 @@ echo ""
 echo "------------------------------------------------------------------------------------------------------------------------------"
 echo " 🧻 Delete existing Secrets"
 oc delete secret ibm-entitlement-key -n cp4waiops
-oc delete secret ibm-aiops-pull-secret -n cp4waiops
 oc delete secret ibm-entitlement-key -n cp4waiops-evtmgr
-oc delete secret ibm-aiops-pull-secret -n cp4waiops-evtmgr
 oc delete secret ibm-entitlement-key -n openshift-marketplace
-oc delete secret ibm-aiops-pull-secret -n openshift-marketplace
 oc delete secret ibm-entitlement-key -n openshift-operators
-oc delete secret ibm-aiops-pull-secret -n openshift-operators
 echo ""
 echo ""
 
@@ -63,11 +59,6 @@ oc create secret generic ibm-entitlement-key -n cp4waiops --type=kubernetes.io/d
 oc create secret generic ibm-entitlement-key -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
 oc create secret generic ibm-entitlement-key -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
 oc create secret generic ibm-entitlement-key -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-
-oc create secret generic ibm-aiops-pull-secret -n cp4waiops --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n cp4waiops-evtmgr --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n openshift-marketplace --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
-oc create secret generic ibm-aiops-pull-secret -n openshift-operators --type=kubernetes.io/dockerconfigjson --from-file=.dockerconfigjson=temp-ibm-entitlement-key.yaml
 echo ""
 echo ""
 
