@@ -300,13 +300,306 @@ openTheUrl () {
 
 
 
+installViaJob() {
+
+cat <<EOF | oc apply -n default -f -
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: installer-default-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fvt-install-aimgr-and-demo
+  namespace: default
+spec:
+  serviceAccountName: installer-default-default
+  template:
+    spec:
+      containers:
+        - name: install
+          image: niklaushirt/cp4waiops-tools:1.3
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "150m"
+            limits:
+              memory: "1256Mi"
+              cpu: "1200m"
+          command:
+            - /bin/sh
+            - -c
+            - |
+              #!/bin/bash
+              #set -x
+
+              echo "*****************************************************************************************************************************"
+              echo " ✅ STARTING: INSTALL AI Manager with Demo Content"
+              echo "*****************************************************************************************************************************"
+              echo ""
+              echo ""
+              echo "------------------------------------------------------------------------------------------------------------------------------"
+              echo " 📥 Clone Repo $INSTALL_REPO"
+              git clone $INSTALL_REPO
+              cd cp4waiops-deployer
+              echo ""
+              echo ""
+
+
+
+              echo "------------------------------------------------------------------------------------------------------------------------------"
+              echo " 🚀 Prepare Ansible"
+              ansible-galaxy collection install community.kubernetes:1.2.1
+              ansible-galaxy collection install kubernetes.core:2.2.3
+              ansible-galaxy collection install cloud.common
+              pip install openshift pyyaml kubernetes 
+              echo ""
+              echo ""
+
+
+
+              echo "------------------------------------------------------------------------------------------------------------------------------"
+              echo " 🚀 Starting Installation"
+              ansible-playbook ./ansible/00_cp4waiops-install.yaml -e "config_file_path=$CONFIG" -e CP_ENTITLEMENT_KEY="$TOKEN"
+              echo ""
+              echo ""
+              echo "*****************************************************************************************************************************"
+              echo " ✅ DONE"
+              echo "*****************************************************************************************************************************"
+
+
+
+              sleep 60000
+
+      restartPolicy: Never
+  backoffLimit: 4
+
+EOF
+
+
+
+}
+
+
+
+menu_JOB_AI_ALL () {
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo " 🚀  Install complete Demo Environment for AI Manager with K8s Job" 
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo ""
+
+      # Check if ${Green}Already installed${NC} 
+      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
+            echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
+
+            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
+            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+                  echo ""
+                  echo "   ✅ Ok, continuing..."
+                  echo ""
+            else
+                  echo ""
+                  echo "    ❌  Aborting"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  return
+            fi
+      fi
+
+      #Get Pull Token
+      if [[ $CP_ENTITLEMENT_KEY == "" ]];
+      then
+            echo ""
+            echo ""
+            echo "  Enter CP4WAIOPS Pull token: "
+            read TOKEN
+      else
+            TOKEN=$CP_ENTITLEMENT_KEY
+      fi
+
+      echo ""
+      echo "  🔐 You have provided the following Token:"
+      echo "    "$TOKEN
+      echo ""
+
+      # Install
+      read -p "  Are you sure that this is correct❓ [Y,n] " DO_COMM
+      if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+         
+            echo "    ⚠️  Skipping"
+            echo "--------------------------------------------------------------------------------------------"
+            echo  ""    
+            echo  ""
+            echo ""
+
+      else
+            echo ""
+            echo ""
+
+            export CONFIG="./configs/cp4waiops-roks-aimanager-all-34.yaml"
+            export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
+
+
+
+            echo ""
+            echo ""
+            echo ""
+            read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
+            if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+
+                  echo ""
+                  echo "----------------------------------------------------------------------------------------------------------------"
+                  echo " 🚀  Install Logs" 
+                  echo "----------------------------------------------------------------------------------------------------------------"
+                  echo " Waiting 2 Minutes for Job to settle"
+                  #sleep 120
+
+                  echo "    ⚠️  Skipping"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  echo ""
+
+             else
+                  INSTALL_POD=$(oc get po -n default|grep install|awk '{print$1}')
+                  oc logs -n default -f $INSTALL_POD
+            fi
+   
+      fi
+
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "  "
+      echo "  ✅ Complete Demo Environment for AI Manager Installation done"
+      echo "  "
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+
+
+}
+
+
+
+menu_JOB_EVENT_ALL () {
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo " 🚀  Install complete Demo Environment for EVENT Manager with K8s Job" 
+      echo "----------------------------------------------------------------------------------------------------------------"
+      echo ""
+
+      # Check if ${Green}Already installed${NC} 
+      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
+            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
+
+            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
+            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+                  echo ""
+                  echo "   ✅ Ok, continuing..."
+                  echo ""
+            else
+                  echo ""
+                  echo "    ❌  Aborting"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  return
+            fi
+      fi
+
+      #Get Pull Token
+      if [[ $CP_ENTITLEMENT_KEY == "" ]];
+      then
+            echo ""
+            echo ""
+            echo "  Enter CP4WAIOPS Pull token: "
+            read TOKEN
+      else
+            TOKEN=$CP_ENTITLEMENT_KEY
+      fi
+
+      echo ""
+      echo "  🔐 You have provided the following Token:"
+      echo "    "$TOKEN
+      echo ""
+
+      # Install
+      read -p "  Are you sure that this is correct❓ [Y,n] " DO_COMM
+      if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+         
+            echo "    ⚠️  Skipping"
+            echo "--------------------------------------------------------------------------------------------"
+            echo  ""    
+            echo  ""
+            echo ""
+
+      else
+            echo ""
+            echo ""
+
+            export CONFIG="./configs/cp4waiops-roks-eventmanager-all-34.yaml"
+            export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
+
+
+
+            echo ""
+            echo ""
+            echo ""
+            read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
+            if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+
+                  echo ""
+                  echo "----------------------------------------------------------------------------------------------------------------"
+                  echo " 🚀  Install Logs" 
+                  echo "----------------------------------------------------------------------------------------------------------------"
+                  echo " Waiting 2 Minutes for Job to settle"
+                  #sleep 120
+
+                  echo "    ⚠️  Skipping"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  echo ""
+
+             else
+                  INSTALL_POD=$(oc get po -n default|grep install|awk '{print$1}')
+                  oc logs -n default -f $INSTALL_POD
+            fi
+   
+      fi
+
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "  "
+      echo "  ✅ Complete Demo Environment for AI Manager Installation done"
+      echo "  "
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+
+
+}
+
+
 menu_EASY_AI_ALL () {
       echo "----------------------------------------------------------------------------------------------------------------"
       echo " 🚀  Install complete Demo Environment for AI Manager - cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml" 
       echo "----------------------------------------------------------------------------------------------------------------"
       echo ""
 
-      # Check if already installed
+      # Check if ${Green}Already installed${NC} 
       if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
             echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
 
@@ -380,7 +673,7 @@ menu_EASY_EVENT_ALL () {
       echo "----------------------------------------------------------------------------------------------------------------"
       echo ""
 
-      # Check if already installed
+      # Check if ${Green}Already installed${NC} 
       if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
             echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
 
@@ -454,7 +747,7 @@ menu_INSTALL_AIMGR () {
       echo "----------------------------------------------------------------------------------------------------------------"
       echo ""
 
-      # Check if already installed
+      # Check if ${Green}Already installed${NC} 
       if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
             echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
 
@@ -530,7 +823,7 @@ menu_INSTALL_EVTMGR () {
       echo "----------------------------------------------------------------------------------------------------------------"
       echo ""
 
-      # Check if already installed
+      # Check if ${Green}Already installed${NC} 
       if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
             echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
 
@@ -1030,19 +1323,19 @@ echo "**************************************************************************
 echo "${NC}"
       echo "  "
       echo "  "
-      echo "  🐥 ${UBlue}CP4WAIOPS - Complete Install${NC}"
+      echo "  🐥 ${UBlue}CP4WAIOPS - Complete K8s Job Install${NC}"
 
       echo "  "
       if [[ $WAIOPS_PODS -lt $WAIOPS_PODS_MIN ]]; then
-            echo "     🚀  ${BYellow}01  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content"
+            echo "     🚀  01  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content via Kubernetes Job"
       else
-            echo "     ✅  ${DGreen}01  - Install AI Manager Demo${NC}                                 - Already installed "
+            echo "     ✅  01  - Install AI Manager Demo${NC}                                 - ${Green}Already installed${NC}  "
       fi
 
       if [[ $EVTMGR_NAMESPACE == "" ]]; then
-            echo "         02  - Install Event Manager Demo                              - Install Event Manager with Demo Content"
+            echo "         02  - Install Event Manager Demo                              - Install Event Manager with Demo Content via Kubernetes Job"
       else
-            echo "     ✅  ${DGreen}02  - Install Event Manager Demo${NC}                              - Already installed "
+            echo "     ✅  02  - Install Event Manager Demo${NC}                              - ${Green}Already installed${NC}  "
       fi
 
       echo "  "
@@ -1053,17 +1346,32 @@ echo "${NC}"
       echo "  "
 
 
-      echo "  🐥 ${UBlue}CP4WAIOPS - Base Install Only (without any demo content)${NC}"
-      if [[ $WAIOPS_NAMESPACE == "" ]]; then
-            echo "         10  - Install AI Manager                                      - Install CP4WAIOPS AI Manager Component Only"
+
+
+
+      echo "  🐥 ${UBlue}CP4WAIOPS - Local Ansible Install${NC}"
+      if [[ $WAIOPS_PODS -lt $WAIOPS_PODS_MIN ]]; then
+            echo "     🚀  10  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content"
       else
-            echo "     ✅  10  - Install AI Manager                                      - Already installed "
+            echo "     ✅  10  - Install AI Manager Demo${NC}                                 - ${Green}Already installed${NC}  "
       fi
 
       if [[ $EVTMGR_NAMESPACE == "" ]]; then
-            echo "         11  - Install Event Manager                                   - Install CP4WAIOPS Event Manager Component Only"
+            echo "         11  - Install Event Manager Demo                              - Install Event Manager with Demo Content"
       else
-            echo "     ✅  11  - Install Event Manager                                   - Already installed "
+            echo "     ✅  11  - Install Event Manager Demo${NC}                              - ${Green}Already installed${NC}  "
+      fi
+
+      if [[ $WAIOPS_NAMESPACE == "" ]]; then
+            echo "         15  - Install AI Manager                                      - Install CP4WAIOPS AI Manager Component Only"
+      else
+            echo "     ✅  15  - Install AI Manager                                      - ${Green}Already installed${NC}  "
+      fi
+
+      if [[ $EVTMGR_NAMESPACE == "" ]]; then
+            echo "         16  - Install Event Manager                                   - Install CP4WAIOPS Event Manager Component Only"
+      else
+            echo "     ✅  16  - Install Event Manager                                   - ${Green}Already installed${NC}  "
       fi
 
 
@@ -1079,14 +1387,14 @@ echo "${NC}"
       if [[ $TURBO_NAMESPACE == "" ]]; then
             echo "         21  - Install Turbonomic                                      - Install Turbonomic (needs a separate license)"
       else
-            echo "     ✅  21  - Install Turbonomic                                      - Already installed "
+            echo "     ✅  21  - Install Turbonomic                                      - ${Green}Already installed${NC}  "
       fi
 
 
       if [[  $ELK_NAMESPACE == "" ]]; then
             echo "         25  - Install OpenShift Logging                               - Install OpenShift Logging (ELK)"
             else
-            echo "     ✅  25  - Install OpenShift Logging                               - Already installed "
+            echo "     ✅  25  - Install OpenShift Logging                               - ${Green}Already installed${NC}  "
             fi
 
 
@@ -1171,11 +1479,17 @@ echo "${NC}"
   read selection
   echo ""
   case $selection in
-      01 ) clear ; menu_EASY_AI_ALL  ;;
-      02 ) clear ; menu_EASY_EVENT_ALL  ;;
 
-      10 ) clear ; menu_INSTALL_AIMGR  ;;
-      11 ) clear ; menu_INSTALL_EVTMGR  ;;
+      01 ) clear ; menu_JOB_AI_ALL  ;;
+      02 ) clear ; menu_JOB_EVENT_ALL  ;;
+
+
+
+      10 ) clear ; menu_EASY_AI_ALL  ;;
+      11 ) clear ; menu_EASY_EVENT_ALL  ;;
+
+      15 ) clear ; menu_INSTALL_AIMGR  ;;
+      16 ) clear ; menu_INSTALL_EVTMGR  ;;
 
       19 ) clear ; menuAWX_OPENDOC  ;;
 

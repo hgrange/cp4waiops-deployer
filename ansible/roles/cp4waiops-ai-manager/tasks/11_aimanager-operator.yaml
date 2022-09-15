@@ -95,7 +95,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------------
 # Wait for Operator to settle
 # --------------------------------------------------------------------------------------------------------------------------------------
-- name:   🚀 AIMANAGER OPERATOR - Wait for Operator to settle
+- name:   🚀 AIMANAGER OPERATOR - Wait for Operator Catalog to settle
   shell: |
     # Wait for Operator to settle
     sleep 20
