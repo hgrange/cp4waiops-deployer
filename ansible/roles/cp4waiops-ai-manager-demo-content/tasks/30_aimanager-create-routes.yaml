@@ -116,10 +116,10 @@
     ignore_errors: yes
     when: create_external_routes == true
 
-  # - name: 🚀 ROUTES - Create Spark Master UI Route (you can ignore errors in this step)
-  #   shell: oc expose svc aiops-ir-analytics-spark-master -n {{current_cp4waiops_cluster.project}} --name spark
-  #   ignore_errors: yes
-  #   when: create_external_routes == true
+  - name: 🚀 ROUTES - Create Spark Master UI Route (you can ignore errors in this step)
+    shell: oc expose svc aiops-ir-analytics-spark-master -n {{current_cp4waiops_cluster.project}} --name spark
+    ignore_errors: yes
+    when: create_external_routes == true
 
 
 # # --------------------------------------------------------------------------------------------------------------------------------------

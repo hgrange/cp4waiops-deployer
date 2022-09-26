@@ -12,11 +12,11 @@
 #   Gives metrics values between 100 and 110
 #   If you put "fixed base value"=ITERATIONS then it will use the counter (for PodRestarts for example)
 declare -a MY_RES_IDS=(
-"mysql,TransactionsPerSecond,TransactionsPerSecond,0,1"
-"mysql,Latency,Latency,40000,1000"
-"ratings,PodRestarts,PodRestarts,0,1"
-"ratings,TransactionsPerSecond,TransactionsPerSecond,10,10"
-"ratings,Latency,Latency,2000,1000"
+"mysql-predictive,TransactionsPerSecond,TransactionsPerSecond,0,1"
+"mysql-predictive,Latency,Latency,40000,1000"
+"ratings-predictive,PodRestarts,PodRestarts,0,1"
+"ratings-predictive,TransactionsPerSecond,TransactionsPerSecond,10,10"
+"ratings-predictive,Latency,Latency,2000,1000"
 )
 
 

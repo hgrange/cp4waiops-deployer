@@ -22,6 +22,7 @@
 - name: 🚀 AIMANAGER INSIGHTS - Get Datarouter Image
   shell: |
     oc get -n {{ current_cp4waiops_cluster.project }} $(oc get -n {{ current_cp4waiops_cluster.project }} deploy -o name | grep ir-core-operator) -o jsonpath={.spec.template.metadata.annotations."olm\.relatedImage\.datarouting-service"}
+    oc patch -n openshift-marketplace serviceaccount default -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
   register: DATAROUTER_IMAGE
   ignore_errors: yes
 

@@ -27,7 +27,7 @@ declare -a MY_RES_IDS=(
 )
 
 
-export MAX_ITERATIONS_DAYS=14
+export MAX_ITERATIONS_DAYS=40
 
 
 
@@ -92,7 +92,6 @@ export DAY_ITERATIONS=0
 # Loop until CTRL-C
 while true
 do
-
       export  HOUR_ITERATIONS=0
       ((DAY_ITERATIONS++))
       # {"timestamp":"MY_TIMESTAMP","resourceID":"qotd-rating (qotd/qotd-rating-76d4964f5-8l8z6):::7QthWgdy4IaSS0KkxFUkYmBCLC0","metrics":{"cpu.user_usage":CPU_USAGE},"attributes":{"group":"docker","node":"qotd-rating (qotd/qotd-rating-76d4964f5-8l8z6):::7QthWgdy4IaSS0KkxFUkYmBCLC0"}},
@@ -105,19 +104,14 @@ do
       # Loop until CTRL-C
       while true
       do
-
-
             ((HOUR_ITERATIONS++))
                   echo "        ♻️  ITERATION: $DAY_ITERATIONS - $HOUR_ITERATIONS     at "$act_timestamp_readable"   -     Seconds skew "$ADD_SECONDS
                   echo ""
 
-
             for (( BUNDLE_ITERATIONS=1; BUNDLE_ITERATIONS <= $MAX_ITERATIONS_BUNDLE; ++BUNDLE_ITERATIONS ))
             do
-
                   ADD_SECONDS=$(($ADD_SECONDS+($TIME_INCREMENT_MINUTES*60)))
                   export act_timestamp_readable=$(date -v "+"$ADD_SECONDS"S" "$DATE_FORMAT_READABLE")
-
 
                   # echo "        ♻️  ITERATION: $HOUR_ITERATIONS-$BUNDLE_ITERATIONS     at "$act_timestamp_readable"   -     Seconds skew "$ADD_SECONDS
                   # echo ""
@@ -128,7 +122,6 @@ do
                   # Get timestamp in ELK format
                   export MY_TIMESTAMP=$(date -v "+"$ADD_SECONDS"S" "$DATE_FORMAT")"$ADD_MSECONDS_STRING"
                   #export my_timestamp_readable=$(date -v "+"$ADD_SECONDS"S" "$DATE_FORMAT_READABLE")
-
 
                   for value in "${MY_RES_IDS[@]}"
                   do
@@ -144,8 +137,6 @@ do
                         #       #echo ":::::"$MY_FIX_VALUE
                         # fi
                         MY_VARIATION=$(echo $value | cut -d',' -f5)
-
-
 
                         export CURRENT_VALUE=$(($RANDOM%$MY_VARIATION+$MY_FIX_VALUE))
 
@@ -174,7 +165,7 @@ do
       echo ']}'>> /tmp/tmp_inject.json
 
       export result=$(curl -k -s -X POST "https://${ROUTE}/aiops/api/app/metric-api/v1/metrics" --header 'Content-Type: application/json' --header "Authorization: Bearer ${TOKEN}" --header 'X-TenantID: cfd95b7e-3bc7-4006-a4a8-a73a79c71255' --data @/tmp/tmp_inject.json)
-      #echo $result
+      echo $result
 
 
       if [[ $DAY_ITERATIONS -gt $MAX_ITERATIONS_DAYS ]]; then
