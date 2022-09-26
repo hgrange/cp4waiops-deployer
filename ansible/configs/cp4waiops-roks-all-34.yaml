@@ -22,7 +22,7 @@ cp4waiops:
     subscription_channel: v3.4
 
     # Install AIOps Insights
-    enable_aiops_insights: true
+    enable_aiops_insights: false
 
     
   # --------------------------------------------------------------------------------------------------------------------------------------
