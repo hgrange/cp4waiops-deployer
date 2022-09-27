@@ -107,14 +107,6 @@
   include_tasks: 25-post-ldap-register.yaml
       
 
-# Patching Topology Deployment
-- name: 📥  20_aimanager-patch-topology
-  include_tasks: 20_aimanager-patch-topology.yaml
-
-
-# Wait for CP4WAIOPS being completely installed
-- name: 📥  99_aimanager-wait-cp4waiops
-  include_tasks: 99_aimanager-wait-cp4waiops.yaml
 
 
 - name: 📥  91-log-end

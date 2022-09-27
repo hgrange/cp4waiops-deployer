@@ -109,6 +109,13 @@
     template: ./templates/infra-automation/4_iaconfig-aiops-infra.j2
 
 
+- name: 🚀 INFRA MGT - Patch Service Account
+  shell: |
+    oc patch -n {{ current_cp4waiops_cluster.project }} serviceaccount ibm-infra-management-install-operator -p '{"imagePullSecrets": [{"name": "ibm-entitlement-key"}]}'
+  ignore_errors: yes
+
+
+
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------
