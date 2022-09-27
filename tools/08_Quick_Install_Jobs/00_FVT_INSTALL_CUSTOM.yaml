@@ -218,7 +218,14 @@ spec:
                   # Version of the catalog subscription
                   subscription_channel: v3.3
                   #subscription_channel: 3.4-dev
-
+                  # LDAP
+                  install_ldap: true
+                  # ldap domain
+                  ldap_domain: ibm.com
+                  # ldap base
+                  ldap_base: dc=ibm,dc=com
+                  # ldap admin password
+                  ldap_admin_password: P4ssw0rd!
 
 
 
