@@ -18,7 +18,7 @@ cp4waiops:
     kind: InfrastructureManagement
     install: true
     # Version of the catalog subscription
-    subscription_channel: v3.3
+    subscription_channel: v3.4
     #subscription_channel: 3.4-dev
     # LDAP
     install_ldap: true
