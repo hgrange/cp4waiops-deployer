@@ -14,7 +14,7 @@ current_cp4waiops_feature:
   # Name of the CP4WAIOPS instance
   waiops_name: ibm-cp-watson-aiops
   # Version of the catalog subscription
-  subscription_channel: v3.4
+  subscription_channel: v3.5
 
 
   # --------------------------------------------------------------------------------------------------------------------------------------

@@ -19,7 +19,7 @@ cp4waiops:
     # Version of the catalog subscription
     subscription_channel: v1.9
     starting_csv: noi.v1.5.1
-    noi_version: 1.6.5.1
+    noi_version: 1.6.6.1
 
 
 # *************************************************************************************************************************************************

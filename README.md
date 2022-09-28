@@ -1,4 +1,4 @@
-<center> <h1>CP4WatsonAIOps CP4WAIOPS v3.4.1</h1> </center>
+<center> <h1>CP4WatsonAIOps CP4WAIOPS v3.5.0</h1> </center>
 <center> <h2>Demo Environment Installation 🚀</h2> </center>
 
 ![K8s CNI](./doc/pics/front.png)
@@ -48,7 +48,7 @@ These are the options you have to install the demo environment.
 
 ### 1. Install AI Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
-1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_INSTALL_AIMGR_ALL.yaml)
 2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`
 	
@@ -56,13 +56,13 @@ These are the options you have to install the demo environment.
 		
 ### 2. Install Event Manager with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
-1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_INSTALL_EVTMGR_ALL.yaml)
 2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`
 
 ### 3. Install AI Manager, Event Manager and Turbonomic with demo content
 1. In the the OCP Web UI click on the + sign in the right upper corner
-1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/01_FVT_INSTALL_ALL.yaml)
+1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/01_INSTALL_ALL.yaml)
 2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`
 
@@ -93,7 +93,7 @@ This is provided `as-is`:
 * It clearly can be improved
 
 
-**❗This has been tested for the new CP4WAIOPS v3.4.1 release on OpenShift 4.8 and 4.10 on ROKS**
+**❗This has been tested for the new CP4WAIOPS v3.5.0 release on OpenShift 4.8 and 4.10 on ROKS**
 
 
 
@@ -219,7 +219,7 @@ You have different options:
 
 1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
 	1. In the the OCP Web UI click on the + sign in the right upper corner
-	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_FVT_INSTALL_AIMGR_ALL.yaml)
+	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/02_INSTALL_AIMGR_ALL.yaml)
 	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 	3. Click `Save`
 	
@@ -352,7 +352,7 @@ You have different options:
 
 1. **Install directly from the OCP Web UI** *(no need to install anything on your PC)*
 	1. In the the OCP Web UI click on the + sign in the right upper corner
-	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_FVT_INSTALL_EVTMGR_ALL.yaml)
+	1. Copy and paste the content from [this file](./tools/08_Quick_Install_Jobs/03_INSTALL_EVTMGR_ALL.yaml)
 	2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1
 	3. Click `Save`
 	
