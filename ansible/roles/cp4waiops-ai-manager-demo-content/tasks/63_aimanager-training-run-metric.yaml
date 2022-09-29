@@ -20,7 +20,7 @@
     set -x
     
     echo "  ***************************************************************************************************************************************************"
-    echo "   🛠️   Run Analysis: MEtricAnomaly"
+    echo "   🛠️   Run Analysis: MetricAnomaly"
     export FILE_NAME=run-analysis-METRIC.graphql
     export FILE_PATH="{{role_path}}/templates/training/training-definitions/"
     {{role_path}}/templates/training/scripts/execute-graphql.sh

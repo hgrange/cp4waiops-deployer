@@ -1,4 +1,4 @@
-FROM python:3.8   
+FROM python:3.8 as build   
 ENV DockerHOME=/home/app/demoui  
 
 # set work directory  
