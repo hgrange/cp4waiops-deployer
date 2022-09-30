@@ -17,7 +17,7 @@
 # ---------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------"
 # ---------------------------------------------------------------------------------------------------------------"
-export WAIOPS_VERSION=34
+export WAIOPS_VERSION=35
 
 export SHOW_MORE="false"
 export WAIOPS_PODS_MIN=115
@@ -275,7 +275,7 @@ fi
 
 # ------------------------------------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------------------------------------
-# Patch IAF Resources for ROKS
+# HELPER FUNCTIONS
 # ------------------------------------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------------------------------------
 openTheUrl () {
@@ -300,7 +300,95 @@ openTheUrl () {
 
 
 
+checkToken () {
+      #Get Pull Token
+      if [[ $CP_ENTITLEMENT_KEY == "" ]];
+      then
+            echo ""
+            echo ""
+            echo "  Enter CP4WAIOPS Pull token: "
+            read TOKEN
+      else
+            TOKEN=$CP_ENTITLEMENT_KEY
+      fi
+
+      echo ""
+      echo "  🔐 You have provided the following Token:"
+      echo "    "$TOKEN
+      echo ""
+
+      # Install
+      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
+      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+            echo ""
+            echo "     ✅ Ok, continuing..."
+            echo ""
+            echo  ""
+      else
+            echo "    ⚠️  Skipping"
+            echo "--------------------------------------------------------------------------------------------"
+            echo  ""    
+            echo  ""
+            exit
+      fi
+}
+
+checkAIManager () {
+
+      # Check if ${Green}Already installed${NC} 
+      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
+            echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
+
+            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
+            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+                  echo ""
+                  echo "     ✅ Ok, continuing..."
+                  echo ""
+                  echo ""
+            else
+                  echo ""
+                  echo "    ❌  Aborting"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  exit
+            fi
+      fi
+}
+
+
+checkEventManager () {
+      # Check if ${Green}Already installed${NC} 
+      if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
+            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
+
+            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
+            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
+                  echo ""
+                  echo "     ✅ Ok, continuing..."
+                  echo ""
+                  echo ""
+            else
+                  echo ""
+                  echo "    ❌  Aborting"
+                  echo "--------------------------------------------------------------------------------------------"
+                  echo  ""    
+                  echo  ""
+                  exit
+            fi
+      fi
+}
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+# WAIOPS INSTALLAION IN-CLUSTER VIA JOB
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+
 installViaJob() {
+        
 
 cat <<EOF | oc apply -n default -f -
 kind: ClusterRoleBinding
@@ -319,7 +407,7 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fvt-install-aimgr-and-demo
+  name: waiops-easy-install
   namespace: default
 spec:
   serviceAccountName: installer-default-default
@@ -343,8 +431,9 @@ spec:
               #!/bin/bash
               #set -x
 
+
               echo "*****************************************************************************************************************************"
-              echo " ✅ STARTING: INSTALL AI Manager with Demo Content"
+              echo " ✅ STARTING: INSTALL ALL Components"
               echo "*****************************************************************************************************************************"
               echo ""
               echo ""
@@ -370,7 +459,7 @@ spec:
 
               echo "------------------------------------------------------------------------------------------------------------------------------"
               echo " 🚀 Starting Installation"
-              ansible-playbook ./ansible/00_cp4waiops-install.yaml -e "config_file_path=$CONFIG" -e CP_ENTITLEMENT_KEY="$TOKEN"
+              ansible-playbook ./ansible/00_cp4waiops-install.yaml -e "config_file_path=$CONFIG" -e CP_ENTITLEMENT_KEY=$CP_ENTITLEMENT_KEY
               echo ""
               echo ""
               echo "*****************************************************************************************************************************"
@@ -381,9 +470,9 @@ spec:
 
               sleep 60000
 
+
       restartPolicy: Never
   backoffLimit: 4
-
 EOF
 
 
@@ -393,91 +482,46 @@ EOF
 
 
 menu_JOB_AI_ALL () {
-      echo "----------------------------------------------------------------------------------------------------------------"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
       echo " 🚀  Install complete Demo Environment for AI Manager with K8s Job" 
-      echo "----------------------------------------------------------------------------------------------------------------"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
       echo ""
+      checkAIManager
+      checkToken
 
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
+      export CONFIG="./configs/cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml"
+      export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
 
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
-      fi
-
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
+      installViaJob
 
       echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
       echo ""
-
-      # Install
-      read -p "  Are you sure that this is correct❓ [Y,n] " DO_COMM
+      echo ""
+      read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
       if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
-         
+
+
             echo "    ⚠️  Skipping"
             echo "--------------------------------------------------------------------------------------------"
             echo  ""    
             echo  ""
             echo ""
 
-      else
-            echo ""
-            echo ""
-
-            export CONFIG="./configs/cp4waiops-roks-aimanager-all-34.yaml"
-            export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
-
-
+            else
 
             echo ""
-            echo ""
-            echo ""
-            read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
-            if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+            echo "----------------------------------------------------------------------------------------------------------------"
+            echo " 🚀  Install Logs" 
+            echo "----------------------------------------------------------------------------------------------------------------"
+            echo " Waiting 2 Minutes for Job to settle"
+            sleep 120
 
-                  echo ""
-                  echo "----------------------------------------------------------------------------------------------------------------"
-                  echo " 🚀  Install Logs" 
-                  echo "----------------------------------------------------------------------------------------------------------------"
-                  echo " Waiting 2 Minutes for Job to settle"
-                  #sleep 120
-
-                  echo "    ⚠️  Skipping"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  echo ""
-
-             else
-                  INSTALL_POD=$(oc get po -n default|grep install|awk '{print$1}')
-                  oc logs -n default -f $INSTALL_POD
-            fi
-   
+            INSTALL_POD=$(oc get po -n default|grep waiops-easy-install|awk '{print$1}')
+            oc logs -n default -f $INSTALL_POD
       fi
-
+   
       echo "*****************************************************************************************************************************"
       echo "*****************************************************************************************************************************"
       echo "*****************************************************************************************************************************"
@@ -494,238 +538,46 @@ menu_JOB_AI_ALL () {
 
 
 menu_JOB_EVENT_ALL () {
-      echo "----------------------------------------------------------------------------------------------------------------"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
       echo " 🚀  Install complete Demo Environment for EVENT Manager with K8s Job" 
-      echo "----------------------------------------------------------------------------------------------------------------"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
       echo ""
+      checkAIManager
+      checkToken
 
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
+      export CONFIG="./configs/cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml"
+      export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
 
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
-      fi
-
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
 
       echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
       echo ""
-
-      # Install
-      read -p "  Are you sure that this is correct❓ [Y,n] " DO_COMM
+      echo ""
+      read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
       if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
-         
+
+
             echo "    ⚠️  Skipping"
             echo "--------------------------------------------------------------------------------------------"
             echo  ""    
             echo  ""
             echo ""
 
-      else
-            echo ""
-            echo ""
-
-            export CONFIG="./configs/cp4waiops-roks-eventmanager-all-34.yaml"
-            export INSTALL_REPO="https://github.com/niklaushirt/cp4waiops-deployer.git"
-
-
+            else
 
             echo ""
-            echo ""
-            echo ""
-            read -p " Do you want to follow the installation Logs❓ [Y,n] " DO_COMM
-            if [[ $DO_COMM == "N" ||  $DO_COMM == "N" ]]; then
+            echo "----------------------------------------------------------------------------------------------------------------"
+            echo " 🚀  Install Logs" 
+            echo "----------------------------------------------------------------------------------------------------------------"
+            echo " Waiting 2 Minutes for Job to settle"
+            sleep 120
 
-                  echo ""
-                  echo "----------------------------------------------------------------------------------------------------------------"
-                  echo " 🚀  Install Logs" 
-                  echo "----------------------------------------------------------------------------------------------------------------"
-                  echo " Waiting 2 Minutes for Job to settle"
-                  #sleep 120
-
-                  echo "    ⚠️  Skipping"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  echo ""
-
-             else
-                  INSTALL_POD=$(oc get po -n default|grep install|awk '{print$1}')
-                  oc logs -n default -f $INSTALL_POD
-            fi
+            INSTALL_POD=$(oc get po -n default|grep waiops-easy-install|awk '{print$1}')
+            oc logs -n default -f $INSTALL_POD
+      fi
    
-      fi
-
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "  "
-      echo "  ✅ Complete Demo Environment for AI Manager Installation done"
-      echo "  "
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-
-
-}
-
-
-menu_EASY_AI_ALL () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install complete Demo Environment for AI Manager - cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
-
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
-
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
-      fi
-
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
-
-      echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
-      echo ""
-
-      # Install
-      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
-      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-            echo ""
-
-            cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml" 
-            cd -
-
-
-
-
-      else
-            echo "    ⚠️  Skipping"
-            echo "--------------------------------------------------------------------------------------------"
-            echo  ""    
-            echo  ""
-      fi
-
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "  "
-      echo "  ✅ Complete Demo Environment for AI Manager Installation done"
-      echo "  "
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-
-
-}
-
-
-menu_EASY_EVENT_ALL () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install complete Demo Environment for EVENT Manager - cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
-
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
-
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
-      fi
-
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
-
-      echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
-      echo ""
-
-      # Install
-      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
-      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-            echo ""
-
-            cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml" 
-            cd -
-
-
-
-
-      else
-            echo "    ⚠️  Skipping"
-            echo "--------------------------------------------------------------------------------------------"
-            echo  ""    
-            echo  ""
-      fi
+ 
 
       echo "*****************************************************************************************************************************"
       echo "*****************************************************************************************************************************"
@@ -739,230 +591,148 @@ menu_EASY_EVENT_ALL () {
 
 
 }
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+# WAIOPS INSTALLAION VIA LOCAL ANSIBLE
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+
+INSTALL_LOCAL () {
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo " 🚀  Install "$INSTALL_TITLE 
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+
+      echo ""
+
+      cd ansible
+      ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path=$INSTALL_CONFIG_FILE_PATH
+      cd -
+
+      echo ""
+      echo ""
+      echo ""
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+      echo "  "
+      echo "  ✅ $INSTALL_TITLE  done"
+      echo "  "
+      echo "*****************************************************************************************************************************"
+      echo "*****************************************************************************************************************************"
+
+}
+
+
+
+
+
+
+menu_EASY_AI_ALL () {
+      export INSTALL_TITLE="Complete Demo Environment for AI Manager - cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml"
+
+      checkAIManager
+      checkToken
+
+      INSTALL_LOCAL
+
+}
+
+
+menu_EASY_EVENT_ALL () {
+
+      export INSTALL_TITLE="Complete Demo Environment for EVENT Manager - cp4waiops-roks-eventmanager-all-$WAIOPS_VERSION.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-aimanager-all-$WAIOPS_VERSION.yaml"
+
+      checkEventManager
+      checkToken
+
+      INSTALL_LOCAL
+
+}
 
 
 menu_INSTALL_AIMGR () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Base Install for AI Manager - cp4waiops-roks-aimanager-$WAIOPS_VERSION.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
 
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $WAIOPS_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS AI Manager seems to be installed already"
+      export INSTALL_TITLE="Base Install for AI Manager - cp4waiops-roks-aimanager-$WAIOPS_VERSION.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-aimanager-$WAIOPS_VERSION.yaml"
 
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
-      fi
+      checkAIManager
+      checkToken
 
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
-
-      echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
-      echo ""
-
-      # Install
-      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
-      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-            echo ""
-
-            cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-aimanager-$WAIOPS_VERSION.yaml" 
-            cd -
-
-
-
-
-      else
-            echo "    ⚠️  Skipping"
-            echo "--------------------------------------------------------------------------------------------"
-            echo  ""    
-            echo  ""
-      fi
-
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
-      echo "  "
-      echo "  ✅ Ai Manager Base Installation done"
-      echo "  "
-      echo "  "
-      echo "*****************************************************************************************************************************"
-      echo "*****************************************************************************************************************************"
+      INSTALL_LOCAL
 
 }
-
-
-
 
 menu_INSTALL_EVTMGR () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install CP4WAIOPS Event Manager - cp4waiops-roks-eventmanager-$WAIOPS_VERSION.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
 
-      # Check if ${Green}Already installed${NC} 
-      if [[ ! $EVTMGR_NAMESPACE == "" ]]; then
-            echo "⚠️  CP4WAIOPS Event Manager seems to be installed already"
+      export INSTALL_TITLE="Base Install for Event Manager - cp4waiops-roks-eventmanager-$WAIOPS_VERSION.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-eventmanager-$WAIOPS_VERSION.yaml"
 
-            read -p "   Are you sure you want to continue❓ [y,N] " DO_COMM
-            if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-                  echo ""
-                  echo "   ✅ Ok, continuing..."
-                  echo ""
-            else
-                  echo ""
-                  echo "    ❌  Aborting"
-                  echo "--------------------------------------------------------------------------------------------"
-                  echo  ""    
-                  echo  ""
-                  return
-            fi
+      checkAIManager
+      checkToken
 
-      fi
-
-      #Get Pull Token
-      if [[ $CP_ENTITLEMENT_KEY == "" ]];
-      then
-            echo ""
-            echo ""
-            echo "  Enter CP4WAIOPS Pull token: "
-            read TOKEN
-      else
-            TOKEN=$CP_ENTITLEMENT_KEY
-      fi
-
-      # Install
-      echo ""
-      echo "  🔐 You have provided the following Token:"
-      echo "    "$TOKEN
-      echo ""
-      read -p "  Are you sure that this is correct❓ [y,N] " DO_COMM
-      if [[ $DO_COMM == "y" ||  $DO_COMM == "Y" ]]; then
-            echo "   ✅ Ok, continuing..."
-            echo ""
-            echo ""
-            echo "--------------------------------------------------------------------------------------------"
-            echo " ❗  Installation can take up to 40 mins!" 
-            echo "--------------------------------------------------------------------------------------------"
-            echo ""
-            cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-eventmanager-$WAIOPS_VERSION.yaml" 
-            
-
-            cd -
-
-      else
-            echo "    ⚠️  Skipping"
-            echo "--------------------------------------------------------------------------------------------"
-            echo  ""    
-            echo  ""
-      fi
-
+      INSTALL_LOCAL
 
 }
-
 
 
 menu_INSTALL_TURBO () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install Turbonomic - cp4waiops-roks-turbonomic.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
 
-      cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-turbonomic.yaml" 
-      cd -
+      export INSTALL_TITLE="Turbonomic - cp4waiops-roks-turbonomic.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-turbonomic.yaml"
+
+      checkAIManager
+      checkToken
+
+      INSTALL_LOCAL
+
 }
-
-
 
 
 menu_INSTALL_ELK () {
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install OpenShift Logging - cp4waiops-roks-elk.yaml" 
-      echo "----------------------------------------------------------------------------------------------------------------"
-      echo ""
 
-      cd ansible
-            ansible-playbook 00_cp4waiops-install.yaml -e CP_ENTITLEMENT_KEY=$TOKEN  -e config_file_path="./configs/cp4waiops-roks-elk.yaml" 
-      cd -
+      export INSTALL_TITLE="OpenShift Logging (ELK) - cp4waiops-roks-elk.yaml" 
+      export INSTALL_CONFIG_FILE_PATH="./configs/cp4waiops-roks-elk.yaml"
+
+      checkAIManager
+      checkToken
+
+      INSTALL_LOCAL
+
 }
-
-
-
-runPlaybook () {
-      echo ""
-      echo ""
-      echo ""
-      echo ""
-      echo ""
-      echo "*****************************************************************************************************************************"
-      echo "--------------------------------------------------------------------------------------------"
-      echo " 🚀  Run Install with Configuration: $ANSIBLE_CONFIGURATION" 
-      echo "--------------------------------------------------------------------------------------------"
-      echo "*****************************************************************************************************************************"
-      echo ""
-
-      FILE=./configs/$ANSIBLE_CONFIGURATION.yaml
-      if test -f "./ansible/$FILE"; then
-            echo "✅ Configuration found..."
-            echo ""
-            echo ""
-            if [[ $ANSIBLE_CONFIGURATION =~ "01_AIManager-install" ]] || [[ $ANSIBLE_CONFIGURATION =~ "04_eventmanager-install" ]] || [[ $ANSIBLE_CONFIGURATION =~ "05_InfraManagement-install" ]] || [[ $ANSIBLE_CONFIGURATION =~ "09_AIManager-only" ]];  
-            then
-                  echo ""
-                  echo ""
-                  echo "  Enter CP4WAIOPS Pull token: "
-                  read TOKEN
-                  ansible-playbook $FILE -e CP_ENTITLEMENT_KEY=$TOKEN
-            else
-                  ansible-playbook ./ansible/00_cp4waiops-install.yaml -e config_file_path=$FILE  -e CP_ENTITLEMENT_KEY=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE1Nzg0NzQzMjgsImp0aSI6IjRjYTM3ODkwMzExNjQxZDdiMDJhMjRmMGMxMWMwYmZhIn0.Z-rqfSLJA-R-ow__tI3RmLx4m9EH-abvdc53DYEkbYY
-            fi
-
-      else
-            echo "❌ Config $FILE doesn't exist. Try again...."
-            echo ""
-      fi
-      echo ""
-      echo ""
-      echo ""
-      echo ""
-      echo "*****************************************************************************************************************************"
-      echo "--------------------------------------------------------------------------------------------"
-      echo " ✅  DONE" 
-      echo "--------------------------------------------------------------------------------------------"
-      echo "*****************************************************************************************************************************"
-      echo ""
-}
-
 
 
 menu_INSTALL_CUSTOM () {
       echo "----------------------------------------------------------------------------------------------------------------"
-      echo " 🚀  Install Custom Configuration" 
+      echo " 🚀  Select Script for Custom Configuration" 
       echo "----------------------------------------------------------------------------------------------------------------"
       echo ""
 
@@ -970,7 +740,7 @@ menu_INSTALL_CUSTOM () {
       echo "  🐥  Available Installation Configurations"
       echo "  "
 
-      ls -1 ./ansible/configs | sed 's/.yaml//'| sed 's/^/       /'
+      ls -1 ./ansible/configs|grep ".yaml" | sed 's/.yaml//'| sed 's/^/       /'
 
 
 
@@ -986,13 +756,18 @@ menu_INSTALL_CUSTOM () {
       echo "  🚀 Copy and paste the name of the Playbook you want to run below: "
       read selection
       echo ""
+      echo ""
+      echo ""
+      echo ""
+      echo ""
 
       if [ $selection != "q" ];  then
             export ANSIBLE_CONFIGURATION=$selection
-            runPlaybook
+            export INSTALL_TITLE="Custom Configuration from Configuration File - $ANSIBLE_CONFIGURATION" 
+            export INSTALL_CONFIG_FILE_PATH="./configs/$ANSIBLE_CONFIGURATION.yaml"
 
-            read -p "Press Enter to continue..."
-            clear 
+            INSTALL_LOCAL
+
       fi
 
 }
@@ -1006,7 +781,14 @@ menu_INSTALL_CUSTOM () {
 
 
 
-
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+# OPEN OR DISPLAY Functions
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
 menuDEMO_OPEN () {
       echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
       echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
@@ -1025,7 +807,6 @@ menuDEMO_OPEN () {
       export OPEN_URL="http://$appURL"
       openTheUrl
 }
-     
 
 
 menuAWX_OPENDOC () {
@@ -1038,8 +819,6 @@ menuAWX_OPENDOC () {
       export OPEN_URL=$DOC_URL
       openTheUrl
 }
-
-
 
 
 menuAWX_OPENAWX () {
@@ -1063,7 +842,6 @@ menuAWX_OPENAWX () {
 }
 
 
-
 menuAIMANAGER_OPEN () {
       export ROUTE="https://"$(oc get route -n $WAIOPS_NAMESPACE cpd -o jsonpath={.spec.host})
       echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
@@ -1076,6 +854,9 @@ menuAIMANAGER_OPEN () {
       echo ""
       echo "                🌏 URL:      $ROUTE"
       echo ""
+      echo "                🧑 User:     demo"
+      echo "                🔐 Password: P4ssw0rd!"
+      echo "    "
       echo "                🧑 User:     $(oc -n ibm-common-services get secret platform-auth-idp-credentials -o jsonpath='{.data.admin_username}' | base64 --decode && echo)"
       echo "                🔐 Password: $(oc -n ibm-common-services get secret platform-auth-idp-credentials -o jsonpath='{.data.admin_password}' | base64 --decode)"
       echo "    "
@@ -1084,7 +865,6 @@ menuAIMANAGER_OPEN () {
       openTheUrl
 
 }
-
 
 
 menuEVENTMANAGER_OPEN () {
@@ -1227,9 +1007,6 @@ menuAWX_OPENLDAP () {
 }
 
 
-
-
-
 menuAWX_OPENRS () {
       export ROUTE="http://"$(oc get routes -n robot-shop web  -o jsonpath="{['spec']['host']}")
       echo "    -----------------------------------------------------------------------------------------------------------------------------------------------"
@@ -1248,7 +1025,14 @@ menuAWX_OPENRS () {
 
 
 
-
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+# PATCHES
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
 menuDEBUG_PATCH () {
       echo "--------------------------------------------------------------------------------------------"
       echo " 🚀  Launch Debug Patches" 
@@ -1282,6 +1066,16 @@ menuDEBUG_PATCH () {
 
 
 
+
+
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ************************************************************************************************************************************************
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
+# MENU
+# ------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------------------------------
 incorrect_selection() {
       echo "--------------------------------------------------------------------------------------------"
       echo " ❗ This option does not exist!" 
@@ -1327,19 +1121,18 @@ echo "${NC}"
 
       echo "  "
       if [[ $WAIOPS_PODS -lt $WAIOPS_PODS_MIN ]]; then
-            echo "     🚀  01  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content via Kubernetes Job"
+            echo "     🚀  01  - Install AI Manager Demo${NC}   ${Green}<-- Start here${NC}                - Install AI Manager with Demo Content via Kubernetes in-cluster Job"
       else
             echo "     ✅  01  - Install AI Manager Demo${NC}                                 - ${Green}Already installed${NC}  "
       fi
 
       if [[ $EVTMGR_NAMESPACE == "" ]]; then
-            echo "         02  - Install Event Manager Demo                              - Install Event Manager with Demo Content via Kubernetes Job"
+            echo "         02  - Install Event Manager Demo                              - Install Event Manager with Demo Content via Kubernetes in-cluster Job"
       else
             echo "     ✅  02  - Install Event Manager Demo${NC}                              - ${Green}Already installed${NC}  "
       fi
 
       echo "  "
-
       echo "  "
       echo "  "      
       echo "  "
@@ -1402,7 +1195,7 @@ echo "${NC}"
       echo "  "
       echo "  "
       echo "  📥 ${UBlue}Custom Configurations${NC}"
-      echo "         30  - Install Custom Configuration                            - Install Custom Configuration"
+      echo "         30  - Install Custom Configuration                            - Lets you select the configuration file"
 
 
       echo "  "

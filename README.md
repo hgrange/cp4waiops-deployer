@@ -73,7 +73,7 @@ These are the options you have to install the demo environment.
 2. Replace `<REGISTRY_TOKEN>` at the end of the file with your pull token from step 1.3.1 (the Entitlement key from https://myibm.ibm.com)
 3. Click `Save`		
 
-> ℹ️ If you get a ClusterRoleBinding already exists, ust delete it at the beginning of the YAML
+> ℹ️ If you get a ClusterRoleBinding already exists, just delete it at the beginning of the YAML
 
 
 
@@ -93,7 +93,7 @@ This is provided `as-is`:
 * It clearly can be improved
 
 
-**❗This has been tested for the new CP4WAIOPS v3.5.0 release on OpenShift 4.8 and 4.10 on ROKS**
+**❗This has been tested for the new CP4WAIOPS v3.5.0 release on OpenShift 4.10 on ROKS**
 
 
 
@@ -126,7 +126,7 @@ I installed the demo in a ROKS environment.
 
 You'll need:
 
-- ROKS 4.8 or 4.10
+- ROKS 4.10
 - 5x worker nodes Flavor `b3c.16x64` (so 16 CPU / 64 GB) 
 
 
@@ -138,7 +138,7 @@ You **might** get away with less if you don't install some components (Event Man
 
 <div style="page-break-after: always;"></div>
 
-### 1.2.2 Get a ROKS Cluster (IBMers only)
+### 1.2.2 Get a ROKS Cluster (IBMers and IBM Partners only)
 
 IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collection/custom-roks-vmware-requests) (ususally valid for 2 weeks)
 
@@ -146,7 +146,7 @@ IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collecti
 
 	![K8s CNI](./doc/pics/roks01.png)
 
-1. Select the maximum end date that fits your needs (2 weeks maximum)
+1. Select the maximum end date that fits your needs (you can extend the duration once after creation)
 
 	![K8s CNI](./doc/pics/roks03.png)
 	
@@ -163,10 +163,12 @@ IBMers can get a temporary one from [Techzone](https://techzone.ibm.com/collecti
 	
 ### 1.2.3 Tooling 
 
-You need the following tools installed in order to follow through this guide (if you decide to install from your PC):
+❗ Only needed if you decide to install from your PC
+
+You need the following tools installed in order to follow through this guide:
 
 - ansible
-- oc (4.7 or greater)
+- oc (4.8 or greater)
 - jq
 - kafkacat (only for training and debugging)
 - elasticdump (only for training and debugging)
