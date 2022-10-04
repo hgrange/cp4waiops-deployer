@@ -36,7 +36,7 @@ cp4waiops:
     # Train the Models based on pre-canned content
     train_models: true
     training_data_url: https://github.com/niklaushirt/
-    training_data_repo: awx-waiops-trainingdata
+    training_data_repo: cp4waiops-trainingdata
 
     # TOPOLOGY
     # Install RobotShop Application

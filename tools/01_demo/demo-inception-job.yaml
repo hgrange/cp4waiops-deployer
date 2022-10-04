@@ -26,9 +26,9 @@ spec:
               #!/bin/bash
               set -x
 
-              export GIT_REPO=https://github.com/niklaushirt/awx-waiops-trainingdata.git
+              export GIT_REPO=https://github.com/niklaushirt/cp4waiops-trainingdata.git
               git clone $GIT_REPO
-              cd awx-waiops-trainingdata
+              cd cp4waiops-trainingdata
               ./tools/01_demo/incident_robotshop.sh
               sleep 6000000
       restartPolicy: Never

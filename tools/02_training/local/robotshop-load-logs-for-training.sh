@@ -16,7 +16,7 @@
 
 export APP_NAME=robot-shop
 export INDEX_TYPE=logs
-export TRAINING_DATA_URL=https://github.com/niklaushirt/awx-waiops-trainingdata.git
+export TRAINING_DATA_URL=https://github.com/niklaushirt/cp4waiops-trainingdata.git
 
 
 

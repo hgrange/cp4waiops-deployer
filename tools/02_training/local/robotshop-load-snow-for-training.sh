@@ -16,7 +16,7 @@
 
 export APP_NAME=robot-shop
 export INDEX_TYPE=changerisk
-export TRAINING_DATA_URL=https://github.com/niklaushirt/awx-waiops-trainingdata.git
+export TRAINING_DATA_URL=https://github.com/niklaushirt/cp4waiops-trainingdata.git
 
 
 if [[  $WAIOPS_NAMESPACE =~ "" ]]; then
