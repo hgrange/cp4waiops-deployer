@@ -607,7 +607,7 @@ def verifyLogin(request):
     global loginip
 
 
-    if loginip!=actloginip:
+    if str(loginip)!=str(actloginip):
         loggedin='false'
         loginip=request.META.get('REMOTE_ADDR')
 
@@ -749,6 +749,100 @@ def apps(request):
         
     }
     return HttpResponse(template.render(context, request))
+
+def apps_system(request):
+    print('🌏 apps_system')
+    global loggedin
+
+    verifyLogin(request)
+
+    if loggedin=='true':
+        template = loader.get_template('demouiapp/apps_system.html')
+    else:
+        template = loader.get_template('demouiapp/loginui.html')
+    context = {
+        'loggedin': loggedin,
+        'aimanager_url': aimanager_url,
+        'aimanager_user': aimanager_user,
+        'aimanager_pwd': aimanager_pwd,
+        'awx_url': awx_url,
+        'awx_user': awx_user,
+        'awx_pwd': awx_pwd,
+        'elk_url': elk_url,
+        'turonomic_url': turonomic_url,
+        'openshift_url': openshift_url,
+        'openshift_token': openshift_token,
+        'openshift_server': openshift_server,
+        'vault_url': vault_url,
+        'vault_token': vault_token,
+        'ladp_url': ladp_url,
+        'ladp_user': ladp_user,
+        'ladp_pwd': ladp_pwd,
+        'flink_url': flink_url,
+        'flink_url_policy': flink_url_policy,
+        'robotshop_url': robotshop_url,
+        'spark_url': spark_url,
+        'eventmanager_url': eventmanager_url,
+        'eventmanager_user': eventmanager_user,
+        'eventmanager_pwd': eventmanager_pwd,
+        'SLACK_URL': SLACK_URL,
+        'SLACK_USER': SLACK_USER,
+        'SLACK_PWD': SLACK_PWD,
+        'ADMIN_MODE': ADMIN_MODE,
+        'DEMO_USER': DEMO_USER,
+        'DEMO_PWD': DEMO_PWD
+        
+    }
+    return HttpResponse(template.render(context, request))
+
+
+
+def apps_additional(request):
+    print('🌏 apps_additional')
+    global loggedin
+
+    verifyLogin(request)
+
+    if loggedin=='true':
+        template = loader.get_template('demouiapp/apps_additional.html')
+    else:
+        template = loader.get_template('demouiapp/loginui.html')
+    context = {
+        'loggedin': loggedin,
+        'aimanager_url': aimanager_url,
+        'aimanager_user': aimanager_user,
+        'aimanager_pwd': aimanager_pwd,
+        'awx_url': awx_url,
+        'awx_user': awx_user,
+        'awx_pwd': awx_pwd,
+        'elk_url': elk_url,
+        'turonomic_url': turonomic_url,
+        'openshift_url': openshift_url,
+        'openshift_token': openshift_token,
+        'openshift_server': openshift_server,
+        'vault_url': vault_url,
+        'vault_token': vault_token,
+        'ladp_url': ladp_url,
+        'ladp_user': ladp_user,
+        'ladp_pwd': ladp_pwd,
+        'flink_url': flink_url,
+        'flink_url_policy': flink_url_policy,
+        'robotshop_url': robotshop_url,
+        'spark_url': spark_url,
+        'eventmanager_url': eventmanager_url,
+        'eventmanager_user': eventmanager_user,
+        'eventmanager_pwd': eventmanager_pwd,
+        'SLACK_URL': SLACK_URL,
+        'SLACK_USER': SLACK_USER,
+        'SLACK_PWD': SLACK_PWD,
+        'ADMIN_MODE': ADMIN_MODE,
+        'DEMO_USER': DEMO_USER,
+        'DEMO_PWD': DEMO_PWD
+        
+    }
+    return HttpResponse(template.render(context, request))
+
+
 
 def about(request):
     print('🌏 about')

@@ -334,10 +334,9 @@ function check_array(){
       echo "    🔎 Check ZEN Operator"
       echo ""
 
-      export ZEN_LOGS=$(oc logs $(oc get po -n ibm-common-services|grep ibm-zen-operator|awk '{print$1}') -n ibm-common-services)
-      export ZEN_ERRORS=$(echo $ZEN_LOGS|grep -i error)
-      export ZEN_FAILED=$(echo $ZEN_LOGS|grep -i "failed=0")
-      export ZEN_READY=$(echo $ZEN_LOGS|grep -i "ok=2")
+      export ZEN_ERRORS=$(oc logs $(oc get po -n ibm-common-services|grep ibm-zen-operator|awk '{print$1}') -n ibm-common-services|grep -i error)
+      export ZEN_FAILED=$(oc logs $(oc get po -n ibm-common-services|grep ibm-zen-operator|awk '{print$1}') -n ibm-common-services|grep -i "failed=0")
+      export ZEN_READY=$(oc logs $(oc get po -n ibm-common-services|grep ibm-zen-operator|awk '{print$1}') -n ibm-common-services|grep -i "ok=2")
 
       if  ([[ $ZEN_FAILED == "" ]]); 
       then 
@@ -375,7 +374,6 @@ function check_array(){
         "aiops-topology-ui-api"
         "aiops-topology-vmvcenter-observer")
       for ELEMENT in ${CP4AIOPS_CHECK_LIST[@]}; do
-        #echo "     Check $ELEMENT.."
             ELEMENT_OK=$(oc get pod -n $WAIOPS_NAMESPACE --ignore-not-found | grep $ELEMENT || true) 
             if  ([[ ! $ELEMENT_OK =~ "1/1" ]]); 
             then 

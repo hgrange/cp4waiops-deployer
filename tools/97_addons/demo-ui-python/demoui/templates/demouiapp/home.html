@@ -13,11 +13,11 @@
                 <tbody>
                     <tr>
                         {% include "demouiapp/_navbar.html" %}   
-                        <td style="width:100%; padding-left:50px;">
+                        <td style="width:90%; padding-left:50px;">
                             <p style="font-size:2.5em;">IBM CloudPak for Watson AIOps</p>
                             <h1>AIManager Demo UI</h1>
                             <p></p>
-                            <p>A Simple way to generate Events and Log Anomalies for CP4WAIOPS.</p>
+                            <p>A Simple way to generate Live Incidents for CP4WAIOPS.</p>
                             <p> </p>
                             <p> </p>
                             <p> </p>
@@ -54,12 +54,13 @@
        
                             <p style="font-size:20px;">👩‍💻&nbsp;&nbsp;USER: {{ aimanager_user }} &nbsp;&nbsp;&nbsp;&nbsp;</p>
                             <p style="font-size:20px;">🔐&nbsp;&nbsp;PASSWORD: {{ aimanager_pwd }}</p>
-
-                            {% else %}
+                            <hr>
+                            {% endif %}
 
                                 <p style="font-size:20px;">👩‍💻&nbsp;&nbsp;USER: {{ DEMO_USER }} &nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 <p style="font-size:20px;">🔐&nbsp;&nbsp;PASSWORD: {{ DEMO_PWD }}</p>
-                                {% endif %}
+                                <p></p>
+                                <p></p>
                             <p></p>All other CP4WAIOPS Applications can be found <a href="apps">here</a>
                             
                             <p></p>
@@ -89,7 +90,7 @@
                             <p> </p>
                             <p> </p>
                             <p> </p>
-                            <p style="font-size:50px;">🚀 Create Live Events and Log Anomalies </p>
+                            <p style="font-size:50px;">🚀 Create Live Incidents </p>
   
                             <table  width="300" cellspacing="0" cellpadding="0" style="width: 1100px; table-layout: fixed">
                                 <tbody>

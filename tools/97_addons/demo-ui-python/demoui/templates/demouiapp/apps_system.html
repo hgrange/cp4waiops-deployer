@@ -34,84 +34,73 @@
                                             &nbsp;
                                         </td>
                                     </tr>
+                                  
+
                                     <tr>
                                         <td colspan="3">
-                                            <h4>🚀 CP4WAIOPS Applications</h4>
+                                            <h4>🛠️  System Components</h4>
                                             <hr>
                                         </td>
                                     </tr>
-                                    <tr>
-                                    <td width="10%"><a href="https://{{ aimanager_url }}" target="_blank"
-                                                role="button" class="btn btn-info btn-lg">AI Manager</a></td>
-                                        {% if ADMIN_MODE == 'true' %}
-                                        <td>👩‍💻&nbsp;&nbsp;USER: {{aimanager_user}}</td>
-                                    </td>
-                                    <td>🔐&nbsp;&nbsp;PASSWORD: {{aimanager_pwd}}</td>
-                                    {% endif %}
-                                    <tr>
-                                        <td colspan="1">
-                                            &nbsp;
-                                        </td>
-                                        <td>👩‍💻&nbsp;&nbsp;USER: {{ DEMO_USER }} </td>
-                                    </td>
-                                    <td>🔐&nbsp;&nbsp;PASSWORD: {{ DEMO_PWD }} </td>
-                                </tr>
-                                   
-                       
-                               
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                   
-                                    {% if eventmanager_url != '' %}
-                                    <tr>
-                                        <td width="10%"><a href="https://{{ eventmanager_url }}" target="_blank"
-                                                    role="button" class="btn btn-info btn-lg">Event Manager</a></td>
-                                            {% if ADMIN_MODE == 'true' %}
-                                            <td>👩‍💻&nbsp;&nbsp;USER: {{eventmanager_user}}</td>
-                                        </td>
-                                        <td>🔐&nbsp;&nbsp;PASSWORD: {{eventmanager_pwd}}</td>
-                                            {% else %}
-                                            <td>👩‍💻&nbsp;&nbsp;USER: {{ DEMO_USER }} </td>
-                                        </td>
-                                        <td>🔐&nbsp;&nbsp;PASSWORD: {{ DEMO_PWD }} </td>
-     
-                                            {% endif %}
-                           
-                                        </tr>
-                       
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            &nbsp;
-                                        </td>
-                                    </tr>
 
+                                    {% if ADMIN_MODE == 'true' %}
                                     <tr>
-                                        <td width="10%"><a href="{{ SLACK_URL }}" target="_blank"
-                                                role="button" class="btn btn-info btn-lg">Slack</a></td>
-                                        <td>👩‍💻&nbsp;&nbsp;USER: {{ SLACK_USER }}</td>
-                                        </td>
-                                        <td>🔐&nbsp;&nbsp;PASSWORD:  {{ SLACK_PWD }}</p>
-                                        </td>
+                                        <td><a href="https://{{ vault_url }}" target="_blank"
+                                                role="button" class="btn btn-warning btn-sm">Vault</a></td>
+                                        <td>🔐&nbsp;&nbsp;TOKEN: {{vault_token}}</td>
+
                                     </tr>
                                     <tr>
                                         <td colspan="3">
                                             &nbsp;
-                                        </td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td colspan="3">
-                                            <hr>
                                         </td>
                                     </tr>
                                     {% endif %}
 
+                              
+                                    <tr>
+                                        <td><a href="https://{{ flink_url }}" target="_blank"
+                                                role="button" class="btn btn-warning btn-sm">Flink Connectors</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+
+                                    {% if flink_url_policy != '' %}
+                                    <tr>
+                                        <td><a href="https://{{ flink_url_policy }}" target="_blank"
+                                                role="button" class="btn btn-warning btn-sm">Flink Policy Framework</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% if spark_url != '' %}
+                                    <tr>
+                                        <td><a href="http://{{ spark_url }}" target="_blank"
+                                                role="button" class="btn btn-warning btn-sm">Spark</a></td>
+                                    </tr>
+                                    {% endif %}
+
+                                    {% if ADMIN_MODE == 'true' %}
+                                    <tr>
+                                        <td><a href="https://{{ openshift_url }}" target="_blank"
+                                                role="button" class="btn btn-warning btn-sm">OpenShift</a></td>
+                                        <td colspan=2 style="max-width:650px;word-break: break-all">oc login  --server={{openshift_server}} --token={{openshift_token}}</td>
+
+                                    </tr>
+                                    {% endif %}
+
+                                    <tr>
+                                        <td colspan="3">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
 
 
                     
