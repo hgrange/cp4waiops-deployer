@@ -25,5 +25,5 @@
   kubernetes.core.k8s:
     state: present
     namespace: default
-    src: ./templates/training/load-job-snow.yaml
+    template: ./templates/training/load-job-snow.j2
   

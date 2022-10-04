@@ -28,5 +28,5 @@
   kubernetes.core.k8s:
     state: present
     namespace: turbonomic
-    src: ./templates/training/load-job-logs.yaml
+    template: ./templates/training/load-job-logs.j2
 
