@@ -1,8 +1,8 @@
-
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: load-log-indexes
+  name: load-snow-indexes
   namespace: default
 spec:
   serviceAccountName: demo-admin
@@ -27,20 +27,20 @@ spec:
               #set -x
 
               echo "*****************************************************************************************************************************"
-              echo " ✅ STARTING: Load log anomaly training files"
+              echo " ✅ STARTING: Load service now training files"
               echo "*****************************************************************************************************************************"
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              echo "    📥 Downloading log anomaly training files"
+              echo "    📥 Downloading service now training files"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              export AWX_REPO=https://github.com/niklaushirt/awx-waiops-trainingdata.git
-              git clone $AWX_REPO
+              export TRAINING_REPO={{ current_cp4waiops_feature.training_data_url }}{{ current_cp4waiops_feature.training_data_repo }}.git
+              git clone $TRAINING_REPO
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
               echo "    🚀 Starting Data Load"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              cd awx-waiops-trainingdata
-              ./training/robotshop-load-logs-for-training.sh
+              cd {{ current_cp4waiops_feature.training_data_repo }}
+              ./training/robotshop-load-snow-for-training.sh
 
               echo "*****************************************************************************************************************************"
               echo " ✅ DONE"
@@ -48,7 +48,7 @@ spec:
 
           env:
             - name: INDEX_OVERWRITE
-              value : "true"
+              value : "false"
             - name: VERSION
               value : "3.3"
       restartPolicy: Never

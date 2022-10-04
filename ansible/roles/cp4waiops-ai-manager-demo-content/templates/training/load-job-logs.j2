@@ -1,8 +1,8 @@
----
+
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: load-metric-cassandra
+  name: load-log-indexes
   namespace: default
 spec:
   serviceAccountName: demo-admin
@@ -25,22 +25,22 @@ spec:
             - |
               #!/bin/bash
               #set -x
-              
+
               echo "*****************************************************************************************************************************"
-              echo " ✅ STARTING: Load metric anomaly training files"
+              echo " ✅ STARTING: Load log anomaly training files"
               echo "*****************************************************************************************************************************"
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              echo "    📥 Downloading metric anomaly training files"
+              echo "    📥 Downloading log anomaly training files"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              export AWX_REPO=https://github.com/niklaushirt/awx-waiops-trainingdata.git
-              git clone $AWX_REPO
+              export TRAINING_REPO={{ current_cp4waiops_feature.training_data_url }}{{ current_cp4waiops_feature.training_data_repo }}.git
+              git clone $TRAINING_REPO
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
               echo "    🚀 Starting Data Load"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              cd awx-waiops-trainingdata
-              ./training/robotshop-load-metric-for-training.sh
+              cd {{ current_cp4waiops_feature.training_data_repo }}
+              ./training/robotshop-load-logs-for-training.sh
 
               echo "*****************************************************************************************************************************"
               echo " ✅ DONE"
@@ -48,9 +48,10 @@ spec:
 
           env:
             - name: INDEX_OVERWRITE
-              value : "false"
+              value : "true"
             - name: VERSION
               value : "3.3"
       restartPolicy: Never
 
   backoffLimit: 4
+

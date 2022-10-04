@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: load-snow-indexes
+  name: load-metric-cassandra
   namespace: default
 spec:
   serviceAccountName: demo-admin
@@ -25,22 +25,22 @@ spec:
             - |
               #!/bin/bash
               #set -x
-
+              
               echo "*****************************************************************************************************************************"
-              echo " ✅ STARTING: Load service now training files"
+              echo " ✅ STARTING: Load metric anomaly training files"
               echo "*****************************************************************************************************************************"
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              echo "    📥 Downloading service now training files"
+              echo "    📥 Downloading metric anomaly training files"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              export AWX_REPO=https://github.com/niklaushirt/awx-waiops-trainingdata.git
-              git clone $AWX_REPO
+              export TRAINING_REPO={{ current_cp4waiops_feature.training_data_url }}{{ current_cp4waiops_feature.training_data_repo }}.git
+              git clone $TRAINING_REPO
 
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
               echo "    🚀 Starting Data Load"
               echo "   ------------------------------------------------------------------------------------------------------------------------------"
-              cd awx-waiops-trainingdata
-              ./training/robotshop-load-snow-for-training.sh
+              cd {{ current_cp4waiops_feature.training_data_repo }}
+              ./training/robotshop-load-metric-for-training.sh
 
               echo "*****************************************************************************************************************************"
               echo " ✅ DONE"
