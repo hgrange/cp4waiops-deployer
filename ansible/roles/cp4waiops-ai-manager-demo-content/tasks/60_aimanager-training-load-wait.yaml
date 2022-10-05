@@ -38,7 +38,7 @@
 - name: 🧻 TRAINING WAIT - CLEANUP JOB METRICS LOAD
   kubernetes.core.k8s:
     state: absent
-    src: ./templates/training/load-job-metric.yaml
+    template: ./templates/training/load-job-metric.j2
   
 
 
@@ -71,7 +71,7 @@
 - name: 🧻 TRAINING WAIT - CLEANUP JOB SNOW LOAD
   kubernetes.core.k8s:
     state: absent
-    src: ./templates/training/load-job-snow.yaml
+    template: ./templates/training/load-job-snow.j2
   
 
 
@@ -107,7 +107,7 @@
 - name: 🧻 TRAINING WAIT - CLEANUP JOB LAD LOAD
   kubernetes.core.k8s:
     state: absent
-    src: ./templates/training/load-job-logs.yaml
+    template: ./templates/training/load-job-logs.j2
   
 
 
