@@ -72,7 +72,7 @@
         -d $'{
         "name": "MergeTokenDeployName",
         "ruleType": "mergeRule",
-        "entityTypes": ["deployment"],
+        "entityTypes": ["deployment","statefulset"],
         "tokens": ["name"],
         "ruleStatus": "enabled",
         "observers": ["*"],
