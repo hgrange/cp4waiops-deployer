@@ -193,7 +193,7 @@
     NUM_PODS=$(oc get po -n {{ current_cp4waiops_cluster.project }} |grep Running| wc -l)
     echo $NUM_PODS
   register: kubectl_num_pods
-  until: kubectl_num_pods.stdout|int > 50
+  until: kubectl_num_pods.stdout|int > 54
   retries: 500
   delay: 15
 
