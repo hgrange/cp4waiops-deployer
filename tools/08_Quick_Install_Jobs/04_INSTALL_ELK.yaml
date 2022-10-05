@@ -40,7 +40,7 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fvt-install-elk
+  name: cp4waiops-install-elk
   namespace: default
 spec:
   serviceAccountName: installer-default-default

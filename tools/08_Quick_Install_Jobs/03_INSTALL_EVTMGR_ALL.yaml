@@ -47,7 +47,7 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fvt-install-eventmgr
+  name: cp4waiops-install-eventmgr
   namespace: default
 spec:
   serviceAccountName: installer-default-default

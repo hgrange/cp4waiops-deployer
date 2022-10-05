@@ -61,7 +61,7 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fvt-install-custom
+  name: cp4waiops-install-custom
   namespace: default
 spec:
   serviceAccountName: installer-default-default

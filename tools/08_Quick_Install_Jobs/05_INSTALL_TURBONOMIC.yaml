@@ -40,7 +40,7 @@ subjects:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: fvt-install-turbonomic
+  name: cp4waiops-install-turbonomic
   namespace: default
 spec:
   serviceAccountName: installer-default-default
