@@ -181,12 +181,29 @@
 
 - name: 🚀 INFRA MGT - WRITE TO LOGFILE
   shell: |
-    export MESSAGE=" 🕦 Wait for  IA CONFIG to become ready"
+    export MESSAGE=" 🕦 Wait for IA CONFIG to become ready"
     export currentDate=$(date +%Y-%m-%d_%H:%M)
     echo "---------------------------------------------------------------------------------------------------------------------------------------------------" >> ../install_{{current_cp4waiops_feature.kind}}.log
     echo $currentDate" - "$USER" - "$MESSAGE  >> ../install_{{current_cp4waiops_feature.kind}}.log
   ignore_errors: yes
 
+
+- name: 🕦 CHECK -  Wait for Infrastructure Management to be ready (this might take some time)
+  shell: |
+    NUM_PODS=$(oc get po -n {{ current_cp4waiops_cluster.project }} |grep Running| wc -l)
+    echo $NUM_PODS
+  register: kubectl_num_pods
+  until: kubectl_num_pods.stdout|int > 40
+  retries: 500
+  delay: 15
+
+
+- name: 🕦 CHECK -  Wait for all Pods in {{ current_cp4waiops_cluster.project }} to become ready (this might take some time)
+  shell: oc get po -n {{ current_cp4waiops_cluster.project }} | grep -v Completed | grep -v Error |grep "0/" |wc -l| tr -d ' '
+  register: kubectl_get_pods
+  until: kubectl_get_pods.stdout == "0"
+  retries: 500
+  delay: 15
 
 
 
