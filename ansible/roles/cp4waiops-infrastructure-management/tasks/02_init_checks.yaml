@@ -49,4 +49,4 @@
 
 - name:   🔐 INIT CHECKS - Check Entitlement provided
   fail: msg="Please provide IBM Entitlement Pull Secret Key/Token (Get it from here https://myibm.ibm.com/products-services/containerlibrary)"
-  when: CP_ENTITLEMENT_KEY = "<REGISTRY_TOKEN>"
+  when: '"<REGISTRY_TOKEN>" in CP_ENTITLEMENT_KEY'
