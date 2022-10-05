@@ -159,9 +159,9 @@ spec:
 
               #PROBE_OMNI_SECRET=noi-probe-secret oc create secret generic $PROBE_OMNI_SECRET --from-literal=AuthUserName=$IRC_OMNI_USERNAME --from-literal=AuthPassword=$IRC_OMNI_PASSWORD
               PROBE_OMNI_SECRET=noi-probe-secret 
-              oc create secret generic -n $WAIOPS_NAMESPACE $PROBE_OMNI_SECRET --ignore-  --from-literal=AuthUserName=$IRC_OMNI_USERNAME --from-literal=AuthPassword=$IRC_OMNI_PASSWORD --from-file=tls.crt=tls.crt 2>>/dev/null
+              oc create secret generic -n $WAIOPS_NAMESPACE $PROBE_OMNI_SECRET --from-literal=AuthUserName=$IRC_OMNI_USERNAME --from-literal=AuthPassword=$IRC_OMNI_PASSWORD --from-file=tls.crt=tls.crt
               PROBE_AUTH_SECRET=turbonomic-probe-client-basic-auth
-              oc create secret generic -n $WAIOPS_NAMESPACE $PROBE_AUTH_SECRET --from-literal=serverBasicAuthenticationUsername=admin  --from-literal=serverBasicAuthenticationPassword=P4ssw0rd! 2>>/dev/null
+              oc create secret generic -n $WAIOPS_NAMESPACE $PROBE_AUTH_SECRET --from-literal=serverBasicAuthenticationUsername=admin  --from-literal=serverBasicAuthenticationPassword=P4ssw0rd!
 
               rm tls.crt
 
