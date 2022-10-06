@@ -37,7 +37,7 @@ data:
         "communicationConfig": {
             "serverMeta": {
                 "version": "8.6",
-                "turboServer": "https://topology-processor-turbonomic.itzroks-270003bu3k-6sljhe-4b4a324f027aea19c5cbc0c3275c4656-0000.eu-gb.containers.appdomain.cloud"
+                "turboServer": "https://topology-processor-turbonomic.itzroks-270003bu3k-4t80ng-4b4a324f027aea19c5cbc0c3275c4656-0000.eu-de.containers.appdomain.cloud"
             },
             "restAPIConfig": {
                 "opsManagerUserName": "administrator",

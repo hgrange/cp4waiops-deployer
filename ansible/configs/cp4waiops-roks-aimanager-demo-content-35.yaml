@@ -18,6 +18,10 @@ cp4waiops:
     # TRAINING
     # Train the Models based on pre-canned content
     train_models: true
+    train_models_logs: true
+    train_models_snow: true
+    train_models_metrics: true
+    
     training_data_url: https://github.com/niklaushirt/
     training_data_repo: cp4waiops-trainingdata
 

@@ -57,8 +57,12 @@ cp4waiops:
 
     # TRAINING
     # Train the Models based on pre-canned content
-    train_models: false
-
+    train_models: true
+    train_models_logs: true
+    train_models_snow: true
+    train_models_metrics: true
+ 
+ 
     # TOPOLOGY
     # Install RobotShop Application
     install_robotshop: false
