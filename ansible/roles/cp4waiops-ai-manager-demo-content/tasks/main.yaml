@@ -89,13 +89,13 @@
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 TOPOLOGY"
     - "     🈸 Install RobotShop Application:     {{current_cp4waiops_feature.install_robotshop}}"
-    - "     🛠️ Create Topology:                    {{current_cp4waiops_feature.create_topology}}"
     - "     🛠️ Create RobotShop overlay topology:  {{current_cp4waiops_feature.install_robotshop_topology}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 RUNBOOKS"
     - "     ✅ Install AWX:                       {{current_cp4waiops_feature.awx_install}}"
-    - "     ✅ Install AWX Playbooks:             {{current_cp4waiops_feature.awx_load_playbooks}}"
+    - "     ✅ Load AWX Playbooks:                {{current_cp4waiops_feature.awx_load_playbooks}}"
     - "     ✅ Integrate AWX and AI Manager:      {{current_cp4waiops_feature.awx_integrate_aimanager}}"
+    - "     ✅ Load AI Manager Runbooks:          {{current_cp4waiops_feature.aimanager_load_runbooks}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 DEMO UI"
     - "     ✅ Install Demo UI:                   {{current_cp4waiops_feature.install_demo_ui}}"
@@ -207,19 +207,19 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 - name: 📥  Create Topology Observers
   include_tasks: 41_aimanager-create-observers.yaml
-  when: current_cp4waiops_feature.install_robotshop_topology == true and current_cp4waiops_feature.create_topology == true
+  when: current_cp4waiops_feature.install_robotshop_topology == true
 
 - name: 📥  Load Topology Merge Rules
   include_tasks: 42_aimanager-load-topology-merge.yaml
-  when: current_cp4waiops_feature.install_robotshop_topology == true and current_cp4waiops_feature.create_topology == true
+  when: current_cp4waiops_feature.install_robotshop_topology == true
 
 - name: 📥  Create Overlay Topology
   include_tasks: 43_aimanager-create-topology.yaml
-  when: current_cp4waiops_feature.install_robotshop_topology == true and current_cp4waiops_feature.create_topology == true
+  when: current_cp4waiops_feature.install_robotshop_topology == true
 
 - name: 📥  Disable Topology Match Rules
   include_tasks: 44_aimanager-disable-match-token-rule.yaml
-  when: current_cp4waiops_feature.install_robotshop_topology == true and current_cp4waiops_feature.create_topology == true
+  when: current_cp4waiops_feature.install_robotshop_topology == true
 
 
 
