@@ -83,7 +83,6 @@
     - "     💾 Storage Class InfraManagement:     {{config_file.storage_class_file}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 TRAINING"
-    - "     ✅ Train Models:                      {{current_cp4waiops_feature.train_models}}"
     - "     ✅ Train Log Anomaly Models:          {{current_cp4waiops_feature.train_models_logs}}"
     - "     ✅ Train Metric Anomaly Models:       {{current_cp4waiops_feature.train_models_metrics}}"
     - "     ✅ Train Similar Incidents Models:    {{current_cp4waiops_feature.train_models_snow}}"
