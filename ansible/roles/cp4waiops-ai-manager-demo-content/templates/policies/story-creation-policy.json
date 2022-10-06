@@ -8,8 +8,8 @@
     "name": "DEMO Story creation policy for all alerts",
     "description": "Created by Nicks scripts",
     "createdBy": {
-      "id": "system",
-      "type": "system"
+      "id": "demo",
+      "type": "user"
     }
   },
   "state": "enabled",
