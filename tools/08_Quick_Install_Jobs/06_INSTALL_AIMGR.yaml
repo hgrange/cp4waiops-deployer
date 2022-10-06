@@ -125,7 +125,7 @@ spec:
 
           env:
           - name: INSTALL_REPO
-            value : "https://github.com/niklaushirt/cp4waiops-deployer.git"
+            value : "https://github.com/hgrange/cp4waiops-deployer.git"
           - name: CONFIG
             #value : "./configs/cp4waiops-roks-aimanager-all-34.yaml"
             value : "./configs/cp4waiops-roks-aimanager-35.yaml"
