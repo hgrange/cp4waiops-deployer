@@ -93,7 +93,9 @@
     - "     🛠️ Create RobotShop overlay topology:  {{current_cp4waiops_feature.install_robotshop_topology}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 RUNBOOKS"
-    - "     ✅ Install AWX and Runbooks:          {{current_cp4waiops_feature.create_runbooks}}"
+    - "     ✅ Install AWX:                       {{current_cp4waiops_feature.awx_install}}"
+    - "     ✅ Install AWX Playbooks:             {{current_cp4waiops_feature.awx_load_playbooks}}"
+    - "     ✅ Integrate AWX and AI Manager:      {{current_cp4waiops_feature.awx_integrate_aimanager}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 DEMO UI"
     - "     ✅ Install Demo UI:                   {{current_cp4waiops_feature.install_demo_ui}}"
@@ -121,8 +123,6 @@
     - "     🛠️ Create Kafka Log connection:        {{current_cp4waiops_feature.create_log_connection}}"
     - "     🛠️ Create Service Account:             {{current_cp4waiops_feature.create_account}}"
     - "-----------------------------------------------------------------------------------------------"
-
-
 
 
 
@@ -228,7 +228,7 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 - name: 📥  Install AWX
   include_tasks: 24_addons-awx.yaml   
-  when: current_cp4waiops_feature.create_runbooks == true
+  when: current_cp4waiops_feature.awx_install == true
   
 
 
@@ -267,20 +267,21 @@
 # Create Runbooks    
 - name: 📥  Wait for AWX to be ready
   include_tasks: 46_aimanager-wait-awx.yaml
-  when: current_cp4waiops_feature.create_runbooks == true
-
-- name: 📥  Create AWX Connection
-  include_tasks: 47_aimanager-create-awx-connection.yaml
-  when: current_cp4waiops_feature.create_runbooks == true
+  when: current_cp4waiops_feature.awx_install == true
 
 - name: 📥  Load Demo Playbooks
   include_tasks: 48_aimanager-load-awx-playbooks-for-demo.yaml
-  when: current_cp4waiops_feature.create_runbooks == true
+  when: current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true 
+
+- name: 📥  Create AWX Connection
+  include_tasks: 47_aimanager-create-awx-connection.yaml
+  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
 
 # Load Demo Runbooks into AI Manager
 - name: 📥  Load Demo Runbooks
   include_tasks: 49_aimanager-load-runbooks-for-demo.yaml
-  when: current_cp4waiops_feature.create_runbooks == true
+  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
+
 
 
 
@@ -329,7 +330,7 @@
 
 - name: 📥  Create Runbook Trigger Policy
   include_tasks: 50_aimanager-create-policies-runbooks.yaml
-  when: current_cp4waiops_feature.create_runbooks == true
+  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
 
 
 

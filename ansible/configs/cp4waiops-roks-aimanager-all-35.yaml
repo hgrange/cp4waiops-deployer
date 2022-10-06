@@ -53,7 +53,9 @@ cp4waiops:
 
     # RUNBOOKS
     # Install AWX and create Runbooks
-    create_runbooks: true
+    awx_install: true
+    awx_load_playbooks: true
+    awx_integrate_aimanager: true
     
     # Demo UI
     install_demo_ui: true

@@ -9,7 +9,7 @@
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------------------"
-#  Installing CP4WAIOPS
+#  Installing CP4WAIOPS v3.5.0
 #
 #  CloudPak for Watson AIOps
 #
@@ -27,11 +27,10 @@
 #     - RobotShop Demo App
 #     - Demo Service Account 
 #     - AWX (Open Source Ansible Tower) with preloaded Playbooks
-#     - Disables ASM Service match rule 
 #     - Train Models
-#       - Create Training Definitions (TG, LAD, CR, SI. Turn off RSA) 
-#       - Create Training Data (LAD, SNOW) 
-#       - Train Models (TG, LAD, CR, SI) 
+#       - Create Training Definitions (TG, LAD, CR, SI, MET. Turn off RSA) 
+#       - Create Training Data (LAD, SNOW, MET) 
+#       - Train Models (TG, LAD, CR, SI, MET) 
 #     - Topology
 #       - Create K8s Observer
 #       - Create ASM merge rules
@@ -101,6 +100,7 @@ spec:
 
               echo "------------------------------------------------------------------------------------------------------------------------------"
               echo " 📝 Create Config File"
+              
               cat <<EOF > ./ansible/configs/cp4waiops-roks-custom.yaml
               cp4waiops:
               - project: cp4waiops
@@ -129,17 +129,19 @@ spec:
                   kind: AIManagerDemoContent
                   install: true
 
+
+                  # ---------------------------------------------------------------------
                   # TRAINING
                   # Train the Models based on pre-canned content
                   train_models_logs: true
                   train_models_snow: true
                   train_models_metrics: true
-              
- 
+
                   training_data_url: https://github.com/niklaushirt/
                   training_data_repo: cp4waiops-trainingdata
 
 
+                  # ---------------------------------------------------------------------
                   # TOPOLOGY
                   # Install RobotShop Application
                   install_robotshop: true
@@ -148,25 +150,36 @@ spec:
                   # Create RobotShop overlay topology
                   install_robotshop_topology: true
 
+
+                  # ---------------------------------------------------------------------
                   # RUNBOOKS
                   # Install AWX and create Runbooks
-                  create_runbooks: true
+                  awx_install: true
+                  awx_load_playbooks: true
+                  awx_integrate_aimanager: true
                 
+
+                  # ---------------------------------------------------------------------
                   # Demo UI
                   install_demo_ui: true
-                  demoui_slack_url: https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ
+                  demoui_slack_url: https://app.slack.com/client/T0DBLALE5/C03MYASSZ2Q
+                  # demoui_slack_url: https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ
                   demoui_slack_user: ibmaiopsdemo@gmail.com
                   demoui_slack_pwd: P4ssw0rd!
                   demoui_admin_mode: "true"
                   demoui_aimanager_demo_user: demo
                   demoui_aimanager_demo_pwd: P4ssw0rd!
 
+
+                  # ---------------------------------------------------------------------
                   # OUTPUT
                   # Print all logins
                   print_logins: true
                   # Open the relevant Web UIs
                   open_web_ui: true
 
+
+                  # ---------------------------------------------------------------------
                   # LDAP
                   install_ldap: true
                   # ldap domain
@@ -176,15 +189,21 @@ spec:
                   # ldap admin password
                   ldap_admin_password: P4ssw0rd!
 
-                  # PARAMETERS (you should not modify those)
+
+                  # ---------------------------------------------------------------------
+                  # MISC PARAMETERS (you should not modify those)
                   # Create external routes (needed to create demo content)
                   create_external_routes: true
+
                   # Create a valid ingress certificate (needed for Slack integration)
                   create_valid_ingress_certificate: true
+
                   # Create Policy for Story Creation
                   create_story_policy: true
+
                   # Create Kafka connection for Log inception (needed to create log anomalies in the demo environment)
                   create_log_connection: true
+
                   # Create Service Account
                   create_account: true
 
@@ -223,16 +242,9 @@ spec:
                   kind: InfrastructureManagement
                   install: false
                   # Version of the catalog subscription
-                  subscription_channel: v3.5
+                  subscription_channel: v3.3
                   #subscription_channel: 3.4-dev
-                  # LDAP
-                  install_ldap: true
-                  # ldap domain
-                  ldap_domain: ibm.com
-                  # ldap base
-                  ldap_base: dc=ibm,dc=com
-                  # ldap admin password
-                  ldap_admin_password: P4ssw0rd!
+
 
 
 
