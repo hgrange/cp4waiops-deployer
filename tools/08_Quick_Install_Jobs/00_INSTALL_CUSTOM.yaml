@@ -157,7 +157,8 @@ spec:
                   awx_install: true
                   awx_load_playbooks: true
                   awx_integrate_aimanager: true
-                
+                  aimanager_load_runbooks: true
+
 
                   # ---------------------------------------------------------------------
                   # Demo UI

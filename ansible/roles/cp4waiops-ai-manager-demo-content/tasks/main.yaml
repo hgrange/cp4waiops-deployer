@@ -271,16 +271,16 @@
 
 - name: 📥  Load Demo Playbooks
   include_tasks: 48_aimanager-load-awx-playbooks-for-demo.yaml
-  when: current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true 
+  when: current_cp4waiops_feature.awx_load_playbooks == true 
 
 - name: 📥  Create AWX Connection
   include_tasks: 47_aimanager-create-awx-connection.yaml
-  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
+  when: current_cp4waiops_feature.awx_integrate_aimanager == true
 
 # Load Demo Runbooks into AI Manager
 - name: 📥  Load Demo Runbooks
   include_tasks: 49_aimanager-load-runbooks-for-demo.yaml
-  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
+  when: current_cp4waiops_feature.aimanager_load_runbooks == true
 
 
 

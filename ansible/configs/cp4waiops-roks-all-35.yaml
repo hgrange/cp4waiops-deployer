@@ -55,7 +55,8 @@ cp4waiops:
     awx_install: true
     awx_load_playbooks: true
     awx_integrate_aimanager: true
-       
+    aimanager_load_runbooks: true
+
     # Demo UI
     install_demo_ui: true
     demoui_slack_url: https://aiops-fry2953.slack.com/x-p1624757694871-3716524482480-3705437209041/messages/C01JZLFJFMJ
