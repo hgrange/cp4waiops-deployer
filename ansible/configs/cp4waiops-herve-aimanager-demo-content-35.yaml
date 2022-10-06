@@ -93,7 +93,7 @@ cp4waiops:
 #storage_class_file: ibmc-vpc-block-10iops-tier       # IBM VPC
 #storage_class_file: rook-cephfs                      # FYRE
 storage_class_file: nfs-client                       # TEC
-"storage_class_block: automatic
+#storage_class_block: automatic
 #storage_class_block: ibmc-block-gold                 # ROKS
 #storage_class_block: ocs-storagecluster-ceph-rbd     # ODF
 #storage_class_block: ibmc-vpc-block-10iops-tier      # IBM VPC
