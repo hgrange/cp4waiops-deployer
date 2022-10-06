@@ -89,13 +89,13 @@
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 TOPOLOGY"
     - "     🈸 Install RobotShop Application:     {{current_cp4waiops_feature.install_robotshop}}"
-    - "     🛠️ Create RobotShop overlay topology:  {{current_cp4waiops_feature.install_robotshop_topology}}"
+    - "     🛠️ Create RobotShop overlay topology: {{current_cp4waiops_feature.install_robotshop_topology}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 RUNBOOKS"
-    - "     ✅ Install AWX:                       {{current_cp4waiops_feature.awx_install}}"
-    - "     ✅ Load AWX Playbooks:                {{current_cp4waiops_feature.awx_load_playbooks}}"
-    - "     ✅ Integrate AWX and AI Manager:      {{current_cp4waiops_feature.awx_integrate_aimanager}}"
-    - "     ✅ Load AI Manager Runbooks:          {{current_cp4waiops_feature.aimanager_load_runbooks}}"
+    - "     ✅ Install AWX:                       {{current_cp4waiops_feature.install_awx}}"
+    - "     ✅ Load AWX Playbooks:                {{current_cp4waiops_feature.load_awx_playbooks}}"
+    - "     ✅ Integrate AWX and AI Manager:      {{current_cp4waiops_feature.integrate_awx_aimanager}}"
+    - "     ✅ Load AI Manager Runbooks:          {{current_cp4waiops_feature.load_aimanager_runbooks}}"
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 DEMO UI"
     - "     ✅ Install Demo UI:                   {{current_cp4waiops_feature.install_demo_ui}}"
@@ -118,10 +118,10 @@
     - "-----------------------------------------------------------------------------------------------"
     - "  📥 MISC PARAMETERS"
     - "     🌏 Create external routes:            {{current_cp4waiops_feature.create_external_routes}}"
-    - "     🛠️ Create a valid ingress cert:        {{current_cp4waiops_feature.create_valid_ingress_certificate}}"
-    - "     🛠️ Create Policy for Story Creation:   {{current_cp4waiops_feature.create_story_policy}}"
-    - "     🛠️ Create Kafka Log connection:        {{current_cp4waiops_feature.create_log_connection}}"
-    - "     🛠️ Create Service Account:             {{current_cp4waiops_feature.create_account}}"
+    - "     🛠️ Create a valid ingress cert:       {{current_cp4waiops_feature.create_valid_ingress_certificate}}"
+    - "     🛠️ Create Policy for Story Creation:  {{current_cp4waiops_feature.create_story_policy}}"
+    - "     🛠️ Create Kafka Log connection:       {{current_cp4waiops_feature.create_log_connection}}"
+    - "     🛠️ Create Service Account:            {{current_cp4waiops_feature.create_account}}"
     - "-----------------------------------------------------------------------------------------------"
 
 
@@ -228,7 +228,7 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------------------"
 - name: 📥  Install AWX
   include_tasks: 24_addons-awx.yaml   
-  when: current_cp4waiops_feature.awx_install == true
+  when: current_cp4waiops_feature.install_awx == true
   
 
 
@@ -267,20 +267,20 @@
 # Create Runbooks    
 - name: 📥  Wait for AWX to be ready
   include_tasks: 46_aimanager-wait-awx.yaml
-  when: current_cp4waiops_feature.awx_install == true
+  when: current_cp4waiops_feature.install_awx == true
 
 - name: 📥  Load Demo Playbooks
   include_tasks: 48_aimanager-load-awx-playbooks-for-demo.yaml
-  when: current_cp4waiops_feature.awx_load_playbooks == true 
+  when: current_cp4waiops_feature.load_awx_playbooks == true 
 
 - name: 📥  Create AWX Connection
   include_tasks: 47_aimanager-create-awx-connection.yaml
-  when: current_cp4waiops_feature.awx_integrate_aimanager == true
+  when: current_cp4waiops_feature.integrate_awx_aimanager == true
 
 # Load Demo Runbooks into AI Manager
 - name: 📥  Load Demo Runbooks
   include_tasks: 49_aimanager-load-runbooks-for-demo.yaml
-  when: current_cp4waiops_feature.aimanager_load_runbooks == true
+  when: current_cp4waiops_feature.load_aimanager_runbooks == true
 
 
 
@@ -330,7 +330,7 @@
 
 - name: 📥  Create Runbook Trigger Policy
   include_tasks: 50_aimanager-create-policies-runbooks.yaml
-  when: current_cp4waiops_feature.awx_integrate_aimanager == true and current_cp4waiops_feature.awx_install == true and current_cp4waiops_feature.awx_load_playbooks == true
+  when: current_cp4waiops_feature.integrate_awx_aimanager == true and current_cp4waiops_feature.install_awx == true and current_cp4waiops_feature.load_awx_playbooks == true
 
 
 
